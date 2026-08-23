@@ -14,7 +14,7 @@ export default function Home() {
     const { portfolio } = usePage<SharedData>().props;
 
     return (
-        <PortfolioLayout title="Daniel Salipot - Portfolio" active="home">
+        <PortfolioLayout title="Daniel Andrei Salipot - Portfolio" active="home">
             {/* HERO */}
             <section className="relative flex min-h-[72dvh] flex-col items-center justify-center overflow-hidden px-6 pt-16 pb-6 text-center md:px-12 md:pt-20">
                 <div
@@ -33,7 +33,7 @@ export default function Home() {
                     </div>
 
                     <h1 className="text-fg font-sans text-[52px] leading-[1.02] font-semibold tracking-[-0.03em] md:text-[84px]">
-                        Daniel Salipot
+                        Daniel Andrei Salipot
                     </h1>
 
                     <p className="text-fg-mid mx-auto mt-5 max-w-[42ch] font-sans text-[19px] leading-[1.38] tracking-[-0.01em] md:text-[25px]">

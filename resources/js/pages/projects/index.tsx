@@ -20,7 +20,7 @@ export default function ProjectsIndex() {
     const filtered = filter ? portfolio.projects.filter((p) => p.stack.includes(filter)) : portfolio.projects;
 
     return (
-        <PortfolioLayout title="Work - Daniel Salipot" active="work">
+        <PortfolioLayout title="Work - Daniel Andrei Salipot" active="work">
             <section className="px-6 pt-12 pb-8 md:px-12 md:pt-16 md:pb-10">
                 <span className="text-portfolio-accent font-mono text-[11px]">// 01 - selected_work</span>
                 <h1 className="text-fg mt-3.5 font-sans text-[48px] leading-none font-medium tracking-tight md:text-[80px]">

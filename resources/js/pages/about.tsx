@@ -10,7 +10,7 @@ import { usePage } from '@inertiajs/react';
 export default function About() {
     const { portfolio } = usePage<SharedData>().props;
     return (
-        <PortfolioLayout title="About - Daniel Salipot" active="about">
+        <PortfolioLayout title="About - Daniel Andrei Salipot" active="about">
             <section className="grid grid-cols-1 items-end gap-12 px-6 pt-12 pb-10 md:px-12 md:pt-16 md:pb-14 lg:grid-cols-[1.5fr_1fr]">
                 <div>
                     <span className="text-portfolio-accent font-mono text-[11px]">// 01 - about</span>

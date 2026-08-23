@@ -89,7 +89,7 @@ export default function WorkCarousel({ projects }: { projects: Project[] }) {
             {/* Pinned stage */}
             <div className="sticky top-0 flex h-[100dvh] flex-col items-center justify-center overflow-hidden">
                 <div
-                    className="relative mx-auto h-[390px] w-full max-w-[1500px] sm:h-[430px] lg:h-[462px]"
+                    className="relative mx-auto h-[430px] w-full max-w-[1600px] sm:h-[540px] lg:h-[672px]"
                     style={{ perspective: '1800px' }}
                 >
                     {projects.map((p, i) => {
@@ -104,7 +104,7 @@ export default function WorkCarousel({ projects }: { projects: Project[] }) {
                                 data-active={isActive}
                                 aria-hidden={hidden}
                                 onClick={() => (isActive ? router.visit(`/projects/${p.slug}`) : goTo(i))}
-                                className="absolute top-0 left-1/2 w-[80vw] max-w-[440px] cursor-pointer sm:w-[54vw] lg:w-[430px]"
+                                className="group absolute top-0 left-1/2 w-[86vw] max-w-[560px] cursor-pointer sm:w-[70vw] lg:w-[680px] lg:max-w-[720px]"
                                 style={{
                                     transform: `translateX(-50%) translateX(${o * SPACING}%) scale(${Math.max(0.55, 1 - dist * SCALE_STEP)}) rotateY(${-o * ROTATE}deg)`,
                                     opacity: hidden ? 0 : Math.max(0, 1 - dist * OPACITY_STEP),
@@ -143,21 +143,29 @@ export default function WorkCarousel({ projects }: { projects: Project[] }) {
                                         )}
                                     </div>
 
-                                    <div className="flex flex-1 flex-col gap-2 p-4">
+                                    <div className="flex flex-1 flex-col gap-2.5 p-5">
                                         <div className="flex items-baseline justify-between gap-3">
-                                            <h3 className="text-fg text-[17px] leading-tight font-medium tracking-tight">
+                                            <h3 className="text-fg text-[21px] leading-tight font-medium tracking-tight">
                                                 {p.name}
                                             </h3>
-                                            <span className="text-fg-dim shrink-0 font-mono text-[11px]">{p.year}</span>
+                                            <span className="text-fg-dim shrink-0 font-mono text-[12px]">{p.year}</span>
                                         </div>
-                                        <p className="text-fg-mid line-clamp-2 text-[12.5px] leading-snug">{p.kicker}</p>
-                                        <div className="mt-auto flex flex-wrap gap-1.5 pt-1">
-                                            {p.stack.slice(0, 3).map((t) => (
-                                                <Chip key={t}>
-                                                    <LangDot name={t} size={6} />
-                                                    {t}
-                                                </Chip>
-                                            ))}
+                                        <p className="text-fg-mid line-clamp-2 text-[14px] leading-snug">{p.kicker}</p>
+                                        <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-2">
+                                            <div className="flex flex-wrap gap-1.5">
+                                                {p.stack.slice(0, 3).map((t) => (
+                                                    <Chip key={t}>
+                                                        <LangDot name={t} size={6} />
+                                                        {t}
+                                                    </Chip>
+                                                ))}
+                                            </div>
+                                            {isActive && (
+                                                <span className="bg-portfolio-accent inline-flex shrink-0 items-center gap-1.5 rounded-full px-4 py-2 text-[13.5px] font-medium text-[#0A0A0A] transition group-hover:opacity-90">
+                                                    View project
+                                                    <ArrowIcon size={13} />
+                                                </span>
+                                            )}
                                         </div>
                                     </div>
                                 </MacWindow>

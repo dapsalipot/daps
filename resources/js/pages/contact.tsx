@@ -25,7 +25,7 @@ export default function Contact() {
     };
 
     return (
-        <PortfolioLayout title="Contact - Daniel Salipot" active="contact">
+        <PortfolioLayout title="Contact - Daniel Andrei Salipot" active="contact">
             <section className="max-w-5xl px-6 pt-12 pb-8 md:px-12 md:pt-16 md:pb-10">
                 <span className="text-portfolio-accent font-mono text-[11px]">// 01 - contact</span>
                 <h1 className="text-fg mt-3.5 font-sans text-[48px] leading-none font-medium tracking-tight md:text-[80px]">
@@ -119,7 +119,7 @@ export default function Contact() {
                             </li>
                             <li>
                                 <a href={portfolio.links.linkedin} target="_blank" rel="noreferrer" className="ulink link-slide text-[14px]">
-                                    <LinkedinIcon /> linkedin.com/in/daniel-salipot
+                                    <LinkedinIcon /> linkedin.com/in/daniel-andrei-salipot
                                 </a>
                             </li>
                             <li className="text-fg-dim mt-1 font-mono text-[12px]">{portfolio.links.phone}</li>
