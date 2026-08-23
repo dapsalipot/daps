@@ -1,13 +1,10 @@
 import Button from '@/components/portfolio/button';
 import Card from '@/components/portfolio/card';
 import CodeBlock from '@/components/portfolio/code-block';
-import TypingTerminal from '@/components/portfolio/typing-terminal';
-import { HERO_TERMINAL_SCRIPT } from '@/lib/hero-terminal-script';
 import { ArrowIcon, ArrowNEIcon, ExtIcon, LinkedinIcon } from '@/components/portfolio/icons';
 import LangDot from '@/components/portfolio/lang-dot';
-import ProjectCardCompact from '@/components/portfolio/project-card-compact';
-import ProjectCardFeatured from '@/components/portfolio/project-card-featured';
 import SectionHead from '@/components/portfolio/section-head';
+import WorkCarousel from '@/components/portfolio/work-carousel';
 import StatusDot from '@/components/portfolio/status-dot';
 import PortfolioLayout from '@/layouts/portfolio-layout';
 import { type SharedData } from '@/types';
@@ -15,64 +12,70 @@ import { usePage } from '@inertiajs/react';
 
 export default function Home() {
     const { portfolio } = usePage<SharedData>().props;
-    const featured = portfolio.projects.find((p) => p.featured) ?? portfolio.projects[0];
-    const secondary = portfolio.projects.filter((p) => !p.featured).slice(0, 2);
-    const more = portfolio.projects.filter((p) => !p.featured).slice(2, 5);
 
     return (
         <PortfolioLayout title="Daniel Salipot - Portfolio" active="home">
             {/* HERO */}
-            <section className="relative overflow-hidden px-6 pt-16 pb-16 md:px-12 md:pt-24 md:pb-20">
+            <section className="relative flex min-h-[78vh] flex-col items-center justify-center overflow-hidden px-6 pt-20 pb-16 text-center md:px-12 md:pt-24 md:pb-24">
                 <div
-                    className="grid-drift pointer-events-none absolute inset-0"
+                    className="pointer-events-none absolute inset-0"
                     style={{
-                        backgroundImage: 'radial-gradient(rgba(125,125,125,0.05) 1px, transparent 1px)',
-                        backgroundSize: '24px 24px',
-                        maskImage: 'radial-gradient(ellipse at top, black 30%, transparent 70%)',
+                        background:
+                            'radial-gradient(ellipse 80% 55% at 50% 0%, var(--portfolio-accent-sage), transparent 70%)',
                     }}
                 />
 
-                <div className="anim-fadeUp relative mx-auto max-w-5xl">
-                    <div className="flex flex-wrap items-center gap-3.5">
-                        <StatusDot>{portfolio.identity.available.label}</StatusDot>
-                        <span className="text-fg-dim font-mono text-[11px]">
-                            · {portfolio.identity.location.city} ({portfolio.identity.location.tz})
+                <div className="anim-fadeUp relative mx-auto max-w-3xl">
+                    <div className="mb-9 flex justify-center">
+                        <span className="border-line bg-bg-elev/70 inline-flex items-center gap-2.5 rounded-full border px-3.5 py-1.5 backdrop-blur">
+                            <StatusDot>{portfolio.identity.available.label}</StatusDot>
                         </span>
                     </div>
 
-                    <h1 className="text-fg mt-6 font-sans text-[52px] leading-[0.95] font-medium tracking-tight md:text-[88px]">
+                    <h1 className="text-fg font-sans text-[56px] leading-[1.02] font-semibold tracking-[-0.03em] md:text-[92px]">
                         Daniel Salipot
-                        <span className="caret text-portfolio-accent ml-1">.</span>
                     </h1>
 
-                    <p className="text-fg-mid mt-5 max-w-2xl font-sans text-[20px] leading-snug tracking-tight md:text-[26px]">
-                        Backend developer building <span className="text-fg">production SaaS</span> in{' '}
-                        <span className="text-fg">Laravel</span> and <span className="text-fg">PHP</span>.
+                    <p className="text-fg-mid mx-auto mt-6 max-w-[34ch] font-sans text-[21px] leading-[1.35] tracking-[-0.01em] md:text-[27px]">
+                        Backend developer building production SaaS in Laravel and PHP.
                     </p>
 
-                    <div className="mt-8 flex flex-wrap gap-2.5">
-                        <Button kind="primary" size="lg" trailing={<ArrowIcon />} as="a" href="/projects">
+                    <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+                        <a
+                            href="/projects"
+                            className="bg-portfolio-accent inline-flex items-center gap-2 rounded-full px-7 py-3 text-[15px] font-medium text-[#0A0A0A] transition hover:opacity-90"
+                        >
                             View work
-                        </Button>
-                        <Button
-                            kind="secondary"
-                            size="lg"
-                            trailing={<ExtIcon />}
-                            as="a"
+                            <ArrowIcon size={15} />
+                        </a>
+                        <a
                             href="/resume.pdf"
                             target="_blank"
                             rel="noreferrer"
+                            className="border-line bg-bg-elev/70 text-fg hover:border-line-strong inline-flex items-center gap-2 rounded-full border px-7 py-3 text-[15px] font-medium backdrop-blur transition"
                         >
                             Resume
-                        </Button>
+                            <ExtIcon size={13} />
+                        </a>
                     </div>
-                </div>
 
-                {/* Terminal as the hero visual */}
-                <div className="relative mx-auto mt-14 max-w-5xl">
-                    <div className="scanline" style={{ top: '18%' }} />
-                    <TypingTerminal title="~ daniel.salipot - zsh" steps={HERO_TERMINAL_SCRIPT} />
+                    <p className="text-fg-dim mt-9 font-mono text-[11.5px]">
+                        {portfolio.identity.location.city} · {portfolio.identity.location.tz}
+                    </p>
                 </div>
+            </section>
+
+            {/* WORK CAROUSEL */}
+            <section className="pt-4 pb-20">
+                <div className="mb-2 px-6 md:px-12">
+                    <h2 className="text-fg font-sans text-[30px] leading-tight font-semibold tracking-[-0.02em] md:text-[40px]">
+                        Selected work.
+                    </h2>
+                    <p className="text-fg-mid mt-2 text-[16px]">
+                        {portfolio.projects.length} builds, 2019 to today.
+                    </p>
+                </div>
+                <WorkCarousel projects={portfolio.projects} />
             </section>
 
             {/* NOW */}
@@ -210,35 +213,6 @@ export default function Home() {
                             </div>
                         </div>
                     ))}
-                </div>
-            </section>
-
-            {/* SELECTED WORK */}
-            <section className="px-6 pt-6 pb-16 md:px-12">
-                <SectionHead
-                    n="05"
-                    title="selected_work"
-                    right={`2022 - 2026 · ${secondary.length + more.length + 1} of ${portfolio.projects.length}`}
-                />
-                <div className="mt-7 grid grid-cols-1 gap-4 lg:grid-cols-[1.4fr_1fr]">
-                    <ProjectCardFeatured project={featured} />
-                    <div className="flex flex-col gap-4">
-                        {secondary.map((p) => (
-                            <ProjectCardCompact key={p.slug} project={p} />
-                        ))}
-                    </div>
-                </div>
-                {more.length > 0 && (
-                    <div className="stagger-in mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
-                        {more.map((p) => (
-                            <ProjectCardCompact key={p.slug} project={p} />
-                        ))}
-                    </div>
-                )}
-                <div className="mt-6 flex justify-end">
-                    <Button kind="ghost" trailing={<ArrowIcon size={12} />} as="a" href="/projects">
-                        All {portfolio.projects.length} projects
-                    </Button>
                 </div>
             </section>
 
