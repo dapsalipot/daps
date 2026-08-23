@@ -49,7 +49,7 @@ export default function WorkCarousel({ projects }: { projects: Project[] }) {
 
     return (
         <div
-            className="relative select-none"
+            className="relative w-full select-none"
             role="group"
             aria-roledescription="carousel"
             aria-label="Selected work"
@@ -69,7 +69,7 @@ export default function WorkCarousel({ projects }: { projects: Project[] }) {
         >
             {/* Stage */}
             <div
-                className="relative mx-auto h-[430px] w-full max-w-[1400px] md:h-[500px]"
+                className="relative mx-auto h-[310px] w-full max-w-[1400px] sm:h-[350px] lg:h-[364px]"
                 style={{ perspective: '1800px' }}
             >
                 {projects.map((p, i) => {
@@ -88,7 +88,7 @@ export default function WorkCarousel({ projects }: { projects: Project[] }) {
                                 if (isActive) router.visit(`/projects/${p.slug}`);
                                 else setActive(i);
                             }}
-                            className={`absolute top-0 left-1/2 w-[86vw] max-w-[560px] sm:w-[62vw] lg:w-[500px] ${
+                            className={`absolute top-0 left-1/2 w-[78vw] max-w-[420px] sm:w-[52vw] lg:w-[400px] ${
                                 isActive ? 'cursor-pointer' : 'cursor-pointer'
                             }`}
                             style={{
@@ -133,16 +133,16 @@ export default function WorkCarousel({ projects }: { projects: Project[] }) {
                                     )}
                                 </div>
 
-                                <div className="flex flex-1 flex-col gap-3 p-5">
+                                <div className="flex flex-1 flex-col gap-2 p-4">
                                     <div className="flex items-baseline justify-between gap-3">
-                                        <h3 className="text-fg text-[19px] leading-tight font-medium tracking-tight">
+                                        <h3 className="text-fg text-[17px] leading-tight font-medium tracking-tight">
                                             {p.name}
                                         </h3>
                                         <span className="text-fg-dim shrink-0 font-mono text-[11px]">{p.year}</span>
                                     </div>
-                                    <p className="text-fg-mid text-[13.5px] leading-relaxed">{p.kicker}</p>
+                                    <p className="text-fg-mid line-clamp-2 text-[12.5px] leading-snug">{p.kicker}</p>
                                     <div className="mt-auto flex flex-wrap gap-1.5 pt-1">
-                                        {p.stack.slice(0, 4).map((t) => (
+                                        {p.stack.slice(0, 3).map((t) => (
                                             <Chip key={t}>
                                                 <LangDot name={t} size={6} />
                                                 {t}
@@ -157,7 +157,7 @@ export default function WorkCarousel({ projects }: { projects: Project[] }) {
             </div>
 
             {/* Controls */}
-            <div className="mt-8 flex items-center justify-center gap-5">
+            <div className="mt-5 flex items-center justify-center gap-4">
                 <button
                     type="button"
                     onClick={() => step(-1)}

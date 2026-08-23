@@ -16,66 +16,54 @@ export default function Home() {
     return (
         <PortfolioLayout title="Daniel Salipot - Portfolio" active="home">
             {/* HERO */}
-            <section className="relative flex min-h-[78vh] flex-col items-center justify-center overflow-hidden px-6 pt-20 pb-16 text-center md:px-12 md:pt-24 md:pb-24">
+            <section className="relative flex min-h-[100dvh] flex-col overflow-hidden px-6 pt-10 pb-6 md:px-12 md:pt-12">
                 <div
                     className="pointer-events-none absolute inset-0"
                     style={{
                         background:
-                            'radial-gradient(ellipse 80% 55% at 50% 0%, var(--portfolio-accent-sage), transparent 70%)',
+                            'radial-gradient(ellipse 80% 50% at 50% 0%, var(--portfolio-accent-sage), transparent 68%)',
                     }}
                 />
 
-                <div className="anim-fadeUp relative mx-auto max-w-3xl">
-                    <div className="mb-9 flex justify-center">
+                <div className="anim-fadeUp relative mx-auto w-full max-w-3xl shrink-0 text-center">
+                    <div className="mb-6 flex justify-center">
                         <span className="border-line bg-bg-elev/70 inline-flex items-center gap-2.5 rounded-full border px-3.5 py-1.5 backdrop-blur">
                             <StatusDot>{portfolio.identity.available.label}</StatusDot>
                         </span>
                     </div>
 
-                    <h1 className="text-fg font-sans text-[56px] leading-[1.02] font-semibold tracking-[-0.03em] md:text-[92px]">
+                    <h1 className="text-fg font-sans text-[44px] leading-[1.02] font-semibold tracking-[-0.03em] md:text-[68px]">
                         Daniel Salipot
                     </h1>
 
-                    <p className="text-fg-mid mx-auto mt-6 max-w-[34ch] font-sans text-[21px] leading-[1.35] tracking-[-0.01em] md:text-[27px]">
+                    <p className="text-fg-mid mx-auto mt-4 max-w-[46ch] font-sans text-[17px] leading-[1.4] tracking-[-0.01em] md:text-[21px]">
                         Backend developer building production systems end to end, from database design to hardware.
                     </p>
 
-                    <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+                    <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
                         <a
                             href="/projects"
-                            className="bg-portfolio-accent inline-flex items-center gap-2 rounded-full px-7 py-3 text-[15px] font-medium text-[#0A0A0A] transition hover:opacity-90"
+                            className="bg-portfolio-accent inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-[14.5px] font-medium text-[#0A0A0A] transition hover:opacity-90"
                         >
                             View work
-                            <ArrowIcon size={15} />
+                            <ArrowIcon size={14} />
                         </a>
                         <a
                             href="/resume.pdf"
                             target="_blank"
                             rel="noreferrer"
-                            className="border-line bg-bg-elev/70 text-fg hover:border-line-strong inline-flex items-center gap-2 rounded-full border px-7 py-3 text-[15px] font-medium backdrop-blur transition"
+                            className="border-line bg-bg-elev/70 text-fg hover:border-line-strong inline-flex items-center gap-2 rounded-full border px-6 py-2.5 text-[14.5px] font-medium backdrop-blur transition"
                         >
                             Resume
                             <ExtIcon size={13} />
                         </a>
                     </div>
-
-                    <p className="text-fg-dim mt-9 font-mono text-[11.5px]">
-                        {portfolio.identity.location.city} · {portfolio.identity.location.tz}
-                    </p>
                 </div>
-            </section>
 
-            {/* WORK CAROUSEL */}
-            <section className="overflow-hidden pt-4 pb-20">
-                <div className="mb-2 px-6 md:px-12">
-                    <h2 className="text-fg font-sans text-[30px] leading-tight font-semibold tracking-[-0.02em] md:text-[40px]">
-                        Selected work.
-                    </h2>
-                    <p className="text-fg-mid mt-2 text-[16px]">
-                        {portfolio.projects.length} builds, 2019 to today.
-                    </p>
+                {/* Carousel shares the first viewport with the hero copy */}
+                <div className="relative mt-auto flex min-h-0 flex-1 items-center pt-8">
+                    <WorkCarousel projects={portfolio.projects} />
                 </div>
-                <WorkCarousel projects={portfolio.projects} />
             </section>
 
             {/* NOW */}
