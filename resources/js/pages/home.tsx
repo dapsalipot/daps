@@ -1,14 +1,12 @@
 import Button from '@/components/portfolio/button';
 import Card from '@/components/portfolio/card';
 import CodeBlock from '@/components/portfolio/code-block';
-import CountUp from '@/components/portfolio/count-up';
 import TypingTerminal from '@/components/portfolio/typing-terminal';
 import { HERO_TERMINAL_SCRIPT } from '@/lib/hero-terminal-script';
-import { ArrowIcon, ArrowNEIcon, ExtIcon, GithubIcon, LinkedinIcon, MailIcon } from '@/components/portfolio/icons';
+import { ArrowIcon, ArrowNEIcon, ExtIcon, LinkedinIcon } from '@/components/portfolio/icons';
 import LangDot from '@/components/portfolio/lang-dot';
 import ProjectCardCompact from '@/components/portfolio/project-card-compact';
 import ProjectCardFeatured from '@/components/portfolio/project-card-featured';
-import RepoBadge from '@/components/portfolio/repo-badge';
 import SectionHead from '@/components/portfolio/section-head';
 import StatusDot from '@/components/portfolio/status-dot';
 import PortfolioLayout from '@/layouts/portfolio-layout';
@@ -24,78 +22,56 @@ export default function Home() {
     return (
         <PortfolioLayout title="Daniel Salipot - Portfolio" active="home">
             {/* HERO */}
-            <section className="relative grid grid-cols-1 items-center gap-14 overflow-hidden px-6 pt-16 pb-12 md:px-12 md:pt-20 md:pb-14 lg:grid-cols-[1.4fr_1fr]">
+            <section className="relative overflow-hidden px-6 pt-16 pb-16 md:px-12 md:pt-24 md:pb-20">
                 <div
                     className="grid-drift pointer-events-none absolute inset-0"
                     style={{
                         backgroundImage: 'radial-gradient(rgba(125,125,125,0.05) 1px, transparent 1px)',
                         backgroundSize: '24px 24px',
-                        maskImage: 'radial-gradient(ellipse at top, black 30%, transparent 75%)',
+                        maskImage: 'radial-gradient(ellipse at top, black 30%, transparent 70%)',
                     }}
                 />
-                <div className="scanline" style={{ top: '12%' }} />
 
-                <div className="anim-fadeUp relative">
+                <div className="anim-fadeUp relative mx-auto max-w-5xl">
                     <div className="flex flex-wrap items-center gap-3.5">
                         <StatusDot>{portfolio.identity.available.label}</StatusDot>
                         <span className="text-fg-dim font-mono text-[11px]">
                             · {portfolio.identity.location.city} ({portfolio.identity.location.tz})
                         </span>
-                        <span className="text-fg-fade font-mono text-[11px]">·</span>
-                        <RepoBadge branch="main" hash="a4f9c1d" />
                     </div>
 
-                    <h1 className="text-fg mt-6 font-sans text-[52px] leading-[0.98] font-medium tracking-tight md:text-[96px]">
+                    <h1 className="text-fg mt-6 font-sans text-[52px] leading-[0.95] font-medium tracking-tight md:text-[88px]">
                         Daniel Salipot
                         <span className="caret text-portfolio-accent ml-1">.</span>
                     </h1>
-                    <h2 className="text-fg-mid mt-4 max-w-xl font-sans text-[22px] leading-tight tracking-tight md:text-[32px]">
-                        Backend developer building <span className="text-fg">production SaaS platforms</span> in <span className="text-fg">Laravel</span> and <span className="text-fg">PHP</span>.
-                    </h2>
 
-                    <p className="text-fg-mid mt-6 max-w-[560px] text-[16px] leading-relaxed">
-                        Sole developer of an RFID attendance and cashless payment platform across <span className="text-fg">10 campuses</span> and <span className="text-fg">10,000+ cardholders</span>, moving over <span className="text-fg">PHP 2M</span> monthly. Maintains a multi-tenant school SaaS serving <span className="text-fg">60,000 students</span>. Summa Cum Laude, BS Information Technology.
+                    <p className="text-fg-mid mt-5 max-w-2xl font-sans text-[20px] leading-snug tracking-tight md:text-[26px]">
+                        Backend developer building <span className="text-fg">production SaaS</span> in{' '}
+                        <span className="text-fg">Laravel</span> and <span className="text-fg">PHP</span>.
                     </p>
 
-                    <div className="mt-7 flex flex-wrap gap-2.5">
+                    <div className="mt-8 flex flex-wrap gap-2.5">
                         <Button kind="primary" size="lg" trailing={<ArrowIcon />} as="a" href="/projects">
-                            View selected work
+                            View work
                         </Button>
-                        <Button kind="secondary" size="lg" icon={<MailIcon />} as="a" href={`mailto:${portfolio.links.email}`}>
-                            {portfolio.links.email}
+                        <Button
+                            kind="secondary"
+                            size="lg"
+                            trailing={<ExtIcon />}
+                            as="a"
+                            href="/resume.pdf"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
+                            Resume
                         </Button>
-                        <Button kind="ghost" size="lg" trailing={<ExtIcon />} as="a" href="/resume.pdf" target="_blank" rel="noreferrer">
-                            Resume.pdf
-                        </Button>
-                    </div>
-
-                    <div className="text-fg-dim mt-8 flex flex-wrap items-center gap-5 font-mono text-[11px]">
-                        <a className="ulink link-slide" href={portfolio.links.github} target="_blank" rel="noreferrer">
-                            <GithubIcon /> @danielsalipot
-                        </a>
-                        <a className="ulink link-slide" href={portfolio.links.linkedin} target="_blank" rel="noreferrer">
-                            <LinkedinIcon /> daniel-andrei-salipot
-                        </a>
-                        <span className="text-fg-fade">·</span>
-                        <span>{portfolio.links.phone}</span>
                     </div>
                 </div>
 
-                <div className="relative flex flex-col gap-4">
+                {/* Terminal as the hero visual */}
+                <div className="relative mx-auto mt-14 max-w-5xl">
+                    <div className="scanline" style={{ top: '18%' }} />
                     <TypingTerminal title="~ daniel.salipot - zsh" steps={HERO_TERMINAL_SCRIPT} />
-                    <Card pad={20}>
-                        <div className="grid grid-cols-3 gap-2">
-                            {portfolio.stats.map((s) => (
-                                <div key={s.l}>
-                                    <CountUp
-                                        value={s.n}
-                                        className="text-fg block text-[28px] font-medium tracking-tight"
-                                    />
-                                    <span className="text-fg-dim font-mono text-[10.5px]">{s.l}</span>
-                                </div>
-                            ))}
-                        </div>
-                    </Card>
                 </div>
             </section>
 
