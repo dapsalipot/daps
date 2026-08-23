@@ -4,9 +4,9 @@ return [
     'identity' => [
         'name'   => 'Daniel Andrei Salipot',
         'handle' => 'daniel.salipot',
-        'role'   => 'Software engineer building production web systems with hardware integration.',
-        'tagline' => 'Software engineer. End-to-end builds.',
-        'location' => ['city' => 'Marilao, PH', 'tz' => 'UTC+8'],
+        'role'   => 'Backend developer building production SaaS platforms in Laravel and PHP.',
+        'tagline' => 'Backend developer. End-to-end ownership.',
+        'location' => ['city' => 'Marilao, Bulacan, PH', 'tz' => 'UTC+8'],
         'available' => [
             'status' => 'open',
             'since'  => 'Q3 2026',
@@ -17,17 +17,17 @@ return [
         'email'    => 'danielsalipot@gmail.com',
         'phone'    => '+63 939 504 4799',
         'github'   => 'https://github.com/danielsalipot',
-        'linkedin' => 'https://linkedin.com/in/daniel-salipot',
+        'linkedin' => 'https://linkedin.com/in/daniel-andrei-salipot',
     ],
     'stats' => [
-        ['n' => '3',   'l' => 'years shipping'],
-        ['n' => '12+', 'l' => 'production systems'],
-        ['n' => '1st', 'l' => 'hack4impact 2025'],
+        ['n' => '10,000+', 'l' => 'cardholders live'],
+        ['n' => '60,000',  'l' => 'students served'],
+        ['n' => '12+',     'l' => 'production systems'],
     ],
     'now' => [
-        ['label' => 'building',     'title' => 'Personal portfolio v1',      'sub' => 'laravel · inertia · react · the site you\'re looking at'],
-        ['label' => 'last shipped', 'title' => 'OASYS HRIS',                 'sub' => 'capstone · best of department, adamson 2023'],
-        ['label' => 'learning',     'title' => 'Go + Inertia.js',            'sub' => 'exploring a laravel-to-go migration for fun'],
+        ['label' => 'building',    'title' => 'Tapso',      'sub' => 'rfid attendance and cashless payments · sole developer · ~10 campuses live'],
+        ['label' => 'maintaining', 'title' => 'Schoolaide', 'sub' => 'multi-tenant school SaaS · ~60 tenants · database-per-tenant'],
+        ['label' => 'learning',    'title' => 'Go + Inertia.js', 'sub' => 'exploring a laravel-to-go migration for fun'],
     ],
     'projects' => [
         [
@@ -263,47 +263,75 @@ return [
         ],
     ],
     'stack' => [
-        'backend'   => [['Laravel', 'expert · 6y'], ['Livewire', 'expert · 3y'], ['Filament', 'advanced · 2y'], ['PHP', 'expert · 6y'], ['MySQL', 'advanced · 6y']],
-        'frontend'  => [['React', 'advanced · 3y'], ['Vue.js', 'advanced · 3y'], ['Tailwind', 'expert · 4y'], ['Flutter', 'mid · 2y'], ['JavaScript', 'advanced · 5y']],
-        'platforms' => [['Linux', 'comfortable'], ['Git', 'daily'], ['n8n', 'comfortable'], ['CI/CD', 'comfortable'], ['Android (Kotlin)', 'mid']],
-        'adjacent'  => [['Figma · UI/UX', 'daily'], ['IoT integration', 'RFID · biometric'], ['Webhooks · APIs', 'daily'], ['Agile · Scrum', 'team lead'], ['Client comms', 'lead']],
+        'backend'        => [['Laravel', 'primary'], ['PHP', 'primary'], ['Livewire', 'daily'], ['Filament', 'daily'], ['REST APIs', 'design + build']],
+        'data'           => [['MySQL', 'primary'], ['Schema design', 'normalization'], ['Indexing', 'composite'], ['Query optimization', 'N+1 resolution'], ['Multi-tenant', 'db-per-tenant']],
+        'integrations'   => [['PayMongo', 'payments'], ['GCash', 'reconciliation'], ['OpenAI API', 'summarization'], ['Webhooks', 'sync'], ['n8n · Zapier', 'automation']],
+        'infrastructure' => [['Linux', 'server admin'], ['Azure · Cloudways', 'deployment'], ['SSL/TLS · SSH', 'ops'], ['Laravel Dusk', 'browser tests'], ['Git', 'daily']],
     ],
     'experience' => [
         [
-            'from' => '01.2023', 'to' => 'current',
-            'role' => 'Web Application Developer', 'org' => 'Rakso CT', 'loc' => 'Marilao, PH',
-            'note' => 'End-to-end software engineering across multiple production systems - system design, performance optimization, complex business logic, hardware integration (RFID, biometric, turnstile, QR), and automation pipelines via n8n and webhooks. Stack: Laravel, Livewire, Filament, MySQL. Direct client comms and project delivery.',
-            'stack' => ['laravel', 'livewire', 'filament', 'mysql', 'n8n'],
-            // IoT / hardware capabilities exercised during this role.
-            // Tech-first framing: lead with the technology stack, not the
-            // system name. Keeps NDA-safe (no client systems referenced)
-            // and reads as a capabilities showcase rather than a project list.
+            'from' => '07.2025', 'to' => 'current',
+            'role' => 'Product Engineer I', 'org' => 'Rakso CT', 'loc' => 'Philippines',
+            'note' => 'Own end-to-end backend delivery of Tapso, an RFID attendance and cashless payment platform running across roughly 10 school campuses, 80 field devices, and 10,000+ enrolled cardholders. Sole developer from data modelling and API design through deployment and production support.',
+            'stack' => ['laravel', 'php', 'mysql', 'rfid', 'openai'],
             'projects' => [
                 [
-                    'tech' => ['RFID readers', 'Turnstile relays', 'Balance ledger', 'SMS gateway'],
-                    'context' => 'Tap-to-pay payment platforms - card scan to relay actuation in <200ms',
+                    'tech' => ['Idempotency', 'Race conditions', 'Payments'],
+                    'context' => 'Transaction handling for 500+ daily cashless payments, over PHP 2M in monthly volume. Duplicate detection and a 3-second tap cooldown removed double-charge and duplicate-attendance defects.',
                 ],
                 [
-                    'tech' => ['Biometric scanners', 'QR codes', 'Scanner SDKs'],
-                    'context' => 'Daily attendance check-in with same-day SMS to parents',
+                    'tech' => ['Composite indexes', 'N+1 resolution'],
+                    'context' => 'Recovered an attendance table of several hundred thousand rows from total timeout failure, restoring endpoints and report generation.',
                 ],
                 [
-                    'tech' => ['Serial protocols', 'n8n workflows', 'Webhook bridges'],
-                    'context' => 'Hardware-to-Laravel automation - devices, printers, and event glue',
+                    'tech' => ['Constraint satisfaction', 'Greedy optimization'],
+                    'context' => 'Scheduling engine built from scratch enforcing teacher availability, subject hour quotas, double periods, and zero-gap timetables. School-wide schedules in about 30 minutes against a manual multi-day process.',
+                ],
+                [
+                    'tech' => ['OpenAI API', 'Sentiment scoring'],
+                    'context' => 'Summarizes and scores 500+ free-text evaluation records per teacher, replacing manual review with an automated reporting pipeline.',
+                ],
+            ],
+        ],
+        [
+            'from' => '01.2023', 'to' => '07.2025',
+            'role' => 'Web Application Developer', 'org' => 'Rakso CT', 'loc' => 'Philippines',
+            'note' => 'Maintained and extended core modules of Schoolaide, a multi-tenant school management SaaS serving roughly 60 tenants and 60,000 students on a database-per-tenant architecture, sustaining peak write concurrency through enrollment, grade encoding, and ID release periods. One promotion and three merit increases across three years.',
+            'stack' => ['laravel', 'livewire', 'filament', 'mysql', 'n8n'],
+            'projects' => [
+                [
+                    'tech' => ['Incident recovery', 'Data migration'],
+                    'context' => 'Restored a live production failure affecting an entire student cohort mid-examination. With no server access, replicated the database, validated a data-generation command against the replica, then applied corrected records to production inside the exam window.',
+                ],
+                [
+                    'tech' => ['GCash', 'Reconciliation', 'Multi-tenant'],
+                    'context' => 'Automated pipeline parsing consolidated daily transaction emails and dispatching balances to individual student wallets across tenant databases.',
+                ],
+                [
+                    'tech' => ['Webhooks', 'System integration'],
+                    'context' => 'Synchronization between the Schoolaide enrollment module and the Tapso RFID platform, provisioning newly enrolled students across system boundaries.',
+                ],
+                [
+                    'tech' => ['QR codes', 'PayMongo', 'Event platforms'],
+                    'context' => 'Backend for 8+ event registration systems covering payment tagging, QR-coded ID generation, and attendance capture. National events up to 6,000 attendees including PCNE and the CEAP General Assembly.',
+                ],
+                [
+                    'tech' => ['Concurrency', 'Double-booking prevention'],
+                    'context' => 'Wedding reservation SaaS for the Manila Cathedral covering the full booking lifecycle, roughly 100 bookings annually.',
                 ],
             ],
         ],
         [
             'from' => '01.2022', 'to' => '12.2022',
-            'role' => 'Web Application Developer', 'org' => 'Adamson University', 'loc' => 'Manila, PH',
-            'note' => 'Member of the team that built an informational site for the Dumagat Remontado Tribe (university outreach). Laravel + Bootstrap.',
+            'role' => 'Web Developer (Project-Based)', 'org' => 'Adamson University', 'loc' => 'Manila, PH',
+            'note' => 'Built an informational web platform for the Dumagat-Remontado indigenous community as part of the university community outreach program, improving public access to cultural documentation.',
             'stack' => ['laravel', 'php', 'bootstrap'],
             'projects' => [],
         ],
     ],
     'education' => [
         [
-            'yr' => '2019 - 2023', 'degree' => 'BS Information Technology', 'org' => 'Adamson University · Manila',
+            'yr' => '2019 - 07.2023', 'degree' => 'BS Information Technology', 'org' => 'Adamson University · Manila',
             'note' => 'Capstone: OASYS (HRIS + payroll). Best of Department.',
             'honor' => 'summa cum laude', 'gpa' => '1.182 / 1.000', 'active' => true,
         ],
@@ -334,9 +362,10 @@ return [
         ],
     ],
     'achievements' => [
-        ['yr' => '2025', 't' => '1st Place',      'where' => 'Hack4Impact Hackathon',  'note' => 'Led the team - built a real-time classroom platform in 24 hours.'],
-        ['yr' => '2023', 't' => 'Best Capstone',  'where' => 'AdU IT&IS Department',   'note' => 'OASYS - HRIS with integrated payroll system.'],
-        ['yr' => '2022', 't' => '1st Runner-up',  'where' => 'I.T. Skills Olympics',   'note' => 'Web Design · U-Makati · ~30 schools.'],
-        ['yr' => '2021', 't' => 'Microsoft Cert.','where' => 'Database Management',    'note' => 'Technology Associate, fundamentals.'],
+        ['yr' => '2025', 't' => '1st Place',       'where' => 'Rakso CT Hack4Impact',  'note' => 'Team tech lead. AI platform recording live lectures into interactive mobile quizzes and downloadable flashcards, built end to end in about 20 hours.'],
+        ['yr' => '2023', 't' => 'Best Capstone',   'where' => 'AdU IT&IS Department',  'note' => 'OASYS, an HRIS with payroll covering the full employee lifecycle.'],
+        ['yr' => '2023', 't' => 'Summa Cum Laude', 'where' => 'Adamson University',    'note' => 'BS Information Technology, graduated July 2023.'],
+        ['yr' => '2022', 't' => '1st Runner-Up',   'where' => 'I.T. Skills Olympics',  'note' => 'Web Design, representing Adamson against ~30 schools at the University of Makati.'],
+        ['yr' => '2021', 't' => 'Microsoft MTA',   'where' => 'Database Fundamentals', 'note' => 'Technology Associate certification in database management.'],
     ],
 ];

@@ -15,9 +15,9 @@ export default function About() {
                 <div>
                     <span className="text-portfolio-accent font-mono text-[11px]">// 01 - about</span>
                     <h1 className="text-fg mt-3.5 font-sans text-[48px] leading-none font-medium tracking-tight md:text-[80px]">
-                        Software engineer.
+                        Backend developer.
                         <br />
-                        <span className="text-fg-mid">End-to-end builds.</span>
+                        <span className="text-fg-mid">End-to-end ownership.</span>
                     </h1>
                 </div>
                 <Card pad={0} className="overflow-hidden">
@@ -41,7 +41,7 @@ export default function About() {
                 <div className="mt-7 grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1.7fr]">
                     <div>
                         <h2 className="text-fg font-sans text-[28px] leading-tight font-medium tracking-tight md:text-[32px]">
-                            <span className="text-portfolio-accent">Production systems with hardware integration.</span> Built end-to-end.
+                            <span className="text-portfolio-accent">Production SaaS in Laravel and PHP.</span> Owned end-to-end.
                         </h2>
                         <p className="text-fg-dim mt-4 font-mono text-[13px] leading-relaxed">
                             based in {portfolio.identity.location.city}
@@ -53,13 +53,13 @@ export default function About() {
                     </div>
                     <div className="text-fg-mid flex flex-col gap-3.5 text-[16px] leading-[1.7]">
                         <p>
-                            Three years at <span className="text-fg">Rakso CT</span> shipping production systems with hardware integration: <span className="text-fg">RFID readers</span>, <span className="text-fg">biometric scanners</span>, <span className="text-fg">turnstile relays</span>, and <span className="text-fg">QR-based attendance</span>. Work spans system design, back-end engineering, performance tuning, and direct integration with hardware over serial protocols, webhooks, and n8n. Primary stack: PHP / Laravel / Livewire / Filament / MySQL.
+                            Three years at <span className="text-fg">Rakso CT</span> building and maintaining production SaaS. I am sole developer of <span className="text-fg">Tapso</span>, an RFID attendance and cashless payment platform across roughly 10 campuses, 80 field devices, and 10,000+ cardholders, handling over PHP 2M in monthly transaction volume. Before that I maintained core modules of <span className="text-fg">Schoolaide</span>, a multi-tenant school SaaS with about 60 tenants and 60,000 students on a database-per-tenant architecture.
                         </p>
                         <p>
-                            BS Information Technology from <span className="text-fg">Adamson University</span>, graduated <span className="text-fg">Summa Cum Laude</span> in 2023. Capstone project - <span className="text-fg">OASYS</span>, a full HRIS with integrated payroll engine - was named Best of the IT&IS Department.
+                            The work I am best at sits close to the database and the money: schema design, indexing and query optimization, idempotent transaction handling, payment gateway and reconciliation pipelines, and getting a timed-out production system responding again. I also design the algorithms when a problem needs one, most recently a constraint-satisfaction scheduling engine that replaced a multi-day manual process.
                         </p>
                         <p>
-                            I work solo on end-to-end builds: requirements through deployment. The parts of the job I care most about: error handling that explains itself, retry logic that survives flaky hardware, scripts that remove repeated work. Systems that ship over features that demo.
+                            BS Information Technology from <span className="text-fg">Adamson University</span>, <span className="text-fg">Summa Cum Laude</span>, July 2023. Capstone was <span className="text-fg">OASYS</span>, an HRIS with payroll, named Best of the IT&IS Department.
                         </p>
                     </div>
                 </div>
@@ -95,7 +95,7 @@ export default function About() {
                             className="border-line grid grid-cols-1 items-start gap-4 border-t py-6 md:grid-cols-[160px_1.3fr_1.6fr] md:gap-8"
                         >
                             <span className="text-portfolio-accent font-mono text-[11px]">
-                                {e.from === '01.2023' ? '2023 - current' : '2022'}
+                                {e.from} - {e.to}
                             </span>
                             <div>
                                 <div className="text-fg text-[22px] font-medium tracking-tight">{e.role}</div>
@@ -108,14 +108,9 @@ export default function About() {
 
                                 {e.projects.length > 0 && (
                                     <div className="border-line mt-5 border-t pt-5">
-                                        <div className="flex items-center gap-2">
-                                            <span className="bg-portfolio-accent/15 text-portfolio-accent border-portfolio-accent/25 inline-flex items-center gap-1 rounded border px-1.5 py-[2px] font-mono text-[9.5px] font-medium tracking-wider uppercase">
-                                                IoT
-                                            </span>
-                                            <span className="text-fg-dim font-mono text-[10.5px]">
-                                                hardware tech worked with
-                                            </span>
-                                        </div>
+                                        <span className="text-fg-dim font-mono text-[10.5px]">
+                                            selected highlights
+                                        </span>
                                         <ul className="mt-4 flex list-none flex-col gap-4 p-0">
                                             {e.projects.map((p, idx) => (
                                                 <li key={idx} className="flex flex-col gap-2">

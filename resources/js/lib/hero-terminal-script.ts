@@ -17,17 +17,17 @@ import type { TerminalStep } from '@/hooks/use-typewriter';
  */
 export const HERO_TERMINAL_SCRIPT: TerminalStep[] = [
     { kind: 'type', prompt: '$', text: 'whoami', pauseAfter: 200 },
-    { kind: 'output', text: 'daniel salipot - software engineer', color: 'var(--fg)', pauseAfter: 600 },
+    { kind: 'output', text: 'daniel salipot - backend developer', color: 'var(--fg)', pauseAfter: 600 },
 
     { kind: 'type', prompt: '$', text: 'cat stack.json | jq', pauseAfter: 250 },
     { kind: 'output', text: '{' },
-    { kind: 'output', text: '  "primary":  ["laravel", "livewire", "filament"],' },
-    { kind: 'output', text: '  "client":   ["react", "vue", "flutter"],' },
-    { kind: 'output', text: '  "hardware": ["rfid", "biometric", "turnstile"]' },
+    { kind: 'output', text: '  "backend":  ["laravel", "php", "livewire", "filament"],' },
+    { kind: 'output', text: '  "data":     ["mysql", "multi-tenant", "indexing"],' },
+    { kind: 'output', text: '  "payments": ["paymongo", "gcash", "rfid wallets"]' },
     { kind: 'output', text: '}', pauseAfter: 700 },
 
-    { kind: 'type', prompt: '$', text: 'ls hardware/', charDelay: 38, pauseAfter: 200 },
-    { kind: 'output', text: 'rfid-reader.ts   turnstile-relay.ts   scanner-bridge.ts', pauseAfter: 600 },
+    { kind: 'type', prompt: '$', text: 'ls services/', charDelay: 38, pauseAfter: 200 },
+    { kind: 'output', text: 'tapso   schoolaide   event-platforms   reconciliation', pauseAfter: 600 },
 
     { kind: 'type', prompt: '$', text: 'status', pauseAfter: 250 },
     { kind: 'output', text: '● open · accepting projects for q3 2026', color: 'var(--portfolio-accent)', pauseAfter: 1400 },

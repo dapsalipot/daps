@@ -50,11 +50,11 @@ export default function Home() {
                         <span className="caret text-portfolio-accent ml-1">.</span>
                     </h1>
                     <h2 className="text-fg-mid mt-4 max-w-xl font-sans text-[22px] leading-tight tracking-tight md:text-[32px]">
-                        Software engineer building <span className="text-fg">production web systems</span> with <span className="text-fg">hardware integration</span>.
+                        Backend developer building <span className="text-fg">production SaaS platforms</span> in <span className="text-fg">Laravel</span> and <span className="text-fg">PHP</span>.
                     </h2>
 
                     <p className="text-fg-mid mt-6 max-w-[560px] text-[16px] leading-relaxed">
-                        Three years building production systems end-to-end - back-ends, integrations, and embedded hardware (<span className="text-fg">RFID</span>, <span className="text-fg">biometric</span>, <span className="text-fg">turnstile</span>, <span className="text-fg">QR</span>). BS Information Technology, Summa Cum Laude, <span className="text-fg">Adamson University</span> (2023).
+                        Sole developer of an RFID attendance and cashless payment platform across <span className="text-fg">10 campuses</span> and <span className="text-fg">10,000+ cardholders</span>, moving over <span className="text-fg">PHP 2M</span> monthly. Maintains a multi-tenant school SaaS serving <span className="text-fg">60,000 students</span>. Summa Cum Laude, BS Information Technology.
                     </p>
 
                     <div className="mt-7 flex flex-wrap gap-2.5">
@@ -74,7 +74,7 @@ export default function Home() {
                             <GithubIcon /> @danielsalipot
                         </a>
                         <a className="ulink link-slide" href={portfolio.links.linkedin} target="_blank" rel="noreferrer">
-                            <LinkedinIcon /> daniel-salipot
+                            <LinkedinIcon /> daniel-andrei-salipot
                         </a>
                         <span className="text-fg-fade">·</span>
                         <span>{portfolio.links.phone}</span>
@@ -177,14 +177,9 @@ export default function Home() {
 
                             {e.projects.length > 0 && (
                                 <div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-[180px_1fr] md:gap-8">
-                                    <div className="flex flex-col gap-1.5">
-                                        <span className="text-portfolio-accent font-mono text-[10.5px] tracking-wider">
-                                            // iot · hardware
-                                        </span>
-                                        <span className="text-fg-fade font-mono text-[9.5px] uppercase tracking-[0.15em]">
-                                            tech worked with
-                                        </span>
-                                    </div>
+                                    <span className="text-fg-dim font-mono text-[10.5px]">
+                                        selected highlights
+                                    </span>
                                     <ul className="flex list-none flex-col gap-4 p-0">
                                         {e.projects.map((p, idx) => (
                                             <li
@@ -291,7 +286,7 @@ export default function Home() {
                             in mind?
                         </h2>
                         <p className="text-fg-mid mt-4 max-w-md text-[16px] leading-relaxed">
-                            Open for full-time and contract work starting <span className="text-fg">{portfolio.identity.available.since}</span>. Production systems, hardware integration, and back-end engineering. Reply within 48h.
+                            Open to remote, hybrid, and onsite work in Metro Manila. Laravel and PHP backends, multi-tenant SaaS, payments, and hardware integration. Reply within 48h.
                         </p>
                         <div className="mt-6 flex flex-wrap gap-2.5">
                             <Button kind="accent" size="lg" trailing={<ArrowNEIcon />} as="a" href={`mailto:${portfolio.links.email}`}>
