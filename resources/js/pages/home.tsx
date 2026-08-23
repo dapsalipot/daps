@@ -66,7 +66,7 @@ export default function Home() {
             </section>
 
             {/* WORK CAROUSEL */}
-            <section className="pt-4 pb-20">
+            <section className="overflow-hidden pt-4 pb-20">
                 <div className="mb-2 px-6 md:px-12">
                     <h2 className="text-fg font-sans text-[30px] leading-tight font-semibold tracking-[-0.02em] md:text-[40px]">
                         Selected work.

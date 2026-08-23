@@ -1,5 +1,5 @@
 import type { Project } from '@/types';
-import { Link } from '@inertiajs/react';
+import { router } from '@inertiajs/react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Chip from './chip';
 import { ArrowIcon } from './icons';
@@ -8,110 +8,188 @@ import MacWindow from './mac-window';
 import Screenshot from './screenshot';
 
 /**
- * Horizontal scroll-snap carousel of work, one macOS window per card.
- * Native CSS scroll-snap, no carousel dependency. Arrows scroll by one card;
- * trackpad, touch, and keyboard all work unaided.
+ * Coverflow carousel. The active card sits centred at full scale; neighbours
+ * fall back, shrink, fade, and rotate away on both sides. Advancing wraps
+ * around, so the set revolves endlessly in either direction.
+ *
+ * Position is driven by an active index rather than scroll offset, so there is
+ * no scroll listener. Transforms and opacity only, both GPU-composited.
  */
-export default function WorkCarousel({ projects }: { projects: Project[] }) {
-    const trackRef = useRef<HTMLDivElement>(null);
-    const [atStart, setAtStart] = useState(true);
-    const [atEnd, setAtEnd] = useState(false);
 
-    const sync = useCallback(() => {
-        const el = trackRef.current;
-        if (!el) return;
-        setAtStart(el.scrollLeft < 8);
-        setAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 8);
-    }, []);
+const SPACING = 62;      // % of card width each neighbour steps aside
+const SCALE_STEP = 0.14; // scale lost per step from centre
+const OPACITY_STEP = 0.4;
+const ROTATE = 26;       // deg of Y-rotation per step
+const VISIBLE = 2;       // steps rendered either side of centre
+
+export default function WorkCarousel({ projects }: { projects: Project[] }) {
+    const n = projects.length;
+    const [active, setActive] = useState(0);
+    const [reduced, setReduced] = useState(false);
+    const drag = useRef<{ x: number; moved: boolean } | null>(null);
 
     useEffect(() => {
-        sync();
-        const el = trackRef.current;
-        if (!el) return;
-        el.addEventListener('scroll', sync, { passive: true });
-        window.addEventListener('resize', sync);
-        return () => {
-            el.removeEventListener('scroll', sync);
-            window.removeEventListener('resize', sync);
-        };
-    }, [sync]);
+        setReduced(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    }, []);
 
-    const nudge = (dir: 1 | -1) => {
-        const el = trackRef.current;
-        if (!el) return;
-        const card = el.querySelector<HTMLElement>('[data-card]');
-        const step = card ? card.offsetWidth + 24 : el.clientWidth * 0.8;
-        el.scrollBy({ left: dir * step, behavior: 'smooth' });
+    const step = useCallback((dir: 1 | -1) => setActive((i) => (i + dir + n) % n), [n]);
+
+    // Shortest signed distance from the active card, wrapping both ways.
+    const offsetOf = (i: number) => {
+        let o = i - active;
+        if (o > n / 2) o -= n;
+        if (o < -n / 2) o += n;
+        return o;
+    };
+
+    const onKey = (e: React.KeyboardEvent) => {
+        if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
     };
 
     return (
-        <div className="relative">
-            <div className="mb-5 flex items-center justify-end gap-2 px-6 md:px-12">
-                {([-1, 1] as const).map((dir) => (
-                    <button
-                        key={dir}
-                        type="button"
-                        onClick={() => nudge(dir)}
-                        disabled={dir === -1 ? atStart : atEnd}
-                        aria-label={dir === -1 ? 'Previous work' : 'Next work'}
-                        className="border-line bg-bg-elev text-fg-mid hover:text-fg hover:border-line-strong inline-flex h-9 w-9 items-center justify-center rounded-full border transition disabled:pointer-events-none disabled:opacity-30"
-                    >
-                        <ArrowIcon size={15} className={dir === -1 ? 'rotate-180' : ''} />
-                    </button>
-                ))}
+        <div
+            className="relative select-none"
+            role="group"
+            aria-roledescription="carousel"
+            aria-label="Selected work"
+            tabIndex={0}
+            onKeyDown={onKey}
+            onPointerDown={(e) => { drag.current = { x: e.clientX, moved: false }; }}
+            onPointerMove={(e) => {
+                if (!drag.current || drag.current.moved) return;
+                const dx = e.clientX - drag.current.x;
+                if (Math.abs(dx) > 55) {
+                    step(dx < 0 ? 1 : -1);
+                    drag.current.moved = true;
+                }
+            }}
+            onPointerUp={() => { drag.current = null; }}
+            onPointerLeave={() => { drag.current = null; }}
+        >
+            {/* Stage */}
+            <div
+                className="relative mx-auto h-[430px] w-full max-w-[1400px] md:h-[500px]"
+                style={{ perspective: '1800px' }}
+            >
+                {projects.map((p, i) => {
+                    const o = offsetOf(i);
+                    const dist = Math.abs(o);
+                    const hidden = dist > VISIBLE;
+                    const isActive = o === 0;
+
+                    return (
+                        <div
+                            key={p.slug}
+                            data-active={isActive}
+                            aria-hidden={hidden}
+                            onClick={() => {
+                                if (drag.current?.moved) return;
+                                if (isActive) router.visit(`/projects/${p.slug}`);
+                                else setActive(i);
+                            }}
+                            className={`absolute top-0 left-1/2 w-[86vw] max-w-[560px] sm:w-[62vw] lg:w-[500px] ${
+                                isActive ? 'cursor-pointer' : 'cursor-pointer'
+                            }`}
+                            style={{
+                                transform: `translateX(-50%) translateX(${o * SPACING}%) scale(${Math.max(0.55, 1 - dist * SCALE_STEP)}) rotateY(${-o * ROTATE}deg)`,
+                                opacity: hidden ? 0 : Math.max(0, 1 - dist * OPACITY_STEP),
+                                zIndex: n - dist,
+                                pointerEvents: hidden ? 'none' : 'auto',
+                                transition: reduced
+                                    ? 'none'
+                                    : 'transform 620ms cubic-bezier(.22,.75,.28,1), opacity 480ms ease',
+                                transformStyle: 'preserve-3d',
+                                willChange: 'transform, opacity',
+                            }}
+                        >
+                            <MacWindow
+                                title={p.screenshot.title}
+                                muted={!isActive}
+                                className="h-full"
+                                style={
+                                    isActive
+                                        ? undefined
+                                        : { boxShadow: '0 8px 30px -12px rgba(0,0,0,.4)' }
+                                }
+                            >
+                                <div className="overflow-hidden">
+                                    {p.case_study.screenshots?.length ? (
+                                        <img
+                                            src={p.case_study.screenshots[0].src}
+                                            alt={p.case_study.screenshots[0].alt}
+                                            loading="lazy"
+                                            draggable={false}
+                                            className="block aspect-[16/10] w-full object-cover object-top"
+                                        />
+                                    ) : (
+                                        <Screenshot
+                                            title={p.screenshot.title}
+                                            subtitle={p.screenshot.subtitle}
+                                            tone={p.screenshot.tone}
+                                            ratio="16/10"
+                                            style={{ borderRadius: 0, border: 'none' }}
+                                        />
+                                    )}
+                                </div>
+
+                                <div className="flex flex-1 flex-col gap-3 p-5">
+                                    <div className="flex items-baseline justify-between gap-3">
+                                        <h3 className="text-fg text-[19px] leading-tight font-medium tracking-tight">
+                                            {p.name}
+                                        </h3>
+                                        <span className="text-fg-dim shrink-0 font-mono text-[11px]">{p.year}</span>
+                                    </div>
+                                    <p className="text-fg-mid text-[13.5px] leading-relaxed">{p.kicker}</p>
+                                    <div className="mt-auto flex flex-wrap gap-1.5 pt-1">
+                                        {p.stack.slice(0, 4).map((t) => (
+                                            <Chip key={t}>
+                                                <LangDot name={t} size={6} />
+                                                {t}
+                                            </Chip>
+                                        ))}
+                                    </div>
+                                </div>
+                            </MacWindow>
+                        </div>
+                    );
+                })}
             </div>
 
-            <div
-                ref={trackRef}
-                className="flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-6 pb-6 md:px-12 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-            >
-                {projects.map((p) => (
-                    <Link
-                        key={p.slug}
-                        href={`/projects/${p.slug}`}
-                        data-card
-                        className="w-[85vw] max-w-[520px] shrink-0 snap-start sm:w-[64vw] lg:w-[440px]"
-                    >
-                        <MacWindow title={p.screenshot.title} className="group h-full transition-transform duration-300 hover:-translate-y-1">
-                            <div className="overflow-hidden">
-                                {p.case_study.screenshots?.length ? (
-                                    <img
-                                        src={p.case_study.screenshots[0].src}
-                                        alt={p.case_study.screenshots[0].alt}
-                                        loading="lazy"
-                                        className="block aspect-[16/10] w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
-                                    />
-                                ) : (
-                                    <Screenshot
-                                        title={p.screenshot.title}
-                                        subtitle={p.screenshot.subtitle}
-                                        tone={p.screenshot.tone}
-                                        ratio="16/10"
-                                        style={{ borderRadius: 0, border: 'none' }}
-                                    />
-                                )}
-                            </div>
+            {/* Controls */}
+            <div className="mt-8 flex items-center justify-center gap-5">
+                <button
+                    type="button"
+                    onClick={() => step(-1)}
+                    aria-label="Previous work"
+                    className="border-line bg-bg-elev text-fg-mid hover:text-fg hover:border-line-strong inline-flex h-10 w-10 items-center justify-center rounded-full border transition"
+                >
+                    <ArrowIcon size={15} className="rotate-180" />
+                </button>
 
-                            <div className="flex flex-1 flex-col gap-3 p-5">
-                                <div className="flex items-baseline justify-between gap-3">
-                                    <h3 className="text-fg text-[19px] leading-tight font-medium tracking-tight">
-                                        {p.name}
-                                    </h3>
-                                    <span className="text-fg-dim shrink-0 font-mono text-[11px]">{p.year}</span>
-                                </div>
-                                <p className="text-fg-mid line-clamp-2 text-[13.5px] leading-relaxed">{p.kicker}</p>
-                                <div className="mt-auto flex flex-wrap gap-1.5 pt-1">
-                                    {p.stack.slice(0, 4).map((t) => (
-                                        <Chip key={t}>
-                                            <LangDot name={t} size={6} />
-                                            {t}
-                                        </Chip>
-                                    ))}
-                                </div>
-                            </div>
-                        </MacWindow>
-                    </Link>
-                ))}
+                <div className="flex items-center gap-2">
+                    {projects.map((p, i) => (
+                        <button
+                            key={p.slug}
+                            type="button"
+                            onClick={() => setActive(i)}
+                            aria-label={`Show ${p.name}`}
+                            aria-current={i === active}
+                            className={`h-1.5 rounded-full transition-all duration-300 ${
+                                i === active ? 'bg-portfolio-accent w-6' : 'bg-line-strong hover:bg-fg-dim w-1.5'
+                            }`}
+                        />
+                    ))}
+                </div>
+
+                <button
+                    type="button"
+                    onClick={() => step(1)}
+                    aria-label="Next work"
+                    className="border-line bg-bg-elev text-fg-mid hover:text-fg hover:border-line-strong inline-flex h-10 w-10 items-center justify-center rounded-full border transition"
+                >
+                    <ArrowIcon size={15} />
+                </button>
             </div>
         </div>
     );
