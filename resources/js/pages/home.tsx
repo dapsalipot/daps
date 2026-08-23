@@ -37,7 +37,7 @@ export default function Home() {
                     </h1>
 
                     <p className="text-fg-mid mx-auto mt-6 max-w-[34ch] font-sans text-[21px] leading-[1.35] tracking-[-0.01em] md:text-[27px]">
-                        Backend developer building production SaaS in Laravel and PHP.
+                        Backend developer building production systems end to end, from database design to hardware.
                     </p>
 
                     <div className="mt-10 flex flex-wrap items-center justify-center gap-3">

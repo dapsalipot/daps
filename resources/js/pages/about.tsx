@@ -41,7 +41,7 @@ export default function About() {
                 <div className="mt-7 grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1.7fr]">
                     <div>
                         <h2 className="text-fg font-sans text-[28px] leading-tight font-medium tracking-tight md:text-[32px]">
-                            <span className="text-portfolio-accent">Production SaaS in Laravel and PHP.</span> Owned end-to-end.
+                            <span className="text-portfolio-accent">Production systems, owned end to end.</span> Schema to deployment.
                         </h2>
                         <p className="text-fg-dim mt-4 font-mono text-[13px] leading-relaxed">
                             based in {portfolio.identity.location.city}
