@@ -1,0 +1,368 @@
+@import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap');
+
+@plugin 'tailwindcss-animate';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+    --font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+    --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+    --radius-lg: var(--radius);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-sm: calc(var(--radius) - 4px);
+
+    /* Portfolio design tokens — map to CSS vars that flip per theme */
+    --color-bg: var(--bg);
+    --color-bg-elev: var(--bg-elev);
+    --color-bg-elev-2: var(--bg-elev-2);
+    --color-fg: var(--fg);
+    --color-fg-mid: var(--fg-mid);
+    --color-fg-dim: var(--fg-dim);
+    --color-fg-fade: var(--fg-fade);
+    --color-line: var(--line);
+    --color-line-strong: var(--line-strong);
+    --color-portfolio-accent: var(--portfolio-accent);
+    --color-portfolio-accent-dim: var(--portfolio-accent-dim);
+
+    /* shadcn defaults kept so any pre-built UI components don't break */
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+    --color-sidebar: var(--sidebar-background);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-line, currentColor);
+    }
+}
+
+:root {
+    /* Portfolio tokens — LIGHT */
+    --bg: #FAFAFA;
+    --bg-elev: #FFFFFF;
+    --bg-elev-2: #F4F4F4;
+    --fg: #0A0A0A;
+    --fg-mid: #525252;
+    --fg-dim: #8A8A8A;
+    --fg-fade: #B5B5B5;
+    --line: rgba(10, 10, 10, 0.08);
+    --line-strong: rgba(10, 10, 10, 0.14);
+    --portfolio-accent: #3F8B26;
+    --portfolio-accent-dim: #5BB94B;
+    --portfolio-accent-sage: rgba(63, 139, 38, 0.10);
+
+    /* Language dot colors */
+    --lang-php: #777BB4;
+    --lang-js: #F1E05A;
+    --lang-ts: #3178C6;
+    --lang-html: #E34F26;
+    --lang-css: #563D7C;
+    --lang-vue: #41B883;
+    --lang-react: #61DAFB;
+    --lang-kotlin: #A97BFF;
+    --lang-go: #00ADD8;
+    --lang-py: #3572A5;
+    --lang-sql: #E38C00;
+    --lang-blade: #F05340;
+    --lang-shell: #89E051;
+    --lang-laravel: #FF2D20;
+    --lang-livewire: #FB70A9;
+    --lang-filament: #FFAB40;
+    --lang-tailwind: #38BDF8;
+    --lang-bootstrap: #7952B3;
+    --lang-flutter: #54C5F8;
+    --lang-dart: #00B4AB;
+    --lang-java: #B07219;
+    --lang-csharp: #178600;
+    --lang-rfid: #7DD96E;
+    --lang-iot: #7DD96E;
+    --lang-n8n: #EA4B71;
+    --lang-qr: #A1A1A1;
+    --lang-webhooks: #A1A1A1;
+    --lang-figma: #F24E1E;
+
+    /* shadcn defaults — preserved */
+    --background: hsl(0, 0%, 100%);
+    --foreground: hsl(0, 0%, 3.9%);
+    --card: hsl(0, 0%, 100%);
+    --card-foreground: hsl(0, 0%, 3.9%);
+    --popover: hsl(0, 0%, 100%);
+    --popover-foreground: hsl(0, 0%, 3.9%);
+    --primary: hsl(0, 0%, 9%);
+    --primary-foreground: hsl(0, 0%, 98%);
+    --secondary: hsl(0, 0%, 96.1%);
+    --secondary-foreground: hsl(0, 0%, 9%);
+    --muted: hsl(0, 0%, 96.1%);
+    --muted-foreground: hsl(0, 0%, 45.1%);
+    --accent: hsl(0, 0%, 96.1%);
+    --accent-foreground: hsl(0, 0%, 9%);
+    --destructive: hsl(0, 84.2%, 60.2%);
+    --destructive-foreground: hsl(0, 0%, 98%);
+    --border: hsl(0, 0%, 92.8%);
+    --input: hsl(0, 0%, 89.8%);
+    --ring: hsl(0, 0%, 3.9%);
+    --chart-1: hsl(12, 76%, 61%);
+    --chart-2: hsl(173, 58%, 39%);
+    --chart-3: hsl(197, 37%, 24%);
+    --chart-4: hsl(43, 74%, 66%);
+    --chart-5: hsl(27, 87%, 67%);
+    --radius: 0.5rem;
+    --sidebar-background: hsl(0, 0%, 98%);
+    --sidebar-foreground: hsl(240, 5.3%, 30%);
+    --sidebar-primary: hsl(0, 0%, 10%);
+    --sidebar-primary-foreground: hsl(0, 0%, 98%);
+    --sidebar-accent: hsl(0, 0%, 94%);
+    --sidebar-accent-foreground: hsl(0, 0%, 30%);
+    --sidebar-border: hsl(0, 0%, 91%);
+    --sidebar-ring: hsl(217.2, 91.2%, 59.8%);
+}
+
+.dark {
+    /* Portfolio tokens — DARK */
+    --bg: #0A0A0A;
+    --bg-elev: #111111;
+    --bg-elev-2: #161616;
+    --fg: #EDEDED;
+    --fg-mid: #A1A1A1;
+    --fg-dim: #707070;
+    --fg-fade: #4A4A4A;
+    --line: rgba(255, 255, 255, 0.08);
+    --line-strong: rgba(255, 255, 255, 0.14);
+    --portfolio-accent: #7DD96E;
+    --portfolio-accent-dim: #5BB94B;
+    --portfolio-accent-sage: rgba(125, 217, 110, 0.12);
+
+    /* shadcn defaults — dark */
+    --background: hsl(0, 0%, 3.9%);
+    --foreground: hsl(0, 0%, 98%);
+    --card: hsl(0, 0%, 3.9%);
+    --card-foreground: hsl(0, 0%, 98%);
+    --popover: hsl(0, 0%, 3.9%);
+    --popover-foreground: hsl(0, 0%, 98%);
+    --primary: hsl(0, 0%, 98%);
+    --primary-foreground: hsl(0, 0%, 9%);
+    --secondary: hsl(0, 0%, 14.9%);
+    --secondary-foreground: hsl(0, 0%, 98%);
+    --muted: hsl(0, 0%, 6.9%);
+    --muted-foreground: hsl(0, 0%, 63.9%);
+    --accent: hsl(0, 0%, 14.9%);
+    --accent-foreground: hsl(0, 0%, 98%);
+    --destructive: hsl(0, 84%, 60%);
+    --destructive-foreground: hsl(0, 0%, 98%);
+    --border: hsl(0, 0%, 14.9%);
+    --input: hsl(0, 0%, 14.9%);
+    --ring: hsl(0, 0%, 83.1%);
+    --chart-1: hsl(220, 70%, 50%);
+    --chart-2: hsl(160, 60%, 45%);
+    --chart-3: hsl(30, 80%, 55%);
+    --chart-4: hsl(280, 65%, 60%);
+    --chart-5: hsl(340, 75%, 55%);
+    --sidebar-background: hsl(0, 0%, 7%);
+    --sidebar-foreground: hsl(0, 0%, 80%);
+    --sidebar-primary: hsl(360, 100%, 100%);
+    --sidebar-primary-foreground: hsl(0, 0%, 100%);
+    --sidebar-accent: hsl(0, 0%, 15.9%);
+    --sidebar-accent-foreground: hsl(240, 4.8%, 95.9%);
+    --sidebar-border: hsl(0, 0%, 15.9%);
+    --sidebar-ring: hsl(217.2, 91.2%, 59.8%);
+}
+
+@layer base {
+    body {
+        font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
+        font-feature-settings: 'ss01', 'cv11', 'zero';
+        -webkit-font-smoothing: antialiased;
+        background: var(--bg);
+        color: var(--fg);
+    }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Portfolio utility classes
+   ────────────────────────────────────────────────────────────── */
+
+.font-mono { font-family: 'Geist Mono', ui-monospace, SFMono-Regular, monospace; }
+
+.ulink {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    color: inherit;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 1px;
+}
+
+.dotgrid {
+    background-image: radial-gradient(rgba(125, 125, 125, 0.07) 1px, transparent 1px);
+    background-size: 18px 18px;
+}
+
+::selection {
+    background: var(--portfolio-accent);
+    color: #0a0a0a;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Animations
+   ────────────────────────────────────────────────────────────── */
+
+@keyframes blink { 50% { opacity: 0; } }
+.caret { animation: blink 1.05s steps(1, end) infinite; }
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes pulseRing {
+    0%   { box-shadow: 0 0 0 0   rgba(125, 217, 110, 0.55); }
+    70%  { box-shadow: 0 0 0 7px rgba(125, 217, 110, 0); }
+    100% { box-shadow: 0 0 0 0   rgba(125, 217, 110, 0); }
+}
+@keyframes shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+@keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+@keyframes gridScroll {
+    0%   { background-position: 0 0; }
+    100% { background-position: 56px 56px; }
+}
+@keyframes scanline {
+    0%   { transform: translateY(-100%); opacity: 0; }
+    50%  { opacity: 1; }
+    100% { transform: translateY(2000%); opacity: 0; }
+}
+@keyframes barGrow {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+}
+
+.anim-fadeUp { animation: fadeUp 600ms cubic-bezier(.2, .7, .3, 1) both; }
+.anim-fadeIn { animation: fadeIn 500ms ease-out both; }
+.pulse-ring  { animation: pulseRing 1.9s ease-out infinite; border-radius: 999px; }
+.grid-drift  { animation: gridScroll 22s linear infinite; }
+
+.scanline {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--portfolio-accent), transparent);
+    opacity: 0.5;
+    animation: scanline 9s linear infinite;
+    pointer-events: none;
+}
+
+.stagger-in > * { opacity: 0; animation: fadeUp 600ms cubic-bezier(.2, .7, .3, 1) forwards; }
+.stagger-in > *:nth-child(1) { animation-delay: 60ms; }
+.stagger-in > *:nth-child(2) { animation-delay: 140ms; }
+.stagger-in > *:nth-child(3) { animation-delay: 220ms; }
+.stagger-in > *:nth-child(4) { animation-delay: 300ms; }
+.stagger-in > *:nth-child(5) { animation-delay: 380ms; }
+.stagger-in > *:nth-child(6) { animation-delay: 460ms; }
+.stagger-in > *:nth-child(7) { animation-delay: 540ms; }
+.stagger-in > *:nth-child(8) { animation-delay: 620ms; }
+
+.repo-card {
+    transition: transform 220ms cubic-bezier(.2, .7, .3, 1), border-color 220ms;
+    will-change: transform;
+}
+.repo-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(125, 217, 110, 0.35) !important;
+}
+.repo-card:hover .repo-screenshot { transform: scale(1.015); }
+.repo-screenshot {
+    transition: transform 320ms cubic-bezier(.2, .7, .3, 1);
+    will-change: transform;
+}
+
+.link-slide { position: relative; }
+.link-slide::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 240ms cubic-bezier(.2, .7, .3, 1);
+}
+.link-slide:hover::after { transform: scaleX(1); }
+
+.commit-bar {
+    background: linear-gradient(180deg, var(--portfolio-accent), var(--portfolio-accent-dim));
+    transform-origin: bottom;
+    animation: barGrow 700ms cubic-bezier(.2, .7, .3, 1) both;
+}
+
+/* Reveal-on-scroll: starts invisible, fades up when .is-visible is added by IntersectionObserver */
+.reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 700ms cubic-bezier(.2, .7, .3, 1), transform 700ms cubic-bezier(.2, .7, .3, 1);
+}
+.reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 80ms; }
+.reveal-delay-2 { transition-delay: 160ms; }
+.reveal-delay-3 { transition-delay: 240ms; }
+
+/* Inertia page transitions */
+.page-fade {
+    animation: fadeIn 360ms cubic-bezier(.2, .7, .3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+    }
+}
