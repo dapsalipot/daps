@@ -16,10 +16,10 @@ import Screenshot from './screenshot';
  * no scroll listener. Transforms and opacity only, both GPU-composited.
  */
 
-const SPACING = 62;      // % of card width each neighbour steps aside
-const SCALE_STEP = 0.14; // scale lost per step from centre
-const OPACITY_STEP = 0.4;
-const ROTATE = 26;       // deg of Y-rotation per step
+const SPACING = 94;      // % of card width each neighbour steps aside
+const SCALE_STEP = 0.17; // scale lost per step from centre
+const OPACITY_STEP = 0.38;
+const ROTATE = 22;       // deg of Y-rotation per step
 const VISIBLE = 2;       // steps rendered either side of centre
 
 export default function WorkCarousel({ projects }: { projects: Project[] }) {
@@ -69,7 +69,7 @@ export default function WorkCarousel({ projects }: { projects: Project[] }) {
         >
             {/* Stage */}
             <div
-                className="relative mx-auto h-[310px] w-full max-w-[1400px] sm:h-[350px] lg:h-[364px]"
+                className="relative mx-auto h-[390px] w-full max-w-[1500px] sm:h-[430px] lg:h-[462px]"
                 style={{ perspective: '1800px' }}
             >
                 {projects.map((p, i) => {
@@ -88,7 +88,7 @@ export default function WorkCarousel({ projects }: { projects: Project[] }) {
                                 if (isActive) router.visit(`/projects/${p.slug}`);
                                 else setActive(i);
                             }}
-                            className={`absolute top-0 left-1/2 w-[78vw] max-w-[420px] sm:w-[52vw] lg:w-[400px] ${
+                            className={`absolute top-0 left-1/2 w-[80vw] max-w-[440px] sm:w-[54vw] lg:w-[430px] ${
                                 isActive ? 'cursor-pointer' : 'cursor-pointer'
                             }`}
                             style={{
