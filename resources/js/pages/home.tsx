@@ -61,10 +61,8 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* WORK CAROUSEL - starts inside the first screen so cards peek */}
-            <section className="relative overflow-hidden pt-2 pb-16">
-                <WorkCarousel projects={portfolio.projects} />
-            </section>
+            {/* WORK CAROUSEL - scroll-driven, pins while rotating */}
+            <WorkCarousel projects={portfolio.projects} />
 
             {/* NOW */}
             <section className="px-6 pt-6 pb-16 md:px-12">
