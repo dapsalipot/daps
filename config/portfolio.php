@@ -387,11 +387,18 @@ return [
             'case_study' => [
                 'problem' => 'Competition brief: design and build a web page inside a fixed time window, judged on-site by a panel.',
                 'role' => 'Sole designer and developer, representing Adamson University at the University of Makati.',
-                'outcome' => 'Placed 1st runner-up against roughly 30 competing schools. The entry itself was never published: submissions were retained by the organisers at the end of the competition, so no copy of the page or its source remains with me. The write-ups below are the record of it.',
+                'outcome' => 'Placed 1st runner-up against roughly 30 competing schools. The entry itself was never published: submissions were retained by the organisers at the end of the competition, so no copy of the page or its source remains with me. The organisers\' own winners announcement and the write-ups below are the record of it.',
                 'links' => ['live' => null, 'repo' => null],
                 'coverage' => [
                     ['label' => 'Adamson Chronicles on the win', 'url' => 'https://www.facebook.com/share/p/1DyfUPNG5H/'],
                     ['label' => 'I.T. Skills Olympics results announcement', 'url' => 'https://www.facebook.com/share/1CEBLHacXf/'],
+                ],
+                'screenshots' => [
+                    [
+                        'src' => '/projects/skills-olympics/olympics-1.jpg',
+                        'caption' => 'Official winners announcement from the 11th I.T. Skills Olympics, University of Makati - Web Design, 1st Runner-Up.',
+                        'alt' => '11th IT Skills Olympics Web Design winners graphic naming Daniel Andrei Salipot of Adamson University as 1st runner-up',
+                    ],
                 ],
             ],
         ],
