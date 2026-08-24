@@ -1,7 +1,5 @@
 import LangDot from '@/components/portfolio/lang-dot';
 import ProjectCardCompact from '@/components/portfolio/project-card-compact';
-import SectionHead from '@/components/portfolio/section-head';
-import TechMarquee from '@/components/portfolio/tech-marquee';
 import PortfolioLayout from '@/layouts/portfolio-layout';
 import { type SharedData } from '@/types';
 import { usePage } from '@inertiajs/react';
@@ -21,24 +19,26 @@ export default function ProjectsIndex() {
 
     return (
         <PortfolioLayout title="Work - Daniel Andrei Salipot" active="work">
-            <section className="px-6 pt-12 pb-8 md:px-12 md:pt-16 md:pb-10">
-                <span className="text-portfolio-accent font-mono text-[11px]">// 01 - selected_work</span>
-                <h1 className="text-fg mt-3.5 font-sans text-[48px] leading-none font-medium tracking-tight md:text-[80px]">
-                    Selected work, 2022 - 2026.
-                </h1>
-                <p className="text-fg-mid mt-4 max-w-2xl text-[16px]">
-                    {portfolio.projects.length} end-to-end builds: shipped production systems, active side projects, and academic work.
-                </p>
-            </section>
+            <div className="mx-auto w-full max-w-[1400px] px-6 md:px-12">
+                <section className="pt-20 pb-14 md:pt-28 md:pb-20">
+                    <h1 className="text-fg max-w-[16ch] font-sans text-[46px] leading-[1.03] font-semibold tracking-[-0.03em] md:text-[76px]">
+                        Selected work, 2022 to 2026.
+                    </h1>
+                    <p className="text-fg-mid mt-6 max-w-[52ch] text-[17px] leading-relaxed md:text-[19px]">
+                        {portfolio.projects.length} end-to-end builds: shipped production systems, active side
+                        projects, and academic work.
+                    </p>
+                </section>
 
-            <TechMarquee stacks={portfolio.projects.map((p) => p.stack)} />
-
-            <section className="px-6 pb-6 md:px-12">
-                <div className="text-fg-mid bg-bg-elev border-line flex flex-wrap items-center gap-3 rounded-lg border px-4 py-3 font-mono text-[12px]">
-                    <span className="text-portfolio-accent">$ filter</span>
+                <section className="border-line flex flex-wrap items-center gap-x-2 gap-y-3 border-t py-8">
                     <button
                         onClick={() => setFilter(null)}
-                        className={`hover:text-fg rounded-md px-2.5 py-1 transition-colors ${filter === null ? 'bg-fg text-bg' : ''}`}
+                        aria-pressed={filter === null}
+                        className={`rounded-full px-4 py-2 font-mono text-[12px] transition-colors ${
+                            filter === null
+                                ? 'bg-fg text-bg'
+                                : 'text-fg-mid hover:text-fg hover:bg-bg-elev'
+                        }`}
                     >
                         all
                     </button>
@@ -46,26 +46,40 @@ export default function ProjectsIndex() {
                         <button
                             key={l}
                             onClick={() => setFilter(l)}
-                            className={`hover:text-fg inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 transition-colors ${filter === l ? 'bg-fg text-bg' : ''}`}
+                            aria-pressed={filter === l}
+                            className={`inline-flex items-center gap-2 rounded-full px-4 py-2 font-mono text-[12px] transition-colors ${
+                                filter === l ? 'bg-fg text-bg' : 'text-fg-mid hover:text-fg hover:bg-bg-elev'
+                            }`}
                         >
                             <LangDot name={l} size={6} />
                             {l}
                         </button>
                     ))}
-                </div>
-            </section>
+                    <span className="text-fg-dim ml-auto font-mono text-[12px] tabular-nums">
+                        {filtered.length} of {portfolio.projects.length}
+                    </span>
+                </section>
 
-            <section className="px-6 pb-24 md:px-12">
-                <SectionHead n="02" title="grid" right={`${filtered.length} of ${portfolio.projects.length}`} />
-                <div className="stagger-in mt-7 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-                    {filtered.map((p) => (
-                        <ProjectCardCompact key={p.slug} project={p} />
-                    ))}
-                </div>
-                {filtered.length === 0 && (
-                    <div className="text-fg-mid mt-8 font-mono text-[13px]">No projects match this filter.</div>
-                )}
-            </section>
+                <section className="pt-4 pb-32">
+                    {filtered.length > 0 ? (
+                        <div className="stagger-in grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+                            {filtered.map((p) => (
+                                <ProjectCardCompact key={p.slug} project={p} />
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="border-line flex flex-col items-start gap-4 rounded-2xl border border-dashed px-8 py-16">
+                            <p className="text-fg text-[17px]">Nothing built with {filter} yet.</p>
+                            <button
+                                onClick={() => setFilter(null)}
+                                className="text-portfolio-accent font-mono text-[13px] underline underline-offset-4"
+                            >
+                                Show all work
+                            </button>
+                        </div>
+                    )}
+                </section>
+            </div>
         </PortfolioLayout>
     );
 }
