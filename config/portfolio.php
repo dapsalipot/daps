@@ -99,6 +99,38 @@ return [
                 'role' => 'Solo developer. API design, 24-table schema, queue ordering, matchup generation, ELO and co-play history tracking, real-time broadcasting, and the React Native client.',
                 'outcome' => 'Active build. Schema is frozen at v1 and documented. Core loop runs end to end: RSVP, bench queue with longest-wait-first ordering, matchup generation, set scoring, and ELO updates with history. Not yet released.',
                 'links' => ['live' => null, 'repo' => 'https://github.com/danielsalipot/ralli'],
+                'screenshots' => [
+                    [
+                        'src' => '/projects/ralli/ralli-web-2.jpg',
+                        'caption' => 'Live session floor. Courts show the teams currently playing with per-game timers; the panel suggests the next match by fairness or skill level, with match history beneath.',
+                        'alt' => 'Ralli session screen with two live badminton courts, team names, elapsed timers, and a match history list',
+                    ],
+                    [
+                        'src' => '/projects/ralli/ralli-web-3.jpg',
+                        'caption' => 'Queue and session stats. Longest-wait-first ordering with each player\'s games played and wait time, skill tags, and a resting list.',
+                        'alt' => 'Queue tab showing five waiting players ordered by wait time with skill level tags and session statistics',
+                    ],
+                    [
+                        'src' => '/projects/ralli/ralli-web-1.jpg',
+                        'caption' => 'Venue dashboard. The running session is surfaced first, with upcoming nights showing format, court count, and fee.',
+                        'alt' => 'Ralli dashboard listing a live session and three upcoming badminton sessions',
+                    ],
+                    [
+                        'src' => '/projects/ralli/ralli-mobile-2.jpg',
+                        'caption' => 'Host home on mobile. The live session shows elapsed time, players waiting, and collection progress against expected fees.',
+                        'alt' => 'Ralli mobile home screen with a live session card showing elapsed time and payment collection progress',
+                    ],
+                    [
+                        'src' => '/projects/ralli/ralli-mobile-4.jpg',
+                        'caption' => 'Player profile. Per-sport ELO with win, loss and streak record, match history, and a trust score aggregated from peer reviews.',
+                        'alt' => 'Ralli player profile showing badminton ELO, win and loss counts, and a trust score of 4.15 from five reviews',
+                    ],
+                    [
+                        'src' => '/projects/ralli/ralli-mobile-1.jpg',
+                        'caption' => 'Sign in. Email and password with Google OAuth as an alternative.',
+                        'alt' => 'Ralli mobile sign-in screen with email and password fields and a continue with Google button',
+                    ],
+                ],
                 'modules' => [
                     ['name' => 'Bench Queue', 'desc' => 'Longest-wait-first ordering with indexed hot-path queries on session, status, and join time'],
                     ['name' => 'Matchup Engine', 'desc' => 'Generates balanced pairings from the active bench, tracks per-set scoring'],
@@ -122,6 +154,38 @@ return [
                 'role' => 'Solo developer. Domain modelling across 23 models, host and joiner flows, reservation and waitlist logic, payment submission review, and QR-based meetup check-in.',
                 'outcome' => 'Active build. Host trip creation, departures with price tiers, joiner reservations, waitlists, and QR meetup check-in are working. Not yet released.',
                 'links' => ['live' => null, 'repo' => 'https://github.com/danielsalipot/terra'],
+                'screenshots' => [
+                    [
+                        'src' => '/projects/terra/terra-1.jpg',
+                        'caption' => 'Explore landing. Destination and host search over a full-bleed summit photo, with open trip and host counts.',
+                        'alt' => 'Terra landing page with a sunrise mountain photo, search bar, and counters reading 39 trips open and 12 hosts',
+                    ],
+                    [
+                        'src' => '/projects/terra/terra-4.jpg',
+                        'caption' => 'Trip page. Host profile and rating, a what-to-bring checklist, and a booking panel with per-departure spot counts and per-person pricing.',
+                        'alt' => 'Terra trip detail page for an island escape showing host, packing list, departure options, and a join trip button',
+                    ],
+                    [
+                        'src' => '/projects/terra/terra-2.jpg',
+                        'caption' => 'Joiner calendar. A month of departures with per-day trip counts, plus recovery for bookings made without an account.',
+                        'alt' => 'Terra booking calendar for August with trip thumbnails and trips-to-join labels on each day',
+                    ],
+                    [
+                        'src' => '/projects/terra/terra-3.jpg',
+                        'caption' => 'Day drill-down. Selecting a date lists that day\'s departures with progress through multi-day trips and peso pricing.',
+                        'alt' => 'Modal listing two trips available on a chosen date with prices and day-of-trip progress',
+                    ],
+                    [
+                        'src' => '/projects/terra/terra-5.jpg',
+                        'caption' => 'Host dashboard. Confirmed guests, payments awaiting confirmation, and unpaid holds above a schedule calendar showing capacity per departure.',
+                        'alt' => 'Terra host dashboard with counters for confirmed guests, payments to confirm, and holds awaiting payment',
+                    ],
+                    [
+                        'src' => '/projects/terra/terra-6.jpg',
+                        'caption' => 'Public host page. Trips led, guests hosted, followers and rating, with the host\'s published departures below.',
+                        'alt' => 'Public profile for a host organisation showing statistics and a grid of trips they lead',
+                    ],
+                ],
                 'modules' => [
                     ['name' => 'Trips & Departures', 'desc' => 'Trip drafts through published listings with destinations, inclusions, hike details, and tiered pricing'],
                     ['name' => 'Reservations', 'desc' => 'Slot booking with participant records and automatic waitlist promotion'],
@@ -181,6 +245,28 @@ return [
                 'role' => 'Solo build in C# WinForms against SQL Server. Designed the schema, the MDI shell and form navigation, the transaction and computation logic, receipt output, and role-based access across clerk, supervisor, and customer accounts.',
                 'outcome' => 'Delivered as coursework in 2019. My first database-backed application and the first time I owned a full CRUD and transaction flow end to end. Source is lost, only screenshots survive.',
                 'links' => ['live' => null, 'repo' => null],
+                'screenshots' => [
+                    [
+                        'src' => '/projects/akai-tsuki/akai-tsuki-3.jpg',
+                        'caption' => 'Point of sale. Item lookup and quantity on the left, cart and totals below, with the catalog tabbed across rings, necklaces, earrings, bracelets and watches. Computes 12% VAT, net total, and change, and stamps each sale with a transaction ID and cashier.',
+                        'alt' => 'Akai Tsuki point of sale form with item entry, cart, tax and total fields, and a tabbed jewelry catalog',
+                    ],
+                    [
+                        'src' => '/projects/akai-tsuki/akai-tsuki-2.jpg',
+                        'caption' => 'Shell and user accounts. Sidebar navigation across the modules, with the account form open over it and a status bar reporting the active form.',
+                        'alt' => 'Akai Tsuki application shell with a sidebar menu and the user account form open, listing clerk, supervisor and customer records',
+                    ],
+                    [
+                        'src' => '/projects/akai-tsuki/akai-tsuki-4.jpg',
+                        'caption' => 'Account management. Full create, update and delete over staff and customer records, searchable by username and typed by role and position.',
+                        'alt' => 'User account form with fields for user type, username, name and position beside a searchable records table',
+                    ],
+                    [
+                        'src' => '/projects/akai-tsuki/akai-tsuki-1.jpg',
+                        'caption' => 'Login. Password visibility toggle, routing each role to the forms it is permitted to open.',
+                        'alt' => 'Akai Tsuki login window with username and password fields under a red moon logo',
+                    ],
+                ],
                 'modules' => [
                     ['name' => 'Point of Sale', 'desc' => 'Item lookup by ID, quantity stepper, running cart, 12% VAT and net total, amount given with change computation'],
                     ['name' => 'Product Catalog', 'desc' => 'Tabbed browsing across rings, necklaces, earrings, bracelets, and watches with per-item photo, ID, and material description'],
@@ -204,6 +290,28 @@ return [
                 'role' => 'Solo build in PHP and MySQL. Designed the schema, the coordinate grid the map is drawn from, the reservation transaction flow, the membership approval queue, and the admin console.',
                 'outcome' => 'Delivered as coursework in 2021. The map renders every plot from stored coordinates with zoom, pan, and click-through to plot details, and a reservation ties a deceased record to an account and a specific grave. Source is archived locally and not published.',
                 'links' => ['live' => null, 'repo' => null],
+                'screenshots' => [
+                    [
+                        'src' => '/projects/ceresys/ceresys-3.jpg',
+                        'caption' => 'Reservation map. Every plot is drawn from stored coordinates and colour-coded available, occupied, or owned. Selecting one opens its photo, block code, and location description.',
+                        'alt' => 'Cemetery map with colour-coded grave markers, church, office and fountain landmarks, and a detail panel for grave 00129',
+                    ],
+                    [
+                        'src' => '/projects/ceresys/ceresys-2.jpg',
+                        'caption' => 'Member home after sign-in, with profile photo upload and the system\'s four capability summaries.',
+                        'alt' => 'Ceresys member home page with a profile picture upload control and four feature descriptions',
+                    ],
+                    [
+                        'src' => '/projects/ceresys/ceresys-1.jpg',
+                        'caption' => 'Entry screen. Login and signup over the cemetery photograph.',
+                        'alt' => 'Ceresys welcome screen with login and sign up buttons over a darkened cemetery photograph',
+                    ],
+                    [
+                        'src' => '/projects/ceresys/ceresys-4.jpg',
+                        'caption' => 'About page setting out the problem the system was built for: locating a relative\'s plot, and finding which plots are still available.',
+                        'alt' => 'Ceresys about page describing the objectives of the cemetery reservation system',
+                    ],
+                ],
                 'modules' => [
                     ['name' => 'Interactive Map', 'desc' => 'Plots drawn from stored X/Y coordinates with zoom, pan, per-plot click, and colour-coded availability across available, occupied, and owned'],
                     ['name' => 'Plot Registry', 'desc' => '178 graves across blocks A through G, each with a photo, block description, and landmark context such as the church, office, and fountain'],
