@@ -382,12 +382,12 @@ return [
             'blurb' => 'Competition entry - represented Adamson at the I.T. Skills Olympics 2022, U-Makati.',
             'stack' => ['html', 'css', 'figma'],
             'lang' => 'html', 'branch' => 'competition', 'hash' => 'f48d910',
-            'screenshot' => ['title' => 'olympics.entry', 'subtitle' => null, 'tone' => 'slate'],
+            'screenshot' => ['title' => 'not publicly available', 'subtitle' => null, 'tone' => 'slate'],
             'metrics' => [['1st', 'runner-up'], ['~30', 'schools'], ['U-Makati', 'venue']],
             'case_study' => [
-                'problem' => 'Competition brief: design a web page in a fixed time window evaluated by a panel.',
-                'role' => 'Sole designer + developer - represented Adamson University.',
-                'outcome' => '1st runner-up against ~30 schools.',
+                'problem' => 'Competition brief: design and build a web page inside a fixed time window, judged on-site by a panel.',
+                'role' => 'Sole designer and developer, representing Adamson University at the University of Makati.',
+                'outcome' => 'Placed 1st runner-up against roughly 30 competing schools. The entry itself was never published: submissions were retained by the organisers at the end of the competition, so no copy of the page or its source remains with me. The write-ups below are the record of it.',
                 'links' => ['live' => null, 'repo' => null],
                 'coverage' => [
                     ['label' => 'Adamson Chronicles on the win', 'url' => 'https://www.facebook.com/share/p/1DyfUPNG5H/'],

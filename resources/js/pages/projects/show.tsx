@@ -54,36 +54,33 @@ export default function ProjectShow({ project }: { project: Project }) {
                 </div>
             </section>
 
-            {/* Hero screenshot - real image if available, otherwise fallback gradient */}
+            {/* Hero. Real capture when one exists; otherwise a plain placeholder,
+                without inventing a filename or commit for something that has none. */}
             <section className="px-6 pb-10 md:px-12">
                 <Card pad={0} className="overflow-hidden">
-                    <RepoChrome
-                        filename={
-                            project.case_study.screenshots?.length
-                                ? project.case_study.screenshots[0].src.replace(/^\//, '')
-                                : `projects/${project.slug}/screenshots/01.png`
-                        }
-                        lang={project.lang}
-                        branch={project.branch}
-                        hash={project.hash}
-                    >
-                        {project.case_study.screenshots?.length ? (
+                    {project.case_study.screenshots?.length ? (
+                        <RepoChrome
+                            filename={project.case_study.screenshots[0].src.replace(/^\//, '')}
+                            lang={project.lang}
+                            branch={project.branch}
+                            hash={project.hash}
+                        >
                             <img
                                 src={project.case_study.screenshots[0].src}
                                 alt={project.case_study.screenshots[0].alt}
                                 className="block h-auto w-full"
                                 loading="eager"
                             />
-                        ) : (
-                            <Screenshot
-                                title={project.screenshot.title}
-                                subtitle={project.screenshot.subtitle}
-                                tone={project.screenshot.tone}
-                                ratio="16/9"
-                                style={{ borderRadius: 0, border: 'none' }}
-                            />
-                        )}
-                    </RepoChrome>
+                        </RepoChrome>
+                    ) : (
+                        <Screenshot
+                            title={project.screenshot.title}
+                            subtitle={project.screenshot.subtitle}
+                            tone={project.screenshot.tone}
+                            ratio="16/9"
+                            style={{ borderRadius: 0, border: 'none' }}
+                        />
+                    )}
                 </Card>
                 {project.case_study.screenshots?.length ? (
                     <p className="text-fg-dim mt-3 max-w-3xl font-mono text-[11px] leading-relaxed">
