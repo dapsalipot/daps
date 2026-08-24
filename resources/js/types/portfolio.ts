@@ -30,6 +30,8 @@ export interface Project {
         role: string;
         outcome: string;
         links: { live: string | null; repo: string | null };
+        /** External write-ups or announcements about the project. */
+        coverage?: { label: string; url: string }[];
         /** Optional list of major modules built. Renders as a labelled grid when present. */
         modules?: CaseStudyModule[];
         /** Optional real-product screenshots (path under /public). Replaces the placeholder Screenshot when present. */

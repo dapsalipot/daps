@@ -389,6 +389,10 @@ return [
                 'role' => 'Sole designer + developer - represented Adamson University.',
                 'outcome' => '1st runner-up against ~30 schools.',
                 'links' => ['live' => null, 'repo' => null],
+                'coverage' => [
+                    ['label' => 'Adamson Chronicles on the win', 'url' => 'https://www.facebook.com/share/p/1DyfUPNG5H/'],
+                    ['label' => 'I.T. Skills Olympics results announcement', 'url' => 'https://www.facebook.com/share/1CEBLHacXf/'],
+                ],
             ],
         ],
     ],

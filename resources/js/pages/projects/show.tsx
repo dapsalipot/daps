@@ -165,18 +165,57 @@ export default function ProjectShow({ project }: { project: Project }) {
             ) : null}
 
             <section className="px-6 pb-20 md:px-12">
-                {(project.case_study.links.live || project.case_study.links.repo) && (
-                    <div className="border-line flex flex-wrap gap-3 border-t pt-10">
-                        {project.case_study.links.live && (
-                            <Button kind="accent" size="lg" trailing={<ExtIcon />} as="a" href={project.case_study.links.live}>
-                                visit live
-                            </Button>
+                {(project.case_study.links.live ||
+                    project.case_study.links.repo ||
+                    project.case_study.coverage?.length) && (
+                    <div className="border-line flex flex-col gap-6 border-t pt-10">
+                        {(project.case_study.links.live || project.case_study.links.repo) && (
+                            <div className="flex flex-wrap gap-3">
+                                {project.case_study.links.live && (
+                                    <Button
+                                        kind="accent"
+                                        size="lg"
+                                        trailing={<ExtIcon />}
+                                        as="a"
+                                        href={project.case_study.links.live}
+                                    >
+                                        visit live
+                                    </Button>
+                                )}
+                                {project.case_study.links.repo && (
+                                    <Button
+                                        kind="secondary"
+                                        size="lg"
+                                        trailing={<ExtIcon />}
+                                        as="a"
+                                        href={project.case_study.links.repo}
+                                    >
+                                        view repo
+                                    </Button>
+                                )}
+                            </div>
                         )}
-                        {project.case_study.links.repo && (
-                            <Button kind="secondary" size="lg" trailing={<ExtIcon />} as="a" href={project.case_study.links.repo}>
-                                view repo
-                            </Button>
-                        )}
+
+                        {project.case_study.coverage?.length ? (
+                            <div>
+                                <span className="text-fg-dim font-mono text-[10.5px]">coverage</span>
+                                <ul className="mt-3 flex list-none flex-col gap-2 p-0">
+                                    {project.case_study.coverage.map((c) => (
+                                        <li key={c.url}>
+                                            <a
+                                                href={c.url}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                className="text-fg-mid hover:text-fg inline-flex items-center gap-2 text-[15px] transition-colors"
+                                            >
+                                                {c.label}
+                                                <ExtIcon size={12} />
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ) : null}
                     </div>
                 )}
             </section>
