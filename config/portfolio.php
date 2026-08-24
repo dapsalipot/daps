@@ -230,6 +230,28 @@ return [
                 'role' => 'Team developer - Laravel + Bootstrap implementation.',
                 'outcome' => 'Public informational site supporting visibility of the tribe and its traditions.',
                 'links' => ['live' => null, 'repo' => null],
+                'screenshots' => [
+                    [
+                        'src' => '/projects/dumagat-remontado/dumagat-1.jpg',
+                        'caption' => 'Landing page. Title treatment and introduction over a full-bleed photograph from the community visit.',
+                        'alt' => 'Dumagat site landing page with the heading The Dumagat and a Learn More link over a forest photograph',
+                    ],
+                    [
+                        'src' => '/projects/dumagat-remontado/dumagat-2.jpg',
+                        'caption' => 'About section. Tabbed across About, Culture, and Environment, pairing written material with photographs from the visit.',
+                        'alt' => 'About tab showing text about indigenous peoples beside a photograph of community members',
+                    ],
+                    [
+                        'src' => '/projects/dumagat-remontado/dumagat-3.jpg',
+                        'caption' => 'Culture tab. Embedded video from the community alongside the accompanying write-up.',
+                        'alt' => 'Culture tab with an embedded video player and a column of descriptive text',
+                    ],
+                    [
+                        'src' => '/projects/dumagat-remontado/dumagat-4.jpg',
+                        'caption' => 'Gallery. Framed grid documenting the outreach visit, the community, and the surrounding area.',
+                        'alt' => 'Photo gallery grid showing scenes from the outreach programme and the community',
+                    ],
+                ],
             ],
         ],
         [
