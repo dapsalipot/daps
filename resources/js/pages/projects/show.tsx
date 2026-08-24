@@ -1,7 +1,7 @@
 import Button from '@/components/portfolio/button';
 import Card from '@/components/portfolio/card';
 import Chip from '@/components/portfolio/chip';
-import { ArrowIcon, ExtIcon } from '@/components/portfolio/icons';
+import { ArrowIcon, ArrowNEIcon, ExtIcon } from '@/components/portfolio/icons';
 import LangDot from '@/components/portfolio/lang-dot';
 import RepoChrome from '@/components/portfolio/repo-chrome';
 import Screenshot from '@/components/portfolio/screenshot';
@@ -161,61 +161,75 @@ export default function ProjectShow({ project }: { project: Project }) {
                 </section>
             ) : null}
 
-            <section className="px-6 pb-20 md:px-12">
-                {(project.case_study.links.live ||
-                    project.case_study.links.repo ||
-                    project.case_study.coverage?.length) && (
-                    <div className="border-line flex flex-col gap-6 border-t pt-10">
-                        {(project.case_study.links.live || project.case_study.links.repo) && (
-                            <div className="flex flex-wrap gap-3">
-                                {project.case_study.links.live && (
-                                    <Button
-                                        kind="accent"
-                                        size="lg"
-                                        trailing={<ExtIcon />}
-                                        as="a"
-                                        href={project.case_study.links.live}
-                                    >
-                                        visit live
-                                    </Button>
-                                )}
-                                {project.case_study.links.repo && (
-                                    <Button
-                                        kind="secondary"
-                                        size="lg"
-                                        trailing={<ExtIcon />}
-                                        as="a"
-                                        href={project.case_study.links.repo}
-                                    >
-                                        view repo
-                                    </Button>
-                                )}
-                            </div>
+            {/* Actions */}
+            {project.case_study.links.live || project.case_study.links.repo ? (
+                <section className="px-6 pb-10 md:px-12">
+                    <div className="border-line flex flex-wrap gap-3 border-t pt-10">
+                        {project.case_study.links.live && (
+                            <Button
+                                kind="accent"
+                                size="lg"
+                                trailing={<ExtIcon />}
+                                as="a"
+                                href={project.case_study.links.live}
+                            >
+                                visit live
+                            </Button>
                         )}
-
-                        {project.case_study.coverage?.length ? (
-                            <div>
-                                <span className="text-fg-dim font-mono text-[10.5px]">coverage</span>
-                                <ul className="mt-3 flex list-none flex-col gap-2 p-0">
-                                    {project.case_study.coverage.map((c) => (
-                                        <li key={c.url}>
-                                            <a
-                                                href={c.url}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                                className="text-fg-mid hover:text-fg inline-flex items-center gap-2 text-[15px] transition-colors"
-                                            >
-                                                {c.label}
-                                                <ExtIcon size={12} />
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        ) : null}
+                        {project.case_study.links.repo && (
+                            <Button
+                                kind="secondary"
+                                size="lg"
+                                trailing={<ExtIcon />}
+                                as="a"
+                                href={project.case_study.links.repo}
+                            >
+                                view repo
+                            </Button>
+                        )}
                     </div>
-                )}
-            </section>
+                </section>
+            ) : null}
+
+            {/* Coverage. For work with no shippable artifact this is the record,
+                so it gets a section of its own rather than a footnote. */}
+            {project.case_study.coverage?.length ? (
+                <section className="px-6 pb-24 md:px-12">
+                    <div className="border-line border-t pt-12">
+                        <h2 className="text-fg font-sans text-[28px] leading-tight font-semibold tracking-[-0.02em] md:text-[34px]">
+                            Written about
+                        </h2>
+                        <p className="text-fg-mid mt-3 max-w-[54ch] text-[16px] leading-relaxed">
+                            Independent coverage of this work.
+                        </p>
+
+                        <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
+                            {project.case_study.coverage.map((c) => (
+                                <a
+                                    key={c.url}
+                                    href={c.url}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="group border-line bg-bg-elev hover:border-portfolio-accent/40 flex items-start justify-between gap-5 rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-0.5"
+                                >
+                                    <div className="min-w-0">
+                                        <span className="text-fg-dim font-mono text-[10.5px]">
+                                            {new URL(c.url).hostname.replace(/^www\./, '')}
+                                        </span>
+                                        <div className="text-fg group-hover:text-portfolio-accent mt-2 text-[17px] leading-snug font-medium tracking-tight transition-colors">
+                                            {c.label}
+                                        </div>
+                                    </div>
+                                    <span className="text-fg-dim group-hover:text-portfolio-accent mt-1 shrink-0 transition-colors">
+                                        <ArrowNEIcon size={17} />
+                                    </span>
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            ) : null}
+
         </PortfolioLayout>
     );
 }
