@@ -16,9 +16,9 @@ export default function Home() {
     return (
         <PortfolioLayout title="Daniel Andrei Salipot - Portfolio" active="home">
             {/* HERO */}
-            <section className="relative flex min-h-[72dvh] flex-col items-center justify-center overflow-hidden px-6 pt-16 pb-6 text-center md:px-12 md:pt-20">
+            <section className="relative flex min-h-[72dvh] flex-col items-center justify-center px-6 pt-16 pb-6 text-center md:px-12 md:pt-20">
                 <div
-                    className="pointer-events-none absolute inset-0"
+                    className="pointer-events-none absolute -top-28 right-0 bottom-0 left-0"
                     style={{
                         background:
                             'radial-gradient(ellipse 80% 55% at 50% 0%, var(--portfolio-accent-sage), transparent 70%)',
