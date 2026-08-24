@@ -1,7 +1,7 @@
 import { NAV_ITEMS, type NavKey } from '@/lib/nav-items';
 import { type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { CloseIcon, MenuIcon } from './icons';
 import Kbd from './kbd';
 import Mark from './mark';
@@ -15,6 +15,19 @@ interface NavProps {
 export default function Nav({ active }: NavProps) {
     const { portfolio } = usePage<SharedData>().props;
     const [drawerOpen, setDrawerOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
+    const sentinel = useRef<HTMLDivElement>(null);
+
+    // A zero-height marker at the very top of the document. While it is in
+    // view the page is unscrolled and the bar stays transparent over the hero.
+    // IntersectionObserver rather than a scroll listener, so nothing runs per frame.
+    useEffect(() => {
+        const el = sentinel.current;
+        if (!el) return;
+        const observer = new IntersectionObserver(([entry]) => setScrolled(!entry.isIntersecting));
+        observer.observe(el);
+        return () => observer.disconnect();
+    }, []);
 
     // Close on route change (Inertia's success event fires after navigation completes).
     // Also locks body scroll while open so the page underneath doesn't move.
@@ -32,7 +45,13 @@ export default function Nav({ active }: NavProps) {
 
     return (
         <>
-            <nav className="border-line bg-bg/80 sticky top-0 z-40 flex items-center justify-between border-b px-6 py-4 backdrop-blur md:px-12 md:py-5">
+            <div ref={sentinel} aria-hidden="true" className="pointer-events-none absolute top-0 h-px w-full" />
+
+            <nav
+                className={`sticky top-0 z-40 flex items-center justify-between px-6 py-4 transition-colors duration-300 md:px-12 md:py-5 ${
+                    scrolled ? 'border-line bg-bg/80 border-b backdrop-blur' : 'border-b border-transparent bg-transparent'
+                }`}
+            >
                 <div className="flex items-center gap-7">
                     <Link href="/">
                         <Mark handle={portfolio.identity.handle} />
