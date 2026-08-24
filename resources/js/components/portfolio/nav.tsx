@@ -48,11 +48,11 @@ export default function Nav({ active }: NavProps) {
             <div ref={sentinel} aria-hidden="true" className="pointer-events-none absolute top-0 h-px w-full" />
 
             <nav
-                className={`sticky top-0 z-40 flex items-center justify-between bg-transparent px-6 py-4 transition-colors duration-300 md:px-12 md:py-5 ${
+                className={`sticky top-0 z-40 grid grid-cols-[1fr_auto_1fr] items-center bg-transparent px-6 py-4 transition-colors duration-300 md:px-12 md:py-5 ${
                     scrolled ? 'border-line border-b backdrop-blur' : 'border-b border-transparent'
                 }`}
             >
-                <div className="flex items-center gap-7">
+                <div className="flex items-center gap-7 justify-self-start">
                     <Link href="/">
                         <Mark handle={portfolio.identity.handle} />
                     </Link>
@@ -62,7 +62,7 @@ export default function Nav({ active }: NavProps) {
                 </div>
 
                 {/* Desktop nav links */}
-                <div className="hidden items-center font-mono text-[12px] md:flex">
+                <div className="hidden items-center font-mono text-[12px] justify-self-center md:flex">
                     {NAV_ITEMS.map((it) => (
                         <Link
                             key={it.k}
@@ -76,7 +76,7 @@ export default function Nav({ active }: NavProps) {
                     ))}
                 </div>
 
-                <div className="flex items-center gap-2.5 md:gap-3.5">
+                <div className="flex items-center gap-2.5 justify-self-end md:gap-3.5">
                     <ThemeToggle />
                     <button
                         type="button"
