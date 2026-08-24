@@ -48,8 +48,8 @@ export default function Nav({ active }: NavProps) {
             <div ref={sentinel} aria-hidden="true" className="pointer-events-none absolute top-0 h-px w-full" />
 
             <nav
-                className={`sticky top-0 z-40 flex items-center justify-between px-6 py-4 transition-colors duration-300 md:px-12 md:py-5 ${
-                    scrolled ? 'border-line bg-bg/80 border-b backdrop-blur' : 'border-b border-transparent bg-transparent'
+                className={`sticky top-0 z-40 flex items-center justify-between bg-transparent px-6 py-4 transition-colors duration-300 md:px-12 md:py-5 ${
+                    scrolled ? 'border-line border-b backdrop-blur' : 'border-b border-transparent'
                 }`}
             >
                 <div className="flex items-center gap-7">
