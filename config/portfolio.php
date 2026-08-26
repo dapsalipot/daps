@@ -3,7 +3,7 @@
 return [
     'identity' => [
         'name'   => 'Daniel Andrei Salipot',
-        'handle' => 'daniel.salipot',
+        'handle' => 'daniel.andrei.salipot',
         'role'   => 'Backend developer building production systems end to end, from database design to hardware.',
         'tagline' => 'Backend developer. End-to-end ownership.',
         'location' => ['city' => 'Marilao, Bulacan, PH', 'tz' => 'UTC+8'],

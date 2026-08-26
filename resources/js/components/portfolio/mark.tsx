@@ -1,5 +1,14 @@
-export default function Mark({ only = false, handle = 'daniel.salipot' }: { only?: boolean; handle?: string }) {
-    const [first, dot] = handle.split('.');
+export default function Mark({
+    only = false,
+    handle = 'daniel.andrei.salipot',
+}: {
+    only?: boolean;
+    handle?: string;
+}) {
+    // First segment carries full weight; the rest trail off dimmed, so the
+    // wordmark reads the same whether the handle has two segments or four.
+    const [first, ...rest] = handle.split('.');
+
     return (
         <div className="inline-flex items-center gap-2.5 text-fg">
             <span className="bg-fg text-bg border-line inline-flex border px-1.5 py-1 font-mono text-[12px] font-semibold leading-none tracking-tight">
@@ -8,7 +17,7 @@ export default function Mark({ only = false, handle = 'daniel.salipot' }: { only
             {!only && (
                 <span className="font-mono text-[13px] font-medium tracking-tight">
                     {first}
-                    <span className="text-fg-dim">.{dot}</span>
+                    {rest.length > 0 && <span className="text-fg-dim">.{rest.join('.')}</span>}
                 </span>
             )}
         </div>
