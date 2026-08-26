@@ -61,16 +61,19 @@ return [
                     ],
                     [
                         'src' => '/projects/ralli/ralli-mobile-2.jpg',
+                        'portrait' => true,
                         'caption' => 'Host home on mobile. The live session shows elapsed time, players waiting, and collection progress against expected fees.',
                         'alt' => 'Ralli mobile home screen with a live session card showing elapsed time and payment collection progress',
                     ],
                     [
                         'src' => '/projects/ralli/ralli-mobile-4.jpg',
+                        'portrait' => true,
                         'caption' => 'Player profile. Per-sport ELO with win, loss and streak record, match history, and a trust score aggregated from peer reviews.',
                         'alt' => 'Ralli player profile showing badminton ELO, win and loss counts, and a trust score of 4.15 from five reviews',
                     ],
                     [
                         'src' => '/projects/ralli/ralli-mobile-1.jpg',
+                        'portrait' => true,
                         'caption' => 'Sign in. Email and password with Google OAuth as an alternative.',
                         'alt' => 'Ralli mobile sign-in screen with email and password fields and a continue with Google button',
                     ],
@@ -280,7 +283,6 @@ return [
                 ],
             ],
         ],
-    ],
         [
             'slug' => 'ceresys', 'name' => 'Ceresys', 'kicker' => 'Cemetery reservation system',
             'year' => '2021', 'featured' => false, 'tag' => 'Coursework',
@@ -403,7 +405,7 @@ return [
                 ],
             ],
         ],
-
+    ],
     'stack' => [
         'backend'        => [['Laravel', 'primary'], ['PHP', 'primary'], ['Livewire', 'daily'], ['Filament', 'daily'], ['REST APIs', 'design + build']],
         'data'           => [['MySQL', 'primary'], ['Schema design', 'normalization'], ['Indexing', 'composite'], ['Query optimization', 'N+1 resolution'], ['Multi-tenant', 'db-per-tenant']],

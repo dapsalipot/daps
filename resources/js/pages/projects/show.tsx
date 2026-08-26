@@ -13,6 +13,7 @@ import { Link } from '@inertiajs/react';
 export default function ProjectShow({ project }: { project: Project }) {
     return (
         <PortfolioLayout title={`${project.name} - Case study`} active="work">
+            <div className="mx-auto w-full max-w-[1200px]">
             <section className="px-6 pt-12 pb-8 md:px-12 md:pt-16 md:pb-10">
                 <Link href="/projects" className="link-slide text-fg-mid inline-flex items-center gap-1.5 font-mono text-[11px]">
                     <ArrowIcon className="rotate-180" /> all projects
@@ -126,7 +127,8 @@ export default function ProjectShow({ project }: { project: Project }) {
                 </section>
             ) : null}
 
-            {/* Screenshot gallery - only renders extras beyond the hero shot */}
+            {/* Screenshot gallery. Portrait phone captures tile three-up; wide
+                captures keep the full column so detail stays readable. */}
             {project.case_study.screenshots && project.case_study.screenshots.length > 1 ? (
                 <section className="px-6 pb-10 md:px-12">
                     <SectionHead
@@ -134,26 +136,29 @@ export default function ProjectShow({ project }: { project: Project }) {
                         title="screenshots"
                         right={`${project.case_study.screenshots.length - 1} more`}
                     />
-                    <div className="mt-7 flex flex-col gap-8">
-                        {project.case_study.screenshots.slice(1).map((s, i) => (
-                            <figure key={s.src} className="flex flex-col gap-3">
+                    <div className="mt-7 grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
+                        {project.case_study.screenshots.slice(1).map((shot, i) => (
+                            <figure
+                                key={shot.src}
+                                className={`flex flex-col gap-3 ${shot.portrait ? 'md:col-span-1' : 'md:col-span-3'}`}
+                            >
                                 <Card pad={0} className="overflow-hidden">
                                     <RepoChrome
-                                        filename={s.src.replace(/^\//, '')}
+                                        filename={shot.src.replace(/^\//, '')}
                                         lang={project.lang}
                                         branch={project.branch}
                                         hash={`${project.hash.slice(0, -1)}${i + 1}`}
                                     >
                                         <img
-                                            src={s.src}
-                                            alt={s.alt}
+                                            src={shot.src}
+                                            alt={shot.alt}
                                             className="block h-auto w-full"
                                             loading="lazy"
                                         />
                                     </RepoChrome>
                                 </Card>
                                 <figcaption className="text-fg-dim max-w-3xl font-mono text-[11px] leading-relaxed">
-                                    ↳ {s.caption}
+                                    ↳ {shot.caption}
                                 </figcaption>
                             </figure>
                         ))}
@@ -230,6 +235,7 @@ export default function ProjectShow({ project }: { project: Project }) {
                 </section>
             ) : null}
 
+            </div>
         </PortfolioLayout>
     );
 }

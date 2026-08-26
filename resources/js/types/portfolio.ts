@@ -4,6 +4,8 @@ export interface CaseStudyScreenshot {
     src: string;
     caption: string;
     alt: string;
+    /** Portrait captures (phone screens) tile three-up instead of running full width. */
+    portrait?: boolean;
 }
 
 export interface CaseStudyModule {
