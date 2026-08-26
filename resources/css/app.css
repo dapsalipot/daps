@@ -366,3 +366,38 @@
         transition-duration: 0.001ms !important;
     }
 }
+
+/* ──────────────────────────────────────────────────────────────
+   Logo splash. Mark settles, holds, then the overlay lifts to the
+   hero already composed beneath it.
+   ────────────────────────────────────────────────────────────── */
+.splash {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    opacity: 1;
+    transition: opacity 640ms cubic-bezier(.4, 0, .2, 1);
+}
+.splash.is-lifting { opacity: 0; }
+
+@keyframes splashMarkIn {
+    from { opacity: 0; transform: scale(1.72); }
+    to   { opacity: 1; transform: scale(1.9); }
+}
+
+.splash-mark {
+    transform: scale(1.9);
+    transform-origin: center;
+    animation: splashMarkIn 560ms cubic-bezier(.2, .7, .3, 1) both;
+    transition: transform 640ms cubic-bezier(.4, 0, .2, 1), opacity 640ms cubic-bezier(.4, 0, .2, 1);
+    will-change: transform, opacity;
+}
+.splash.is-lifting .splash-mark {
+    animation: none;
+    transform: scale(2.15);
+    opacity: 0;
+}

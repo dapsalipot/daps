@@ -1,5 +1,5 @@
 import CommandPalette from '@/components/portfolio/command-palette';
-import BootSequence from '@/components/portfolio/boot-sequence';
+import LogoSplash from '@/components/portfolio/logo-splash';
 import Footer from '@/components/portfolio/footer';
 import GridBackground from '@/components/portfolio/grid-background';
 import Nav from '@/components/portfolio/nav';
@@ -22,7 +22,7 @@ export default function PortfolioLayout({ children, title, active }: PortfolioLa
     return (
         <>
             <Head title={title} />
-            <BootSequence />
+            <LogoSplash />
             <GridBackground />
             <ScrollProgress />
             <div className="text-fg relative z-10 min-h-screen">
