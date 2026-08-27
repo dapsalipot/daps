@@ -12,7 +12,7 @@ interface SectionHeadProps {
 export default function SectionHead({ n, title, right, headline, kicker, icon }: SectionHeadProps) {
     return (
         <div className="anim-fadeUp">
-            <div className="flex items-stretch font-mono text-[11.5px]">
+            <div className="flex items-stretch font-mono text-[12px]">
                 <div className="bg-bg-elev text-fg border-line relative -mb-px inline-flex items-center gap-2 rounded-t-md border border-b-0 px-3.5 py-2">
                     <span
                         className="bg-portfolio-accent h-1.5 w-1.5 rounded-full"
@@ -37,7 +37,7 @@ export default function SectionHead({ n, title, right, headline, kicker, icon }:
                     {headline && (
                         <h2 className="text-fg m-0 font-sans text-[36px] leading-[1.05] font-medium tracking-tight">{headline}</h2>
                     )}
-                    {kicker && <span className="text-fg-dim font-mono text-[11px] whitespace-nowrap">{kicker}</span>}
+                    {kicker && <span className="text-fg-dim font-mono text-[12px] whitespace-nowrap">{kicker}</span>}
                 </div>
             )}
         </div>

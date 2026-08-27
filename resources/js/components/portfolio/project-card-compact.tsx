@@ -43,14 +43,14 @@ export default function ProjectCardCompact({ project }: { project: Project }) {
             <div className="flex flex-1 flex-col p-6">
                 <div className="flex items-baseline justify-between gap-4">
                     <h3 className="text-fg text-[19px] leading-tight font-medium tracking-tight">{project.name}</h3>
-                    <span className="text-fg-dim shrink-0 font-mono text-[11px] tabular-nums">{project.year}</span>
+                    <span className="text-fg-dim shrink-0 font-mono text-[12px] tabular-nums">{project.year}</span>
                 </div>
 
                 {project.tag && (
-                    <span className="text-portfolio-accent mt-1.5 font-mono text-[11px]">{project.tag}</span>
+                    <span className="text-portfolio-accent mt-1.5 font-mono text-[12px]">{project.tag}</span>
                 )}
 
-                <p className="text-fg-mid mt-3 line-clamp-2 text-[13.5px] leading-relaxed">{project.blurb}</p>
+                <p className="text-fg-mid mt-3 line-clamp-2 text-[14px] leading-relaxed">{project.blurb}</p>
 
                 <div className="mt-6 flex items-center justify-between gap-3">
                     <div className="flex flex-wrap gap-1.5">

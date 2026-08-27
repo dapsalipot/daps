@@ -123,7 +123,7 @@ export default function CommandPalette() {
                         autoComplete="off"
                         spellCheck="false"
                     />
-                    <span className="text-fg-dim hidden font-mono text-[10px] sm:inline">ESC to close</span>
+                    <span className="text-fg-dim hidden font-mono text-[12px] sm:inline">ESC to close</span>
                 </div>
 
                 {/* Results */}
@@ -148,11 +148,11 @@ export default function CommandPalette() {
                             >
                                 <KindBadge kind={e.kind} />
                                 <div className="min-w-0 flex-1">
-                                    <div className="text-fg truncate text-[13.5px] font-medium">{e.label}</div>
-                                    {e.sub && <div className="text-fg-dim truncate font-mono text-[11px]">{e.sub}</div>}
+                                    <div className="text-fg truncate text-[14px] font-medium">{e.label}</div>
+                                    {e.sub && <div className="text-fg-dim truncate font-mono text-[12px]">{e.sub}</div>}
                                 </div>
                                 {idx === selected && (
-                                    <span className="text-fg-dim font-mono text-[10px]">⏎</span>
+                                    <span className="text-fg-dim font-mono text-[12px]">⏎</span>
                                 )}
                             </button>
                         </li>
@@ -160,7 +160,7 @@ export default function CommandPalette() {
                 </ul>
 
                 {/* Footer hints */}
-                <div className="border-line text-fg-dim flex items-center justify-between border-t px-4 py-2 font-mono text-[10.5px]">
+                <div className="border-line text-fg-dim flex items-center justify-between border-t px-4 py-2 font-mono text-[12px]">
                     <span>{filtered.length} of {entries.length}</span>
                     <span className="flex items-center gap-3">
                         <span>↑↓ navigate</span>
@@ -179,7 +179,7 @@ function KindBadge({ kind }: { kind: PaletteEntry['kind'] }) {
         action: 'bg-bg text-fg-mid border-line',
     };
     return (
-        <span className={`inline-flex w-[60px] justify-center rounded border px-1.5 py-1 font-mono text-[9.5px] uppercase tracking-wider ${styles[kind]}`}>
+        <span className={`inline-flex w-[72px] justify-center rounded border px-1.5 py-1 font-mono text-[12px] uppercase tracking-wider ${styles[kind]}`}>
             {kind}
         </span>
     );

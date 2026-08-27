@@ -161,7 +161,7 @@ export default function WorkCarousel({ projects }: { projects: Project[] }) {
                                                 ))}
                                             </div>
                                             {isActive && (
-                                                <span className="bg-portfolio-accent inline-flex shrink-0 items-center gap-1.5 rounded-full px-4 py-2 text-[13.5px] font-medium text-[#0A0A0A] transition group-hover:opacity-90">
+                                                <span className="bg-portfolio-accent inline-flex shrink-0 items-center gap-1.5 rounded-full px-4 py-2 text-[14px] font-medium text-on-accent transition group-hover:opacity-90">
                                                     View project
                                                     <ArrowIcon size={13} />
                                                 </span>

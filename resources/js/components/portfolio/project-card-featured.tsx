@@ -38,9 +38,9 @@ export default function ProjectCardFeatured({ project }: { project: Project }) {
                 <div className="flex items-baseline justify-between">
                     <div className="flex items-center gap-2">
                         <Chip tone="accent">case study</Chip>
-                        {project.tag && <span className="text-fg-mid font-mono text-[11px]">{project.tag}</span>}
+                        {project.tag && <span className="text-fg-mid font-mono text-[12px]">{project.tag}</span>}
                     </div>
-                    <span className="text-fg-dim font-mono text-[11px]">{project.year}</span>
+                    <span className="text-fg-dim font-mono text-[12px]">{project.year}</span>
                 </div>
 
                 <div>
@@ -61,7 +61,7 @@ export default function ProjectCardFeatured({ project }: { project: Project }) {
                     </div>
                     <Link
                         href={`/projects/${project.slug}`}
-                        className="link-slide text-fg inline-flex cursor-pointer items-center gap-1.5 font-mono text-[11px]"
+                        className="link-slide text-fg inline-flex cursor-pointer items-center gap-1.5 font-mono text-[12px]"
                     >
                         read case study <ArrowIcon size={11} />
                     </Link>
@@ -75,14 +75,14 @@ export default function ProjectCardFeatured({ project }: { project: Project }) {
                         {project.metrics.map(([n, l]) => (
                             <div key={l}>
                                 <div className="text-portfolio-accent text-[20px] font-medium tracking-tight">{n}</div>
-                                <span className="text-fg-dim font-mono text-[10.5px]">{l}</span>
+                                <span className="text-fg-dim font-mono text-[12px]">{l}</span>
                             </div>
                         ))}
                     </div>
                 )}
             </div>
 
-            <div className="border-line bg-bg-elev-2 text-fg-dim mt-auto flex items-center justify-between border-t px-4 py-2 font-mono text-[10.5px]">
+            <div className="border-line bg-bg-elev-2 text-fg-dim mt-auto flex items-center justify-between border-t px-4 py-2 font-mono text-[12px]">
                 <span className="inline-flex items-center gap-3">
                     <span className="inline-flex items-center gap-1.5">
                         <span className="bg-portfolio-accent h-1.5 w-1.5 rounded-full" /> deployed

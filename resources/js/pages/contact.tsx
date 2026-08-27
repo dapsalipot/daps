@@ -27,7 +27,7 @@ export default function Contact() {
     return (
         <PortfolioLayout title="Contact - Daniel Andrei Salipot" active="contact">
             <section className="max-w-5xl px-6 pt-12 pb-8 md:px-12 md:pt-16 md:pb-10">
-                <span className="text-portfolio-accent font-mono text-[11px]">// 01 - contact</span>
+                <span className="text-portfolio-accent font-mono text-[12px]">// 01 - contact</span>
                 <h1 className="text-fg mt-3.5 font-sans text-[48px] leading-none font-medium tracking-tight md:text-[80px]">
                     Contact.
                 </h1>
@@ -95,7 +95,7 @@ export default function Contact() {
                             aria-hidden="true"
                         />
                         <div className="flex items-center justify-end gap-2.5 md:col-span-2">
-                            <span className="text-fg-dim mr-auto font-mono text-[11px]">replies within 48h</span>
+                            <span className="text-fg-dim mr-auto font-mono text-[12px]">replies within 48h</span>
                             <Button kind="accent" size="lg" type="submit" disabled={processing} trailing={<ArrowNEIcon />}>
                                 {processing ? 'sending…' : 'send message'}
                             </Button>
@@ -105,7 +105,7 @@ export default function Contact() {
 
                 <div className="flex flex-col gap-4">
                     <Card pad={22}>
-                        <span className="text-portfolio-accent font-mono text-[11px]">// or skip the form</span>
+                        <span className="text-portfolio-accent font-mono text-[12px]">// or skip the form</span>
                         <ul className="mt-3.5 flex list-none flex-col gap-2.5 p-0">
                             <li>
                                 <a href={`mailto:${portfolio.links.email}`} className="ulink link-slide text-[14px]">
@@ -143,9 +143,9 @@ export default function Contact() {
 function Field({ label, error, children }: { label: string; error?: string; children: ReactNode }) {
     return (
         <label className="block">
-            <span className="text-fg-dim font-mono text-[11px]">{label}</span>
+            <span className="text-fg-dim font-mono text-[12px]">{label}</span>
             <div className="mt-1.5">{children}</div>
-            {error && <span className="mt-1 block font-mono text-[11px] text-red-400">{error}</span>}
+            {error && <span className="mt-1 block font-mono text-[12px] text-red-400">{error}</span>}
         </label>
     );
 }

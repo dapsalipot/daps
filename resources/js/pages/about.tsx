@@ -13,7 +13,7 @@ export default function About() {
         <PortfolioLayout title="About - Daniel Andrei Salipot" active="about">
             <section className="grid grid-cols-1 items-end gap-12 px-6 pt-12 pb-10 md:px-12 md:pt-16 md:pb-14 lg:grid-cols-[1.5fr_1fr]">
                 <div>
-                    <span className="text-portfolio-accent font-mono text-[11px]">// 01 - about</span>
+                    <span className="text-portfolio-accent font-mono text-[12px]">// 01 - about</span>
                     <h1 className="text-fg mt-3.5 font-sans text-[48px] leading-none font-medium tracking-tight md:text-[80px]">
                         Backend developer.
                         <br />
@@ -28,7 +28,7 @@ export default function About() {
                         <div className="text-portfolio-accent absolute inset-0 flex items-center justify-center font-sans text-[120px] font-medium tracking-tight md:text-[140px]">
                             DS
                         </div>
-                        <div className="absolute right-4 bottom-3.5 left-4 flex justify-between font-mono text-[10px] text-white/50">
+                        <div className="absolute right-4 bottom-3.5 left-4 flex justify-between font-mono text-[12px] text-white/50">
                             <span>portrait.jpg</span>
                             <span>1080 × 1350</span>
                         </div>
@@ -77,7 +77,7 @@ export default function About() {
                                 {items.map(([k, v]) => (
                                     <li key={k} className="flex items-baseline justify-between text-[14px]">
                                         <span className="text-fg">{k}</span>
-                                        <span className="text-fg-dim font-mono text-[11px]">{v}</span>
+                                        <span className="text-fg-dim font-mono text-[12px]">{v}</span>
                                     </li>
                                 ))}
                             </ul>
@@ -94,7 +94,7 @@ export default function About() {
                             key={`${e.from}-${e.role}`}
                             className="border-line grid grid-cols-1 items-start gap-4 border-t py-6 md:grid-cols-[160px_1.3fr_1.6fr] md:gap-8"
                         >
-                            <span className="text-portfolio-accent font-mono text-[11px]">
+                            <span className="text-portfolio-accent font-mono text-[12px]">
                                 {e.from} - {e.to}
                             </span>
                             <div>
@@ -108,7 +108,7 @@ export default function About() {
 
                                 {e.projects.length > 0 && (
                                     <div className="border-line mt-5 border-t pt-5">
-                                        <span className="text-fg-dim font-mono text-[10.5px]">
+                                        <span className="text-fg-dim font-mono text-[12px]">
                                             selected highlights
                                         </span>
                                         <ul className="mt-4 flex list-none flex-col gap-4 p-0">
@@ -118,7 +118,7 @@ export default function About() {
                                                         {p.tech.map((t) => (
                                                             <span
                                                                 key={t}
-                                                                className="text-fg bg-bg-elev border-line inline-flex items-center gap-1.5 rounded-md border px-2 py-1 font-mono text-[11.5px] font-medium leading-none"
+                                                                className="text-fg bg-bg-elev border-line inline-flex items-center gap-1.5 rounded-md border px-2 py-1 font-mono text-[12px] font-medium leading-none"
                                                             >
                                                                 <LangDot name={t.split(' ')[0]} size={6} />
                                                                 {t}
@@ -159,11 +159,11 @@ export default function About() {
                                     key={e.yr}
                                     className="grid grid-cols-1 items-baseline gap-4 md:grid-cols-[120px_1fr_auto]"
                                 >
-                                    <span className="text-fg-dim font-mono text-[11px]">{e.yr}</span>
+                                    <span className="text-fg-dim font-mono text-[12px]">{e.yr}</span>
                                     <div>
                                         <div className="text-fg text-[18px] font-medium tracking-tight">{e.degree}</div>
                                         <div className="text-fg-mid text-[13px]">{e.org}</div>
-                                        {e.gpa && <div className="text-fg-dim mt-1 font-mono text-[10.5px]">gpa {e.gpa}</div>}
+                                        {e.gpa && <div className="text-fg-dim mt-1 font-mono text-[12px]">gpa {e.gpa}</div>}
                                     </div>
                                     <Chip tone={e.active ? 'accent' : 'default'}>{e.honor}</Chip>
                                 </div>

@@ -27,6 +27,7 @@
     --color-line-strong: var(--line-strong);
     --color-portfolio-accent: var(--portfolio-accent);
     --color-portfolio-accent-dim: var(--portfolio-accent-dim);
+    --color-on-accent: var(--on-accent);
 
     /* shadcn defaults kept so any pre-built UI components don't break */
     --color-background: var(--background);
@@ -80,13 +81,14 @@
     --bg-elev-2: #F4F4F4;
     --fg: #0A0A0A;
     --fg-mid: #525252;
-    --fg-dim: #8A8A8A;
-    --fg-fade: #B5B5B5;
+    --fg-dim: #6E6E6E;
+    --fg-fade: #878787;
     --line: rgba(10, 10, 10, 0.08);
     --line-strong: rgba(10, 10, 10, 0.14);
-    --portfolio-accent: #3F8B26;
-    --portfolio-accent-dim: #5BB94B;
-    --portfolio-accent-sage: rgba(63, 139, 38, 0.10);
+    --portfolio-accent: #377D1E;
+    --portfolio-accent-dim: #2F6B1A;
+    --on-accent: #FFFFFF;
+    --portfolio-accent-sage: rgba(55, 125, 30, 0.10);
 
     /* Language dot colors */
     --lang-php: #777BB4;
@@ -161,12 +163,13 @@
     --bg-elev-2: #161616;
     --fg: #EDEDED;
     --fg-mid: #A1A1A1;
-    --fg-dim: #707070;
-    --fg-fade: #4A4A4A;
+    --fg-dim: #808080;
+    --fg-fade: #686868;
     --line: rgba(255, 255, 255, 0.08);
     --line-strong: rgba(255, 255, 255, 0.14);
     --portfolio-accent: #7DD96E;
     --portfolio-accent-dim: #5BB94B;
+    --on-accent: #0A0A0A;
     --portfolio-accent-sage: rgba(125, 217, 110, 0.12);
 
     /* shadcn defaults — dark */

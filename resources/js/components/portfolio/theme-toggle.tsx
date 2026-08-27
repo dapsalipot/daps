@@ -8,7 +8,7 @@ export default function ThemeToggle() {
         <button
             onClick={() => updateAppearance(isDark ? 'light' : 'dark')}
             aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
-            className="bg-bg-elev text-fg-mid border-line hover:text-fg inline-flex items-center gap-1.5 rounded-md border px-2 py-1.5 font-mono text-[11px] transition-colors"
+            className="bg-bg-elev text-fg-mid border-line hover:text-fg inline-flex items-center gap-1.5 rounded-md border px-2 py-1.5 font-mono text-[12px] transition-colors"
         >
             {isDark ? <SunIcon size={12} /> : <MoonIcon size={12} />}
             <span>{isDark ? 'light' : 'dark'}</span>

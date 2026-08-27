@@ -16,11 +16,11 @@ interface CodeBlockProps {
 export default function CodeBlock({ lines, title, style }: CodeBlockProps) {
     return (
         <div
-            className="bg-bg-elev-2 border-line overflow-hidden rounded-lg border font-mono text-[12.5px] leading-[1.7]"
+            className="bg-bg-elev-2 border-line overflow-hidden rounded-lg border font-mono text-[13px] leading-[1.7]"
             style={style}
         >
             {title && (
-                <div className="border-line text-fg-dim flex items-center gap-2 border-b px-3.5 py-2 text-[11px]">
+                <div className="border-line text-fg-dim flex items-center gap-2 border-b px-3.5 py-2 text-[12px]">
                     <span className="inline-flex gap-1">
                         <span className="bg-line-strong h-2 w-2 rounded-full" />
                         <span className="bg-line-strong h-2 w-2 rounded-full" />

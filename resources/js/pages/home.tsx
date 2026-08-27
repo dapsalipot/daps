@@ -43,7 +43,7 @@ export default function Home() {
                     <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
                         <a
                             href="/projects"
-                            className="bg-portfolio-accent inline-flex items-center gap-2 rounded-full px-7 py-3 text-[15px] font-medium text-[#0A0A0A] transition hover:opacity-90"
+                            className="bg-portfolio-accent inline-flex items-center gap-2 rounded-full px-7 py-3 text-[15px] font-medium text-on-accent transition hover:opacity-90"
                         >
                             View work
                             <ArrowIcon size={15} />
@@ -73,7 +73,7 @@ export default function Home() {
                             key={it.title}
                             className="border-line group grid grid-cols-1 gap-2 border-t py-6 md:grid-cols-[140px_1fr] md:gap-10"
                         >
-                            <span className="text-fg-dim group-hover:text-portfolio-accent font-mono text-[11px] transition-colors">
+                            <span className="text-fg-dim group-hover:text-portfolio-accent font-mono text-[12px] transition-colors">
                                 {it.label}
                             </span>
                             <div>
@@ -95,7 +95,7 @@ export default function Home() {
                         <Card key={cat} pad={18} className="repo-card">
                             <div className="border-line flex items-baseline justify-between border-b pb-3">
                                 <span className="text-fg text-[15px] font-medium tracking-tight">{cat}</span>
-                                <span className="text-fg-fade font-mono text-[10px] tabular-nums">
+                                <span className="text-fg-fade font-mono text-[12px] tabular-nums">
                                     {String(items.length).padStart(2, '0')}
                                 </span>
                             </div>
@@ -106,7 +106,7 @@ export default function Home() {
                                             <LangDot name={k.split(' ')[0]} size={7} />
                                             {k}
                                         </span>
-                                        <span className="text-fg-dim font-mono text-[10.5px]">{v}</span>
+                                        <span className="text-fg-dim font-mono text-[12px]">{v}</span>
                                     </li>
                                 ))}
                             </ul>
@@ -125,14 +125,14 @@ export default function Home() {
                             className="border-line border-t py-6"
                         >
                             <div className="grid grid-cols-1 items-baseline gap-4 md:grid-cols-[180px_1.4fr_1fr_40px] md:gap-8">
-                                <span className="text-portfolio-accent font-mono text-[11px]">
+                                <span className="text-portfolio-accent font-mono text-[12px]">
                                     {e.from} - {e.to}
                                 </span>
                                 <div>
                                     <div className="text-fg text-[22px] font-medium tracking-tight">
                                         {e.role} · <span className="text-fg-mid">{e.org}</span>
                                     </div>
-                                    <span className="text-fg-dim font-mono text-[11px]">{e.loc}</span>
+                                    <span className="text-fg-dim font-mono text-[12px]">{e.loc}</span>
                                 </div>
                                 <div className="text-fg-mid text-[14px] leading-relaxed">{e.note}</div>
                                 <div className="text-fg-mid text-right">
@@ -142,7 +142,7 @@ export default function Home() {
 
                             {e.projects.length > 0 && (
                                 <div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-[180px_1fr] md:gap-8">
-                                    <span className="text-fg-dim font-mono text-[10.5px]">
+                                    <span className="text-fg-dim font-mono text-[12px]">
                                         selected highlights
                                     </span>
                                     <ul className="flex list-none flex-col gap-4 p-0">
@@ -152,13 +152,13 @@ export default function Home() {
                                                 className="flex flex-col gap-2"
                                             >
                                                 <div className="flex flex-wrap items-center gap-2">
-                                                    <span className="bg-portfolio-accent/15 text-portfolio-accent border-portfolio-accent/25 inline-flex items-center gap-1 rounded border px-1.5 py-[2px] font-mono text-[9.5px] font-medium uppercase tracking-wider">
+                                                    <span className="bg-portfolio-accent/15 text-portfolio-accent border-portfolio-accent/25 inline-flex items-center gap-1 rounded border px-1.5 py-[2px] font-mono text-[12px] font-medium uppercase tracking-wider">
                                                         IoT
                                                     </span>
                                                     {p.tech.map((t) => (
                                                         <span
                                                             key={t}
-                                                            className="text-fg bg-bg-elev border-line inline-flex items-center gap-1.5 rounded-md border px-2 py-1 font-mono text-[11.5px] font-medium leading-none"
+                                                            className="text-fg bg-bg-elev border-line inline-flex items-center gap-1.5 rounded-md border px-2 py-1 font-mono text-[12px] font-medium leading-none"
                                                         >
                                                             <LangDot name={t.split(' ')[0]} size={6} />
                                                             {t}
@@ -194,8 +194,8 @@ export default function Home() {
                                 <div className="text-fg text-[19px] leading-tight font-medium tracking-tight">
                                     {a.t}
                                 </div>
-                                <div className="text-portfolio-accent mt-1 font-mono text-[11.5px]">{a.where}</div>
-                                <p className="text-fg-mid mt-2 text-[13.5px] leading-relaxed">{a.note}</p>
+                                <div className="text-portfolio-accent mt-1 font-mono text-[12px]">{a.where}</div>
+                                <p className="text-fg-mid mt-2 text-[14px] leading-relaxed">{a.note}</p>
                             </div>
                         </div>
                     ))}

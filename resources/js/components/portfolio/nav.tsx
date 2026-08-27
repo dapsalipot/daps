@@ -56,7 +56,7 @@ export default function Nav({ active }: NavProps) {
                     <Link href="/">
                         <Mark handle={portfolio.identity.handle} />
                     </Link>
-                    <span className="text-fg-dim hidden font-mono text-[11px] md:inline">
+                    <span className="text-fg-dim hidden font-mono text-[12px] md:inline">
                         /<span className="text-fg ml-1">{active}</span>
                     </span>
                 </div>
@@ -69,7 +69,7 @@ export default function Nav({ active }: NavProps) {
                             href={it.href}
                             className={`relative inline-flex items-center gap-1.5 px-3.5 py-1.5 ${active === it.k ? 'text-fg' : 'text-fg-dim hover:text-fg'} transition-colors`}
                         >
-                            <span className="text-fg-fade text-[10px]">{it.n}</span>
+                            <span className="text-fg-fade text-[12px]">{it.n}</span>
                             <span>{it.l}</span>
                             {active === it.k && <span className="bg-portfolio-accent h-1 w-1 rounded-full" />}
                         </Link>
@@ -147,7 +147,7 @@ export default function Nav({ active }: NavProps) {
                                             : 'text-fg-mid hover:bg-bg-elev hover:text-fg'
                                     }`}
                                 >
-                                    <span className="text-fg-fade text-[11px]">{it.n}</span>
+                                    <span className="text-fg-fade text-[12px]">{it.n}</span>
                                     <span className="flex-1">{it.l}</span>
                                     {active === it.k && <span className="bg-portfolio-accent h-1.5 w-1.5 rounded-full" />}
                                 </Link>
@@ -157,7 +157,7 @@ export default function Nav({ active }: NavProps) {
 
                     <div className="border-line mt-auto border-t p-5">
                         <StatusDot>{portfolio.identity.available.label}</StatusDot>
-                        <div className="text-fg-dim mt-3 font-mono text-[11px]">
+                        <div className="text-fg-dim mt-3 font-mono text-[12px]">
                             <div>{portfolio.identity.location.city}</div>
                             <div>{portfolio.links.email}</div>
                         </div>

@@ -41,7 +41,7 @@ export default function Button({
     };
     const kinds: Record<Kind, string> = {
         primary: 'bg-fg text-bg border-fg hover:opacity-90',
-        accent: 'bg-portfolio-accent text-[#0A0A0A] border-transparent hover:bg-portfolio-accent-dim',
+        accent: 'bg-portfolio-accent text-on-accent border-transparent hover:bg-portfolio-accent-dim',
         secondary: 'bg-bg-elev text-fg border-line hover:border-line-strong',
         ghost: 'bg-transparent text-fg-mid border-transparent hover:text-fg',
     };
