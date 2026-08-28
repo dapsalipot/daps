@@ -50,6 +50,8 @@ const BEATS: Beat[] = [
 ];
 
 const TRACK_VH = 460; // total scroll length of the intro, in vh
+const EDGE_MASK =
+    'radial-gradient(ellipse 58% 62% at 50% 50%, #000 52%, rgba(0,0,0,0.75) 74%, transparent 96%)';
 const SEEK_STEPS = 96; // quantized scrub positions across the clip
 const HANDOFF_START = 0.72; // progress at which the object starts giving way to the hero
 
@@ -70,6 +72,7 @@ export default function IntroSequence({
     const [heroReady, setHeroReady] = useState(false);
     const veilRef = useRef<HTMLDivElement>(null);
     const objectRef = useRef<HTMLDivElement>(null);
+    const mediaRef = useRef<HTMLDivElement>(null);
     const scrimRef = useRef<HTMLDivElement>(null);
     const beatsRef = useRef<HTMLDivElement>(null);
     const railRef = useRef<HTMLDivElement>(null);
@@ -162,6 +165,9 @@ export default function IntroSequence({
                 // before the dark ground is.
                 if (veilRef.current) veilRef.current.style.opacity = String(1 - eased * eased);
                 if (objectRef.current) objectRef.current.style.opacity = out;
+                // Expand while fading so the final particle state reads as scattering
+                // outward into the dot grid rather than blinking off in place.
+                if (mediaRef.current) mediaRef.current.style.transform = `scale(${1 + eased * 0.22})`;
                 if (scrimRef.current) scrimRef.current.style.opacity = out;
                 if (beatsRef.current) beatsRef.current.style.opacity = out;
                 if (railRef.current) railRef.current.style.opacity = out;
@@ -197,7 +203,10 @@ export default function IntroSequence({
                         opacity: 1,
                         willChange: 'opacity',
                         backgroundColor: '#0A0A0A',
-                        backgroundImage: 'radial-gradient(rgba(125,217,110,0.10) 1px, transparent 1px)',
+                        // Matched to GridBackground's constants (SPACING 28, RADIUS 1.4,
+                        // ALPHA_BASE 0.18) so when this ground fades the CSS dots hand
+                        // off to the real canvas dots with no visible step.
+                        backgroundImage: 'radial-gradient(rgba(125,217,110,0.18) 1.4px, transparent 1.4px)',
                         backgroundSize: '28px 28px',
                     }}
                 />
@@ -208,18 +217,19 @@ export default function IntroSequence({
                     style={{ opacity: 1, willChange: 'opacity' }}
                 >
                     <div
-                        className="h-[min(680px,82vw)] w-[min(680px,82vw)]"
+                        ref={mediaRef}
+                        className="absolute inset-0"
                         style={{
                             mixBlendMode: 'screen',
                             // This clip renders on a near-black rgb(24,26,26), so only a
                             // gentle crush is needed to reach zero — which keeps the object
-                            // bright. The radial mask still removes the rectangle seam by
-                            // construction rather than trusting the crush to be exact.
+                            // bright. The mask feathers the frame edges so a full-bleed
+                            // video never shows its rectangle against the ground.
                             filter: 'contrast(1.5) saturate(1.05)',
-                            maskImage:
-                                'radial-gradient(circle at 50% 50%, #000 62%, rgba(0,0,0,0.6) 76%, transparent 86%)',
-                            WebkitMaskImage:
-                                'radial-gradient(circle at 50% 50%, #000 62%, rgba(0,0,0,0.6) 76%, transparent 86%)',
+                            transformOrigin: '50% 50%',
+                            willChange: 'transform',
+                            maskImage: EDGE_MASK,
+                            WebkitMaskImage: EDGE_MASK,
                         }}
                     >
                         {useVideo && src ? (
