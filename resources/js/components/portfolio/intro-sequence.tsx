@@ -24,18 +24,18 @@ interface Beat {
 const BEATS: Beat[] = [
     {
         label: 'data',
-        title: 'Schema first',
-        body: 'Normalization, composite indexing, query optimization, and multi-tenant isolation down to the database. The layer everything else inherits its ceiling from.',
+        title: 'Database design',
+        body: 'Normalization, composite indexes, N+1 resolution, database-per-tenant isolation.',
     },
     {
         label: 'backend',
-        title: 'Laravel, past the tutorial',
-        body: 'Livewire and Filament daily, REST APIs designed rather than accreted, and background work that stays correct when jobs retry.',
+        title: 'Laravel APIs',
+        body: 'Livewire, Filament, REST design, queued jobs that stay correct on retry.',
     },
     {
         label: 'integration',
-        title: 'Where money and hardware meet',
-        body: 'Payment gateways and reconciliation, webhooks that survive replays, RFID readers in the field, and Linux boxes kept running behind them.',
+        title: 'Payments and devices',
+        body: 'PayMongo, GCash reconciliation, replay-safe webhooks, RFID readers, Linux servers.',
     },
 ];
 
