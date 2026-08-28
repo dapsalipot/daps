@@ -3,6 +3,7 @@ import Card from '@/components/portfolio/card';
 import CodeBlock from '@/components/portfolio/code-block';
 import { ArrowIcon, ArrowNEIcon, ExtIcon, LinkedinIcon } from '@/components/portfolio/icons';
 import LangDot from '@/components/portfolio/lang-dot';
+import MorphObject from '@/components/portfolio/morph-object';
 import SectionHead from '@/components/portfolio/section-head';
 import WorkCarousel from '@/components/portfolio/work-carousel';
 import StatusDot from '@/components/portfolio/status-dot';
@@ -24,6 +25,8 @@ export default function Home() {
                             'radial-gradient(ellipse 80% 55% at 50% 0%, var(--portfolio-accent-sage), transparent 70%)',
                     }}
                 />
+
+                <MorphObject className="pointer-events-none fixed top-1/2 left-1/2 -z-10 h-[min(820px,94vw)] w-[min(820px,94vw)] -translate-x-1/2 -translate-y-1/2" />
 
                 <div className="anim-fadeUp relative mx-auto w-full max-w-3xl">
                     <div className="mb-7 flex justify-center">
