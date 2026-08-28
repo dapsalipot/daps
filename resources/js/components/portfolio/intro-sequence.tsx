@@ -23,19 +23,19 @@ interface Beat {
 
 const BEATS: Beat[] = [
     {
-        label: 'systems',
-        title: 'Production, end to end',
-        body: 'Multi-tenant SaaS, RFID device fleets, payment reconciliation. Schema design through to the hardware doing the tapping.',
+        label: 'data',
+        title: 'Schema first',
+        body: 'Normalization, composite indexing, query optimization, and multi-tenant isolation down to the database. The layer everything else inherits its ceiling from.',
     },
     {
-        label: 'algorithms',
-        title: 'When a problem needs one',
-        body: 'A constraint solver that replaced a multi-day manual schedule — fail-first selection, ruin-and-recreate repair, seeded trials.',
+        label: 'backend',
+        title: 'Laravel, past the tutorial',
+        body: 'Livewire and Filament daily, REST APIs designed rather than accreted, and background work that stays correct when jobs retry.',
     },
     {
-        label: 'ownership',
-        title: 'Sole developer, real stakes',
-        body: 'Roughly 10 campuses, 10,000+ cardholders, and the transaction volume that comes with them. Built and maintained alone.',
+        label: 'integration',
+        title: 'Where money and hardware meet',
+        body: 'Payment gateways and reconciliation, webhooks that survive replays, RFID readers in the field, and Linux boxes kept running behind them.',
     },
 ];
 
