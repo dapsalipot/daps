@@ -19,7 +19,7 @@ export default function Home() {
             {/* INTRO - scrollable, object scrubs while detail beats transition */}
             <IntroSequence
                 src="/intro/object.mp4"
-                poster="/intro/object-poster.jpg"
+                poster="/intro/object-poster.png"
                 finale={
                     <>
                     <div className="relative mx-auto w-full max-w-3xl text-center">

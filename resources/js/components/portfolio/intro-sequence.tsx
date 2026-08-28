@@ -76,9 +76,25 @@ export default function IntroSequence({
     const [useVideo, setUseVideo] = useState(false);
 
     useEffect(() => {
-        const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        const small = window.matchMedia('(max-width: 767px)').matches;
-        setUseVideo(Boolean(src) && !reduced && !small);
+        const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const wide = window.matchMedia('(min-width: 768px)');
+
+        // A hidden or not-yet-painted tab reports innerWidth 0, which matches every
+        // max-width query. Deciding once in that state pinned the poster forever,
+        // so the decision is re-evaluated whenever the viewport actually changes.
+        const decide = () => {
+            if (window.innerWidth === 0) return;
+            setUseVideo(Boolean(src) && !motion.matches && wide.matches);
+        };
+        decide();
+        motion.addEventListener('change', decide);
+        wide.addEventListener('change', decide);
+        window.addEventListener('resize', decide);
+        return () => {
+            motion.removeEventListener('change', decide);
+            wide.removeEventListener('change', decide);
+            window.removeEventListener('resize', decide);
+        };
     }, [src]);
 
     useEffect(() => {
@@ -101,15 +117,19 @@ export default function IntroSequence({
         // forcing a layout every frame.
         let trackTop = 0;
         let span = 1;
+        let measured = false;
         const measure = () => {
+            if (window.innerHeight === 0) return; // vh units are 0 here; nothing is laid out yet
             trackTop = track.getBoundingClientRect().top + window.scrollY;
             span = Math.max(track.offsetHeight - window.innerHeight, 1);
+            measured = true;
         };
         measure();
         window.addEventListener('resize', measure);
 
         let lastHandoff = -1;
         const frame = () => {
+            if (!measured) measure();
             const progress = Math.min(Math.max((window.scrollY - trackTop) / span, 0), 1);
 
             const video = videoRef.current;
@@ -141,7 +161,8 @@ export default function IntroSequence({
                 if (beatsRef.current) beatsRef.current.style.opacity = out;
                 if (railRef.current) railRef.current.style.opacity = out;
                 if (finaleRef.current) finaleRef.current.style.opacity = String(eased);
-                setHeroReady((prev) => (prev === eased > 0.6 ? prev : eased > 0.6));
+                const ready = eased > 0.6;
+                setHeroReady((prev) => (prev === ready ? prev : ready));
             }
 
             raf = visible ? requestAnimationFrame(frame) : 0;
