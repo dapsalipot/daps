@@ -68,6 +68,7 @@ export default function IntroSequence({
     // Opacity is written straight to the DOM. Routing it through React state
     // re-rendered all five beats on every frame of the fade.
     const [heroReady, setHeroReady] = useState(false);
+    const veilRef = useRef<HTMLDivElement>(null);
     const objectRef = useRef<HTMLDivElement>(null);
     const scrimRef = useRef<HTMLDivElement>(null);
     const beatsRef = useRef<HTMLDivElement>(null);
@@ -156,6 +157,10 @@ export default function IntroSequence({
             if (Math.abs(eased - lastHandoff) > 0.002) {
                 lastHandoff = eased;
                 const out = String(1 - eased);
+                // The ground outlasts the object. Screen-blend washes out once the
+                // backdrop lightens, so in light mode the object has to be gone
+                // before the dark ground is.
+                if (veilRef.current) veilRef.current.style.opacity = String(1 - eased * eased);
                 if (objectRef.current) objectRef.current.style.opacity = out;
                 if (scrimRef.current) scrimRef.current.style.opacity = out;
                 if (beatsRef.current) beatsRef.current.style.opacity = out;
@@ -179,17 +184,23 @@ export default function IntroSequence({
     return (
         <div ref={trackRef} className="relative" style={{ height: `${TRACK_VH}vh` }}>
             <div
-                className="stage-dark sticky top-0 flex h-dvh flex-col items-center justify-center overflow-hidden px-6 md:px-12"
-                style={{
-                    contain: 'layout paint',
-                    // Screen-blend only drops black on a dark ground, so the stage
-                    // stays dark in both themes and carries its own dot grid at the
-                    // same 28px pitch as GridBackground.
-                    backgroundColor: '#0A0A0A',
-                    backgroundImage: 'radial-gradient(rgba(125,217,110,0.10) 1px, transparent 1px)',
-                    backgroundSize: '28px 28px',
-                }}
+                className="sticky top-0 flex h-dvh flex-col items-center justify-center overflow-hidden px-6 md:px-12"
+                style={{ contain: 'layout paint' }}
             >
+                {/* Dark ground. Screen-blend only drops black on a dark backdrop, so
+                    this sits under the object while it plays and fades out with it —
+                    which lets the stage return to the page theme for the hero. */}
+                <div
+                    ref={veilRef}
+                    className="pointer-events-none absolute inset-0"
+                    style={{
+                        opacity: 1,
+                        willChange: 'opacity',
+                        backgroundColor: '#0A0A0A',
+                        backgroundImage: 'radial-gradient(rgba(125,217,110,0.10) 1px, transparent 1px)',
+                        backgroundSize: '28px 28px',
+                    }}
+                />
                 {/* Object */}
                 <div
                     ref={objectRef}
@@ -243,7 +254,7 @@ export default function IntroSequence({
                             'radial-gradient(ellipse 46% 30% at 50% 52%, rgba(0,0,0,0.82), rgba(0,0,0,0.45) 55%, transparent 78%)',
                     }}
                 />
-                <div ref={beatsRef} className="relative mx-auto w-full max-w-[720px] text-center" style={{ willChange: 'opacity' }}>
+                <div ref={beatsRef} className="stage-dark relative mx-auto w-full max-w-[720px] text-center" style={{ willChange: 'opacity' }}>
                     {BEATS.map((beat, i) => (
                         <div
                             key={beat.label}
@@ -285,7 +296,7 @@ export default function IntroSequence({
                 </div>
 
                 {/* Progress rail */}
-                <div ref={railRef} className="absolute bottom-10 left-1/2 flex -translate-x-1/2 gap-2" style={{ willChange: 'opacity' }}>
+                <div ref={railRef} className="stage-dark absolute bottom-10 left-1/2 flex -translate-x-1/2 gap-2" style={{ willChange: 'opacity' }}>
                     {BEATS.map((beat, i) => (
                         <span
                             key={beat.label}
