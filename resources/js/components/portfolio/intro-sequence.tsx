@@ -50,22 +50,20 @@ const BEATS: Beat[] = [
 ];
 
 const TRACK_VH = 460; // total scroll length of the intro, in vh
+// Pre-extracted frame sequence. Scrubbing a video means a decoder seek per
+// update, which caps out around 5-15 updates/sec and reads as stepping. Frames
+// are decoded once up front and then blitted, so scroll costs one drawImage.
+const FRAME_COUNT = 105;
+const framePath = (i: number) => `/intro/frames/f_${String(i + 1).padStart(3, '0')}.jpg`;
+
 const EDGE_MASK =
     'radial-gradient(ellipse 58% 62% at 50% 50%, #000 52%, rgba(0,0,0,0.75) 74%, transparent 96%)';
-const SEEK_STEPS = 96; // quantized scrub positions across the clip
 const HANDOFF_START = 0.72; // progress at which the object starts giving way to the hero
 
-export default function IntroSequence({
-    poster,
-    src,
-    finale,
-}: {
-    poster: string;
-    src?: string;
-    finale: ReactNode;
-}) {
+export default function IntroSequence({ poster, finale }: { poster: string; finale: ReactNode }) {
     const trackRef = useRef<HTMLDivElement>(null);
-    const videoRef = useRef<HTMLVideoElement>(null);
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+    const framesRef = useRef<HTMLImageElement[]>([]);
     const [active, setActive] = useState(0);
     // Opacity is written straight to the DOM. Routing it through React state
     // re-rendered all five beats on every frame of the fade.
@@ -88,7 +86,7 @@ export default function IntroSequence({
         // so the decision is re-evaluated whenever the viewport actually changes.
         const decide = () => {
             if (window.innerWidth === 0) return;
-            setUseVideo(Boolean(src) && !motion.matches && wide.matches);
+            setUseVideo(!motion.matches && wide.matches);
         };
         decide();
         motion.addEventListener('change', decide);
@@ -99,7 +97,23 @@ export default function IntroSequence({
             wide.removeEventListener('change', decide);
             window.removeEventListener('resize', decide);
         };
-    }, [src]);
+    }, []);
+
+    // Decode every frame once, up front. Nothing is decoded during scroll.
+    useEffect(() => {
+        if (!useVideo) return;
+        const imgs: HTMLImageElement[] = [];
+        for (let i = 0; i < FRAME_COUNT; i++) {
+            const img = new Image();
+            img.decoding = 'async';
+            img.src = framePath(i);
+            imgs.push(img);
+        }
+        framesRef.current = imgs;
+        return () => {
+            framesRef.current = [];
+        };
+    }, [useVideo]);
 
     useEffect(() => {
         const track = trackRef.current;
@@ -121,6 +135,28 @@ export default function IntroSequence({
         // forcing a layout every frame.
         let trackTop = 0;
         let span = 1;
+        const paint = (img: HTMLImageElement) => {
+            const cv = canvasRef.current;
+            if (!cv) return;
+            const ctx = cv.getContext('2d');
+            if (!ctx) return;
+            const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+            const w = cv.clientWidth;
+            const h = cv.clientHeight;
+            if (!w || !h) return;
+            if (cv.width !== Math.round(w * dpr) || cv.height !== Math.round(h * dpr)) {
+                cv.width = Math.round(w * dpr);
+                cv.height = Math.round(h * dpr);
+            }
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            ctx.clearRect(0, 0, w, h);
+            // cover fit
+            const scale = Math.max(w / img.naturalWidth, h / img.naturalHeight);
+            const dw = img.naturalWidth * scale;
+            const dh = img.naturalHeight * scale;
+            ctx.drawImage(img, (w - dw) / 2, (h - dh) / 2, dw, dh);
+        };
+
         let measured = false;
         const measure = () => {
             if (window.innerHeight === 0) return; // vh units are 0 here; nothing is laid out yet
@@ -132,22 +168,19 @@ export default function IntroSequence({
         window.addEventListener('resize', measure);
 
         let lastHandoff = -1;
+        let lastFrame = -1;
         let lastOverIntro: boolean | null = null;
         const frame = () => {
             if (!measured) measure();
             const progress = Math.min(Math.max((window.scrollY - trackTop) / span, 0), 1);
 
-            const video = videoRef.current;
-            // Never stack seeks: issuing a new currentTime while one is still
-            // pending starves the decoder and the element paints nothing at all.
-            //
-            // Targets are also quantized. The clip is not encoded all-keyframe, so
-            // every distinct seek makes the decoder walk to the nearest keyframe;
-            // snapping to a fixed ladder means it revisits positions it has already
-            // decoded instead of a new one on every frame.
-            if (video && video.duration && !video.seeking) {
-                const t = (Math.round(progress * SEEK_STEPS) / SEEK_STEPS) * video.duration;
-                if (Math.abs(video.currentTime - t) > 0.04) video.currentTime = t;
+            const frameIdx = Math.min(Math.round(progress * (FRAME_COUNT - 1)), FRAME_COUNT - 1);
+            if (frameIdx !== lastFrame) {
+                const img = framesRef.current[frameIdx];
+                if (img && img.complete && img.naturalWidth) {
+                    lastFrame = frameIdx;
+                    paint(img);
+                }
             }
 
             // Beats occupy the first stretch; the last stretch cross-fades the
@@ -242,16 +275,8 @@ export default function IntroSequence({
                             WebkitMaskImage: EDGE_MASK,
                         }}
                     >
-                        {useVideo && src ? (
-                            <video
-                                ref={videoRef}
-                                src={src}
-                                poster={poster}
-                                muted
-                                playsInline
-                                preload="auto"
-                                className="h-full w-full object-cover"
-                            />
+                        {useVideo ? (
+                            <canvas ref={canvasRef} aria-hidden="true" className="h-full w-full" />
                         ) : (
                             <img
                                 src={poster}

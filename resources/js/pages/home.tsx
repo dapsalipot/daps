@@ -18,7 +18,6 @@ export default function Home() {
         <PortfolioLayout title="Daniel Andrei Salipot - Portfolio" active="home">
             {/* INTRO - scrollable, object scrubs while detail beats transition */}
             <IntroSequence
-                src="/intro/object.mp4"
                 poster="/intro/object-poster.png"
                 finale={
                     <>
