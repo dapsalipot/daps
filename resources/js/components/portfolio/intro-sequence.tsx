@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 
 /**
  * Scrollable introduction. A tall scroll track holds a sticky stage; the
@@ -39,12 +39,22 @@ const BEATS: Beat[] = [
     },
 ];
 
-const TRACK_VH = 320; // total scroll length of the intro, in vh
+const TRACK_VH = 340; // total scroll length of the intro, in vh
+const HANDOFF_START = 0.72; // progress at which the object starts giving way to the hero
 
-export default function IntroSequence({ poster, src }: { poster: string; src?: string }) {
+export default function IntroSequence({
+    poster,
+    src,
+    finale,
+}: {
+    poster: string;
+    src?: string;
+    finale: ReactNode;
+}) {
     const trackRef = useRef<HTMLDivElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
     const [active, setActive] = useState(0);
+    const [handoff, setHandoff] = useState(0);
     const [useVideo, setUseVideo] = useState(false);
 
     useEffect(() => {
@@ -82,8 +92,15 @@ export default function IntroSequence({ poster, src }: { poster: string; src?: s
                 if (Math.abs(video.currentTime - t) > 0.06) video.currentTime = t;
             }
 
-            const idx = Math.min(Math.floor(progress * BEATS.length), BEATS.length - 1);
+            // Beats occupy the first stretch; the last stretch cross-fades the
+            // object out and the hero in, both pinned, so nothing moves vertically.
+            const beatSpan = Math.min(progress / HANDOFF_START, 1);
+            const idx = Math.min(Math.floor(beatSpan * BEATS.length), BEATS.length - 1);
             setActive((prev) => (prev === idx ? prev : idx));
+
+            const h = Math.min(Math.max((progress - HANDOFF_START) / (1 - HANDOFF_START), 0), 1);
+            const eased = h * h * (3 - 2 * h);
+            setHandoff((prev) => (Math.abs(prev - eased) < 0.01 ? prev : eased));
 
             raf = visible ? requestAnimationFrame(frame) : 0;
         };
@@ -99,7 +116,10 @@ export default function IntroSequence({ poster, src }: { poster: string; src?: s
         <div ref={trackRef} className="relative" style={{ height: `${TRACK_VH}vh` }}>
             <div className="sticky top-0 flex h-dvh flex-col items-center justify-center overflow-hidden px-6 md:px-12">
                 {/* Object */}
-                <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                <div
+                    className="pointer-events-none absolute inset-0 flex items-center justify-center"
+                    style={{ opacity: 1 - handoff }}
+                >
                     <div
                         className="h-[min(680px,82vw)] w-[min(680px,82vw)]"
                         style={{
@@ -143,9 +163,10 @@ export default function IntroSequence({ poster, src }: { poster: string; src?: s
                     style={{
                         background:
                             'radial-gradient(ellipse 46% 30% at 50% 52%, rgba(0,0,0,0.82), rgba(0,0,0,0.45) 55%, transparent 78%)',
+                        opacity: 1 - handoff,
                     }}
                 />
-                <div className="relative mx-auto w-full max-w-[720px] text-center">
+                <div className="relative mx-auto w-full max-w-[720px] text-center" style={{ opacity: 1 - handoff }}>
                     {BEATS.map((beat, i) => (
                         <div
                             key={beat.label}
@@ -172,8 +193,18 @@ export default function IntroSequence({ poster, src }: { poster: string; src?: s
                     ))}
                 </div>
 
+                {/* Finale — the hero, pinned in the same stage. Opacity only, so the
+                    handoff has no vertical movement at all. */}
+                <div
+                    className="absolute inset-0 flex items-center justify-center px-6 md:px-12"
+                    style={{ opacity: handoff, pointerEvents: handoff > 0.6 ? 'auto' : 'none' }}
+                    aria-hidden={handoff < 0.6}
+                >
+                    {finale}
+                </div>
+
                 {/* Progress rail */}
-                <div className="absolute bottom-10 left-1/2 flex -translate-x-1/2 gap-2">
+                <div className="absolute bottom-10 left-1/2 flex -translate-x-1/2 gap-2" style={{ opacity: 1 - handoff }}>
                     {BEATS.map((beat, i) => (
                         <span
                             key={beat.label}

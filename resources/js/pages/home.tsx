@@ -17,53 +17,49 @@ export default function Home() {
     return (
         <PortfolioLayout title="Daniel Andrei Salipot - Portfolio" active="home">
             {/* INTRO - scrollable, object scrubs while detail beats transition */}
-            <IntroSequence src="/intro/object.mp4" poster="/intro/object-poster.jpg" />
+            <IntroSequence
+                src="/intro/object.mp4"
+                poster="/intro/object-poster.jpg"
+                finale={
+                    <>
+                    <div className="relative mx-auto w-full max-w-3xl text-center">
+                        <div className="mb-7 flex justify-center">
+                            <span className="border-line bg-bg-elev/70 inline-flex items-center gap-2.5 rounded-full border px-3.5 py-1.5 backdrop-blur">
+                                <StatusDot>{portfolio.identity.available.label}</StatusDot>
+                            </span>
+                        </div>
 
-            {/* HERO */}
-            <section className="relative flex min-h-[72dvh] flex-col items-center justify-center px-6 pt-16 pb-6 text-center md:px-12 md:pt-20">
-                <div
-                    className="pointer-events-none absolute -top-28 right-0 bottom-0 left-0"
-                    style={{
-                        background:
-                            'radial-gradient(ellipse 80% 55% at 50% 0%, var(--portfolio-accent-sage), transparent 70%)',
-                    }}
-                />
+                        <h1 className="text-fg font-sans text-[52px] leading-[1.02] font-semibold tracking-[-0.03em] md:text-[84px]">
+                            Daniel Andrei Salipot
+                        </h1>
 
-                <div className="anim-fadeUp relative mx-auto w-full max-w-3xl">
-                    <div className="mb-7 flex justify-center">
-                        <span className="border-line bg-bg-elev/70 inline-flex items-center gap-2.5 rounded-full border px-3.5 py-1.5 backdrop-blur">
-                            <StatusDot>{portfolio.identity.available.label}</StatusDot>
-                        </span>
+                        <p className="text-fg-mid mx-auto mt-5 max-w-[42ch] font-sans text-[19px] leading-[1.38] tracking-[-0.01em] md:text-[25px]">
+                            Backend developer building production systems end to end, from database design to hardware.
+                        </p>
+
+                        <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+                            <a
+                                href="/projects"
+                                className="bg-portfolio-accent inline-flex items-center gap-2 rounded-full px-7 py-3 text-[15px] font-medium text-on-accent transition hover:opacity-90"
+                            >
+                                View work
+                                <ArrowIcon size={15} />
+                            </a>
+                            <a
+                                href="/resume.pdf"
+                                target="_blank"
+                                rel="noreferrer"
+                                className="border-line bg-bg-elev/70 text-fg hover:border-line-strong inline-flex items-center gap-2 rounded-full border px-7 py-3 text-[15px] font-medium backdrop-blur transition"
+                            >
+                                Resume
+                                <ExtIcon size={13} />
+                            </a>
+                        </div>
                     </div>
-
-                    <h1 className="text-fg font-sans text-[52px] leading-[1.02] font-semibold tracking-[-0.03em] md:text-[84px]">
-                        Daniel Andrei Salipot
-                    </h1>
-
-                    <p className="text-fg-mid mx-auto mt-5 max-w-[42ch] font-sans text-[19px] leading-[1.38] tracking-[-0.01em] md:text-[25px]">
-                        Backend developer building production systems end to end, from database design to hardware.
-                    </p>
-
-                    <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-                        <a
-                            href="/projects"
-                            className="bg-portfolio-accent inline-flex items-center gap-2 rounded-full px-7 py-3 text-[15px] font-medium text-on-accent transition hover:opacity-90"
-                        >
-                            View work
-                            <ArrowIcon size={15} />
-                        </a>
-                        <a
-                            href="/resume.pdf"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="border-line bg-bg-elev/70 text-fg hover:border-line-strong inline-flex items-center gap-2 rounded-full border px-7 py-3 text-[15px] font-medium backdrop-blur transition"
-                        >
-                            Resume
-                            <ExtIcon size={13} />
-                        </a>
-                    </div>
-                </div>
-            </section>
+            
+                    </>
+                }
+            />
 
             {/* WORK CAROUSEL - scroll-driven, pins while rotating */}
             <WorkCarousel projects={portfolio.projects} />
