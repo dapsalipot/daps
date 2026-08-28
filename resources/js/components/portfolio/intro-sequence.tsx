@@ -229,11 +229,13 @@ export default function IntroSequence({
                         className="absolute inset-0"
                         style={{
                             mixBlendMode: 'screen',
-                            // This clip renders on a near-black rgb(24,26,26), so only a
-                            // gentle crush is needed to reach zero — which keeps the object
-                            // bright. The mask feathers the frame edges so a full-bleed
-                            // video never shows its rectangle against the ground.
-                            filter: 'contrast(1.5) saturate(1.05)',
+                            // The clip's ground is rgb(24,26,26). contrast(1.5) left a
+                            // residual above zero, and screen-blend can only lighten — so
+                            // that residual showed as a halo lighter than the #0A0A0A
+                            // ground. This drives it to a hard zero while keeping the
+                            // object bright. The mask feathers the frame edges so a
+                            // full-bleed video never shows its rectangle.
+                            filter: 'brightness(0.88) contrast(2.1) saturate(1.05)',
                             transformOrigin: '50% 50%',
                             willChange: 'transform',
                             maskImage: EDGE_MASK,
