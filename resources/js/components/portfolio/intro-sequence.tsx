@@ -203,11 +203,6 @@ export default function IntroSequence({
                         opacity: 1,
                         willChange: 'opacity',
                         backgroundColor: '#0A0A0A',
-                        // Matched to GridBackground's constants (SPACING 28, RADIUS 1.4,
-                        // ALPHA_BASE 0.18) so when this ground fades the CSS dots hand
-                        // off to the real canvas dots with no visible step.
-                        backgroundImage: 'radial-gradient(rgba(125,217,110,0.18) 1.4px, transparent 1.4px)',
-                        backgroundSize: '28px 28px',
                     }}
                 />
                 {/* Object */}
