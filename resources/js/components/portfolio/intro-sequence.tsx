@@ -33,13 +33,23 @@ const BEATS: Beat[] = [
         body: 'Livewire, Filament, REST design, queued jobs that stay correct on retry.',
     },
     {
-        label: 'integration',
-        title: 'Payments and devices',
-        body: 'PayMongo, GCash reconciliation, replay-safe webhooks, RFID readers, Linux servers.',
+        label: 'frontend',
+        title: 'React and Inertia',
+        body: 'TypeScript, Tailwind, server-driven routing, typed props end to end.',
+    },
+    {
+        label: 'mobile',
+        title: 'React Native',
+        body: 'Sanctum token auth, push registry, live WebSocket updates on device.',
+    },
+    {
+        label: 'iot',
+        title: 'RFID and payments',
+        body: 'Field readers, PayMongo and GCash reconciliation, replay-safe webhooks.',
     },
 ];
 
-const TRACK_VH = 340; // total scroll length of the intro, in vh
+const TRACK_VH = 460; // total scroll length of the intro, in vh
 const HANDOFF_START = 0.72; // progress at which the object starts giving way to the hero
 
 export default function IntroSequence({
