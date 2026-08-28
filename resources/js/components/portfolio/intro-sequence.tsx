@@ -171,15 +171,15 @@ export default function IntroSequence({
                         className="h-[min(680px,82vw)] w-[min(680px,82vw)]"
                         style={{
                             mixBlendMode: 'screen',
-                            // The clip renders on ~rgb(80,82,82), not black, and it is not
-                            // uniform — a luminance crush alone leaves a visible rectangle.
-                            // The crush handles most of it; the radial mask removes the
-                            // seam by construction rather than by hoping the crush is exact.
-                            filter: 'brightness(0.62) contrast(2.9) saturate(1.1)',
+                            // This clip renders on a near-black rgb(24,26,26), so only a
+                            // gentle crush is needed to reach zero — which keeps the object
+                            // bright. The radial mask still removes the rectangle seam by
+                            // construction rather than trusting the crush to be exact.
+                            filter: 'contrast(1.5) saturate(1.05)',
                             maskImage:
-                                'radial-gradient(circle at 50% 50%, #000 54%, rgba(0,0,0,0.55) 66%, transparent 74%)',
+                                'radial-gradient(circle at 50% 50%, #000 62%, rgba(0,0,0,0.6) 76%, transparent 86%)',
                             WebkitMaskImage:
-                                'radial-gradient(circle at 50% 50%, #000 54%, rgba(0,0,0,0.55) 66%, transparent 74%)',
+                                'radial-gradient(circle at 50% 50%, #000 62%, rgba(0,0,0,0.6) 76%, transparent 86%)',
                         }}
                     >
                         {useVideo && src ? (
