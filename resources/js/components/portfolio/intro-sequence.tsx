@@ -50,6 +50,7 @@ const BEATS: Beat[] = [
 ];
 
 const TRACK_VH = 460; // total scroll length of the intro, in vh
+const SEEK_STEPS = 96; // quantized scrub positions across the clip
 const HANDOFF_START = 0.72; // progress at which the object starts giving way to the hero
 
 export default function IntroSequence({
@@ -114,9 +115,14 @@ export default function IntroSequence({
             const video = videoRef.current;
             // Never stack seeks: issuing a new currentTime while one is still
             // pending starves the decoder and the element paints nothing at all.
+            //
+            // Targets are also quantized. The clip is not encoded all-keyframe, so
+            // every distinct seek makes the decoder walk to the nearest keyframe;
+            // snapping to a fixed ladder means it revisits positions it has already
+            // decoded instead of a new one on every frame.
             if (video && video.duration && !video.seeking) {
-                const t = progress * video.duration;
-                if (Math.abs(video.currentTime - t) > 0.06) video.currentTime = t;
+                const t = (Math.round(progress * SEEK_STEPS) / SEEK_STEPS) * video.duration;
+                if (Math.abs(video.currentTime - t) > 0.04) video.currentTime = t;
             }
 
             // Beats occupy the first stretch; the last stretch cross-fades the
