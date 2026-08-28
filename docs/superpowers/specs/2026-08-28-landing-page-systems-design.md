@@ -1,4 +1,4 @@
-# Landing page: systems section and scroll-scrubbed bands
+# Landing page: systems section
 
 Date: 2026-08-28
 Status: design, pending approval
@@ -20,7 +20,7 @@ currently communicates them.
 Make the invisible backend work legible. Motion exists to explain, not to
 decorate. Every effect earns its place by carrying information.
 
-## Part 1: systems section
+## The design
 
 ### Content
 
@@ -132,65 +132,11 @@ rather than treated as a fallback.
 - Diagrams reference tokens only, never literal colors, so a later theme change
   flows through without a rebuild.
 
-## Part 2: scroll-scrubbed bands
-
-### Mechanism
-
-Scroll position maps to `video.currentTime`. This is the only way generated
-video can respond to scroll.
-
-Normal MP4 seeks badly because the decoder walks to the nearest keyframe.
-Smooth scrubbing requires re-encoding all-keyframe (`ffmpeg -g 1`), which
-removes inter-frame compression and is what drives the file size.
-
-### Asset
-
-One clip, reused across three bands with different scrub ranges and different
-vertical crops so it does not read as a repeat.
-
-- Source: roughly 3 seconds, 1600x900, monochrome ink in water on near black,
-  single light source, no color shift
-- Encode: `ffmpeg -g 1`
-- Budget: under 4 MB. If exceeded, drop to 1280x720 before dropping frames.
-
-Three constraints keep fluid from reading as stock footage:
-
-1. Desaturate. Generated fluid defaults to purple-blue or rainbow. A single hue
-   reads as a deliberate graphic.
-2. Crop hard. Full-screen fluid is a screensaver; a thin full-bleed strip is a
-   design device. The band shape does most of the work.
-3. Slow the mapping. The clip spans a long scroll distance so it never feels
-   like a playing video.
-
-### Placement
-
-Full-bleed bands, 280px desktop and 200px mobile, positioned hero to systems,
-systems to now, and now to CTA.
-
-**No body text ever sits on a band.** Contrast does not care whether pixels come
-from a shader or a video, and this rule is what removes the problem rather than
-managing it.
-
-### Activation
-
-An `IntersectionObserver` activates a band as it nears the viewport. Inside the
-existing rAF loop, `scrollY` is sampled once per frame and mapped through the
-band's progress across roughly 120vh to `currentTime`. Sampling in the render
-loop is not a scroll listener and does no per-event work.
-
-### Fallbacks
-
-The poster frame is load-bearing, not an afterthought. Most visitors see it.
-
-- Mobile: poster frame only. The video never downloads.
-- `prefers-reduced-motion`: poster frame.
-- No JS or decode failure: poster frame.
-
-## Part 3: page restructure
+## Page restructure
 
 `home.tsx` becomes:
 
-    hero -> band -> systems -> band -> compact "all work" link -> band -> now -> CTA
+    hero -> systems -> compact "all work" link -> now -> CTA
 
 - The coverflow carousel is removed from home. `work-carousel.tsx` stays in the
   repo; `/projects` can reuse it later.
@@ -199,13 +145,8 @@ The poster frame is load-bearing, not an afterthought. Most visitors see it.
 
 ## Weight budget
 
-| Item | Size |
-| --- | --- |
-| `public/projects` after dumagat compression | 4.4 MB |
-| Band clip | under 4 MB |
-| Total | roughly 8.4 MB |
-
-Still below the 8.2 MB the site carried before the compression pass.
+`public/projects` sits at 4.4 MB after the dumagat compression, down from
+8.2 MB. This design adds no assets, so that number stands.
 
 ## Verification
 
@@ -216,8 +157,7 @@ promise unit tests.
 - `npm run build` succeeds (use Herd's bundled Node; the Homebrew install is
   broken by an orphaned `libsimdjson` dylib)
 - A Pest smoke test that `/` still renders after the restructure
-- Manual checks: beat advance, reduced-motion layout, both themes, band scrub on
-  desktop, poster frame on mobile
+- Manual checks: beat advance, reduced-motion layout, both themes
 
 ## Open items
 
@@ -227,10 +167,7 @@ promise unit tests.
    techniques - minimum remaining values, ruin and recreate - rather than
    business rules or schema, which is defensible, but the call is the author's
    and is recorded here rather than assumed.
-2. **Band clip source.** A media-generation server is available in the session
-   and could produce the clip directly. It consumes credits, so it is not run
-   without explicit instruction.
-3. `public/projects/akai-tsuki/dumagat/` is now 880 KB of compressed but
+2. `public/projects/akai-tsuki/dumagat/` is now 880 KB of compressed but
    unreferenced duplicates of `dumagat-remontado/`. Kept deliberately.
 
 ## Rejected
@@ -244,7 +181,12 @@ promise unit tests.
 - **Full-page lava lamp background.** Prototyped and rejected. Blob visibility
   and text contrast are the same axis, so a visible field necessarily eats
   contrast. Physics, not tuning.
-- **Per-band unique clips.** Three times the weight; reuse with different crops
-  gets most of the effect.
-- **Case-study video heroes.** Nine assets, 30 MB or more. Cost scales with
-  project count.
+- **Scroll-scrubbed video bands.** Smooth scrubbing needs an all-keyframe
+  re-encode, trading roughly 400 KB of normal compression for 3 to 6 MB. That
+  weight buys decoration between sections that no reader is there for, and it
+  only works on desktop - mobile gets a poster frame, so most visitors never see
+  the effect being paid for.
+- **Generated video anywhere on the site.** Every slot examined either fought
+  text contrast, could not respond to scroll without the re-encode cost, or
+  scaled with project count. Nothing it offered could not be done more cheaply
+  in code or left out.
