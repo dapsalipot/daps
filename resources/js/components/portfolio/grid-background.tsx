@@ -103,9 +103,7 @@ export default function GridBackground() {
             ctx.fillStyle = accent;
             ctx.globalAlpha = ALPHA_BASE;
             for (const dot of dots) {
-                ctx.beginPath();
-                ctx.arc(dot.x, dot.y, RADIUS, 0, Math.PI * 2);
-                ctx.fill();
+                ctx.fillRect(dot.x - RADIUS, dot.y - RADIUS, RADIUS * 2, RADIUS * 2);
             }
             window.addEventListener('resize', resize);
             return () => {
@@ -120,6 +118,13 @@ export default function GridBackground() {
         const tick = () => {
             ctx.clearRect(0, 0, width, height);
             ctx.fillStyle = accent;
+
+            // Dots at rest all share one alpha, so they draw in a single batch.
+            // Changing globalAlpha per dot was forcing ~2000 canvas state changes
+            // a frame; arc() also costs far more than fillRect at r=1.4.
+            const d = RADIUS * 2;
+            ctx.globalAlpha = ALPHA_BASE;
+            const moved: Dot[] = [];
 
             for (const dot of dots) {
                 // Distance from displaced position to mouse
@@ -149,20 +154,38 @@ export default function GridBackground() {
                 dot.dx += dot.vx;
                 dot.dy += dot.vy;
 
-                // Draw — boost opacity for displaced dots for a subtle "glow" effect
+                // Settled dots go in the shared batch; only displaced ones need
+                // their own alpha, and there are only ever a handful near the cursor.
+                if (Math.abs(dot.dx) + Math.abs(dot.dy) < 0.35) {
+                    ctx.fillRect(px - RADIUS, py - RADIUS, d, d);
+                } else {
+                    moved.push(dot);
+                }
+            }
+
+            for (const dot of moved) {
+                const px = dot.x + dot.dx;
+                const py = dot.y + dot.dy;
                 const displacement = Math.abs(dot.dx) + Math.abs(dot.dy);
-                const alphaBoost = Math.min(displacement / 20, 1) * ALPHA_BOOST;
-                ctx.globalAlpha = ALPHA_BASE + alphaBoost;
-                ctx.beginPath();
-                ctx.arc(px, py, RADIUS, 0, Math.PI * 2);
-                ctx.fill();
+                ctx.globalAlpha = ALPHA_BASE + Math.min(displacement / 20, 1) * ALPHA_BOOST;
+                ctx.fillRect(px - RADIUS, py - RADIUS, d, d);
             }
 
             rafId = requestAnimationFrame(tick);
         };
 
+        const onHidden = () => {
+            if (document.hidden) {
+                cancelAnimationFrame(rafId);
+                rafId = 0;
+            } else if (!rafId) {
+                rafId = requestAnimationFrame(tick);
+            }
+        };
+
         resize();
         window.addEventListener('resize', resize);
+        document.addEventListener('visibilitychange', onHidden);
         window.addEventListener('pointermove', onMove);
         window.addEventListener('pointerleave', onLeave);
         document.addEventListener('mouseleave', onLeave);
@@ -174,6 +197,7 @@ export default function GridBackground() {
             window.removeEventListener('pointermove', onMove);
             window.removeEventListener('pointerleave', onLeave);
             document.removeEventListener('mouseleave', onLeave);
+            document.removeEventListener('visibilitychange', onHidden);
             observer.disconnect();
         };
     }, []);

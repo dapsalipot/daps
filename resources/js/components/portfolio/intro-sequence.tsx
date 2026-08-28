@@ -64,7 +64,14 @@ export default function IntroSequence({
     const trackRef = useRef<HTMLDivElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
     const [active, setActive] = useState(0);
-    const [handoff, setHandoff] = useState(0);
+    // Opacity is written straight to the DOM. Routing it through React state
+    // re-rendered all five beats on every frame of the fade.
+    const [heroReady, setHeroReady] = useState(false);
+    const objectRef = useRef<HTMLDivElement>(null);
+    const scrimRef = useRef<HTMLDivElement>(null);
+    const beatsRef = useRef<HTMLDivElement>(null);
+    const railRef = useRef<HTMLDivElement>(null);
+    const finaleRef = useRef<HTMLDivElement>(null);
     const [useVideo, setUseVideo] = useState(false);
 
     useEffect(() => {
@@ -89,10 +96,20 @@ export default function IntroSequence({
         );
         io.observe(track);
 
+        // Track geometry only changes on resize, so read it there instead of
+        // forcing a layout every frame.
+        let trackTop = 0;
+        let span = 1;
+        const measure = () => {
+            trackTop = track.getBoundingClientRect().top + window.scrollY;
+            span = Math.max(track.offsetHeight - window.innerHeight, 1);
+        };
+        measure();
+        window.addEventListener('resize', measure);
+
+        let lastHandoff = -1;
         const frame = () => {
-            const rect = track.getBoundingClientRect();
-            const span = rect.height - window.innerHeight;
-            const progress = span > 0 ? Math.min(Math.max(-rect.top / span, 0), 1) : 0;
+            const progress = Math.min(Math.max((window.scrollY - trackTop) / span, 0), 1);
 
             const video = videoRef.current;
             // Never stack seeks: issuing a new currentTime while one is still
@@ -110,7 +127,16 @@ export default function IntroSequence({
 
             const h = Math.min(Math.max((progress - HANDOFF_START) / (1 - HANDOFF_START), 0), 1);
             const eased = h * h * (3 - 2 * h);
-            setHandoff((prev) => (Math.abs(prev - eased) < 0.01 ? prev : eased));
+            if (Math.abs(eased - lastHandoff) > 0.002) {
+                lastHandoff = eased;
+                const out = String(1 - eased);
+                if (objectRef.current) objectRef.current.style.opacity = out;
+                if (scrimRef.current) scrimRef.current.style.opacity = out;
+                if (beatsRef.current) beatsRef.current.style.opacity = out;
+                if (railRef.current) railRef.current.style.opacity = out;
+                if (finaleRef.current) finaleRef.current.style.opacity = String(eased);
+                setHeroReady((prev) => (prev === eased > 0.6 ? prev : eased > 0.6));
+            }
 
             raf = visible ? requestAnimationFrame(frame) : 0;
         };
@@ -119,16 +145,21 @@ export default function IntroSequence({
         return () => {
             if (raf) cancelAnimationFrame(raf);
             io.disconnect();
+            window.removeEventListener('resize', measure);
         };
     }, [useVideo]);
 
     return (
         <div ref={trackRef} className="relative" style={{ height: `${TRACK_VH}vh` }}>
-            <div className="sticky top-0 flex h-dvh flex-col items-center justify-center overflow-hidden px-6 md:px-12">
+            <div
+                className="sticky top-0 flex h-dvh flex-col items-center justify-center overflow-hidden px-6 md:px-12"
+                style={{ contain: 'layout paint', isolation: 'isolate' }}
+            >
                 {/* Object */}
                 <div
+                    ref={objectRef}
                     className="pointer-events-none absolute inset-0 flex items-center justify-center"
-                    style={{ opacity: 1 - handoff }}
+                    style={{ opacity: 1, willChange: 'opacity' }}
                 >
                     <div
                         className="h-[min(680px,82vw)] w-[min(680px,82vw)]"
@@ -169,14 +200,15 @@ export default function IntroSequence({
                 {/* Beats. The scrim guarantees text contrast against whatever frame
                     is showing, instead of depending on the object being dark there. */}
                 <div
+                    ref={scrimRef}
                     className="pointer-events-none absolute inset-0"
                     style={{
+                        willChange: 'opacity',
                         background:
                             'radial-gradient(ellipse 46% 30% at 50% 52%, rgba(0,0,0,0.82), rgba(0,0,0,0.45) 55%, transparent 78%)',
-                        opacity: 1 - handoff,
                     }}
                 />
-                <div className="relative mx-auto w-full max-w-[720px] text-center" style={{ opacity: 1 - handoff }}>
+                <div ref={beatsRef} className="relative mx-auto w-full max-w-[720px] text-center" style={{ willChange: 'opacity' }}>
                     {BEATS.map((beat, i) => (
                         <div
                             key={beat.label}
@@ -206,15 +238,16 @@ export default function IntroSequence({
                 {/* Finale — the hero, pinned in the same stage. Opacity only, so the
                     handoff has no vertical movement at all. */}
                 <div
+                    ref={finaleRef}
                     className="absolute inset-0 flex items-center justify-center px-6 md:px-12"
-                    style={{ opacity: handoff, pointerEvents: handoff > 0.6 ? 'auto' : 'none' }}
-                    aria-hidden={handoff < 0.6}
+                    style={{ opacity: 0, willChange: 'opacity', pointerEvents: heroReady ? 'auto' : 'none' }}
+                    aria-hidden={!heroReady}
                 >
                     {finale}
                 </div>
 
                 {/* Progress rail */}
-                <div className="absolute bottom-10 left-1/2 flex -translate-x-1/2 gap-2" style={{ opacity: 1 - handoff }}>
+                <div ref={railRef} className="absolute bottom-10 left-1/2 flex -translate-x-1/2 gap-2" style={{ willChange: 'opacity' }}>
                     {BEATS.map((beat, i) => (
                         <span
                             key={beat.label}
