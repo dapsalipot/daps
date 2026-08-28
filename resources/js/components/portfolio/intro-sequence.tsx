@@ -158,8 +158,16 @@ export default function IntroSequence({
     return (
         <div ref={trackRef} className="relative" style={{ height: `${TRACK_VH}vh` }}>
             <div
-                className="sticky top-0 flex h-dvh flex-col items-center justify-center overflow-hidden px-6 md:px-12"
-                style={{ contain: 'layout paint', isolation: 'isolate' }}
+                className="stage-dark sticky top-0 flex h-dvh flex-col items-center justify-center overflow-hidden px-6 md:px-12"
+                style={{
+                    contain: 'layout paint',
+                    // Screen-blend only drops black on a dark ground, so the stage
+                    // stays dark in both themes and carries its own dot grid at the
+                    // same 28px pitch as GridBackground.
+                    backgroundColor: '#0A0A0A',
+                    backgroundImage: 'radial-gradient(rgba(125,217,110,0.10) 1px, transparent 1px)',
+                    backgroundSize: '28px 28px',
+                }}
             >
                 {/* Object */}
                 <div
@@ -228,7 +236,10 @@ export default function IntroSequence({
                                 pointerEvents: 'none',
                             }}
                         >
-                            <h2 className="text-portfolio-accent font-mono text-[46px] leading-none font-medium tracking-[-0.02em] md:text-[78px]">
+                            <h2
+                                className="text-portfolio-accent text-[46px] leading-none font-bold tracking-[-0.03em] md:text-[78px]"
+                                style={{ fontFamily: 'var(--font-display)' }}
+                            >
                                 {beat.label}
                             </h2>
                             <div className="text-fg mt-5 font-sans text-[20px] leading-tight font-medium tracking-[-0.02em] md:text-[27px]">
