@@ -24,27 +24,27 @@ interface Beat {
 const BEATS: Beat[] = [
     {
         label: 'data',
-        title: 'Database design',
+        title: 'Structure and speed',
         body: 'Normalization, composite indexes, N+1 resolution, database-per-tenant isolation.',
     },
     {
         label: 'backend',
-        title: 'Laravel APIs',
+        title: 'Logic and services',
         body: 'Livewire, Filament, REST design, queued jobs that stay correct on retry.',
     },
     {
         label: 'frontend',
-        title: 'React and Inertia',
+        title: 'Interfaces and state',
         body: 'TypeScript, Tailwind, server-driven routing, typed props end to end.',
     },
     {
         label: 'mobile',
-        title: 'React Native',
+        title: 'Clients and delivery',
         body: 'Sanctum token auth, push registry, live WebSocket updates on device.',
     },
     {
         label: 'iot',
-        title: 'RFID and payments',
+        title: 'Hardware and transactions',
         body: 'Field readers, PayMongo and GCash reconciliation, replay-safe webhooks.',
     },
 ];
@@ -190,13 +190,13 @@ export default function IntroSequence({
                                 pointerEvents: 'none',
                             }}
                         >
-                            <span className="text-portfolio-accent font-mono text-[12px] tracking-[0.14em] uppercase">
+                            <h2 className="text-portfolio-accent font-mono text-[46px] leading-none font-medium tracking-[-0.02em] md:text-[78px]">
                                 {beat.label}
-                            </span>
-                            <h2 className="text-fg mt-4 font-sans text-[34px] leading-[1.06] font-semibold tracking-[-0.03em] md:text-[56px]">
-                                {beat.title}
                             </h2>
-                            <p className="text-fg-mid mx-auto mt-4 max-w-[46ch] text-[16px] leading-relaxed md:text-[19px]">
+                            <div className="text-fg mt-5 font-sans text-[20px] leading-tight font-medium tracking-[-0.02em] md:text-[27px]">
+                                {beat.title}
+                            </div>
+                            <p className="text-fg-mid mx-auto mt-3 max-w-[52ch] text-[13px] leading-relaxed md:text-[14px]">
                                 {beat.body}
                             </p>
                         </div>
