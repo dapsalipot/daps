@@ -238,6 +238,11 @@
    Tailwind v4 resolves `--color-x: var(--x)` to a literal at :root, so
    overriding `--fg` alone does nothing for utility classes — the `--color-*`
    layer has to be redeclared too. */
+[data-intro] nav {
+    background-color: #0A0A0A;
+    border-color: transparent;
+}
+
 .stage-dark {
     --bg: #0A0A0A;
     --bg-elev: #111111;

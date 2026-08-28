@@ -4,8 +4,11 @@ export type Appearance = 'light' | 'dark' | 'system';
 
 const prefersDark = () => window.matchMedia('(prefers-color-scheme: dark)').matches;
 
+// Light mode is off for now. Flip this to false to bring the toggle back.
+export const FORCE_DARK = true;
+
 const applyTheme = (appearance: Appearance) => {
-    const isDark = appearance === 'dark' || (appearance === 'system' && prefersDark());
+    const isDark = FORCE_DARK || appearance === 'dark' || (appearance === 'system' && prefersDark());
 
     document.documentElement.classList.toggle('dark', isDark);
 };

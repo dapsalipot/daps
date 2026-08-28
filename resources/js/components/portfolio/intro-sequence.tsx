@@ -132,6 +132,7 @@ export default function IntroSequence({
         window.addEventListener('resize', measure);
 
         let lastHandoff = -1;
+        let lastOverIntro: boolean | null = null;
         const frame = () => {
             if (!measured) measure();
             const progress = Math.min(Math.max((window.scrollY - trackTop) / span, 0), 1);
@@ -157,6 +158,17 @@ export default function IntroSequence({
 
             const h = Math.min(Math.max((progress - HANDOFF_START) / (1 - HANDOFF_START), 0), 1);
             const eased = h * h * (3 - 2 * h);
+            // Nav sits above the stage, so the strip behind it would otherwise show
+            // the page dot grid while the intro is black. Flag it on the root and let
+            // the nav paint itself black for the duration.
+            // The loop only runs while the track is in view, so 'still black'
+            // is purely a question of whether the ground has lifted yet.
+            const overIntro = eased < 0.98;
+            if (overIntro !== lastOverIntro) {
+                lastOverIntro = overIntro;
+                document.documentElement.toggleAttribute('data-intro', overIntro);
+            }
+
             if (Math.abs(eased - lastHandoff) > 0.002) {
                 lastHandoff = eased;
                 const out = String(1 - eased);
@@ -184,6 +196,7 @@ export default function IntroSequence({
             if (raf) cancelAnimationFrame(raf);
             io.disconnect();
             window.removeEventListener('resize', measure);
+            document.documentElement.removeAttribute('data-intro');
         };
     }, [useVideo]);
 

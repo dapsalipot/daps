@@ -1,8 +1,9 @@
-import { useAppearance } from '@/hooks/use-appearance';
+import { FORCE_DARK, useAppearance } from '@/hooks/use-appearance';
 import { MoonIcon, SunIcon } from './icons';
 
 export default function ThemeToggle() {
     const { appearance, updateAppearance } = useAppearance();
+    if (FORCE_DARK) return null;
     const isDark = appearance === 'dark' || (appearance === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches);
     return (
         <button
