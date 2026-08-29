@@ -13,7 +13,7 @@ export default function About() {
         <PortfolioLayout title="About - Daniel Andrei Salipot" active="about">
             <section className="grid grid-cols-1 items-end gap-12 px-6 pt-12 pb-10 md:px-12 md:pt-16 md:pb-14 lg:grid-cols-[1.5fr_1fr]">
                 <div>
-                    <span className="text-portfolio-accent font-mono text-[12px]">// 01 - about</span>
+                    <span className="text-portfolio-accent font-mono text-[13.5px]">// 01 - about</span>
                     <h1 className="text-fg mt-3.5 font-sans text-[48px] leading-none font-medium tracking-tight md:text-[80px]">
                         Backend developer.
                         <br />
@@ -28,7 +28,7 @@ export default function About() {
                         <div className="text-portfolio-accent absolute inset-0 flex items-center justify-center font-sans text-[120px] font-medium tracking-tight md:text-[140px]">
                             DS
                         </div>
-                        <div className="absolute right-4 bottom-3.5 left-4 flex justify-between font-mono text-[12px] text-white/50">
+                        <div className="absolute right-4 bottom-3.5 left-4 flex justify-between font-mono text-[13.5px] text-white/50">
                             <span>portrait.jpg</span>
                             <span>1080 × 1350</span>
                         </div>
@@ -43,7 +43,7 @@ export default function About() {
                         <h2 className="text-fg font-sans text-[28px] leading-tight font-medium tracking-tight md:text-[32px]">
                             <span className="text-portfolio-accent">Production systems, owned end to end.</span> Schema to deployment.
                         </h2>
-                        <p className="text-fg-dim mt-4 font-mono text-[13px] leading-relaxed">
+                        <p className="text-fg-dim mt-4 font-mono text-[14.5px] leading-relaxed">
                             based in {portfolio.identity.location.city}
                             <br />
                             {portfolio.identity.location.tz} · english + tagalog
@@ -51,7 +51,7 @@ export default function About() {
                             open to remote · contract or full-time
                         </p>
                     </div>
-                    <div className="text-fg-mid flex flex-col gap-3.5 text-[16px] leading-[1.7]">
+                    <div className="text-fg-mid flex flex-col gap-3.5 text-[17.5px] leading-[1.7]">
                         <p>
                             Three years at <span className="text-fg">Rakso CT</span> building and maintaining production SaaS. I am sole developer of <span className="text-fg">Tapso</span>, an RFID attendance and cashless payment platform across roughly 10 campuses, 80 field devices, and 10,000+ cardholders, handling over PHP 2M in monthly transaction volume. Before that I maintained core modules of <span className="text-fg">Schoolaide</span>, a multi-tenant school SaaS with about 60 tenants and 60,000 students on a database-per-tenant architecture.
                         </p>
@@ -71,13 +71,13 @@ export default function About() {
                     {Object.entries(portfolio.stack).map(([cat, items]) => (
                         <Card key={cat} pad={18}>
                             <div className="border-line border-b pb-3">
-                                <span className="text-fg text-[15px] font-medium tracking-tight">{cat}</span>
+                                <span className="text-fg text-[16.5px] font-medium tracking-tight">{cat}</span>
                             </div>
                             <ul className="mt-3.5 flex list-none flex-col gap-2 p-0">
                                 {items.map(([k, v]) => (
-                                    <li key={k} className="flex items-baseline justify-between text-[14px]">
+                                    <li key={k} className="flex items-baseline justify-between text-[15.5px]">
                                         <span className="text-fg">{k}</span>
-                                        <span className="text-fg-dim font-mono text-[12px]">{v}</span>
+                                        <span className="text-fg-dim font-mono text-[13.5px]">{v}</span>
                                     </li>
                                 ))}
                             </ul>
@@ -92,23 +92,23 @@ export default function About() {
                     {portfolio.experience.map((e) => (
                         <div
                             key={`${e.from}-${e.role}`}
-                            className="border-line grid grid-cols-1 items-start gap-4 border-t py-6 md:grid-cols-[160px_1.3fr_1.6fr] md:gap-8"
+                            className="border-line grid grid-cols-1 items-start gap-4 border-t py-6 md:grid-cols-[190px_1.3fr_1.6fr] md:gap-8"
                         >
-                            <span className="text-portfolio-accent font-mono text-[12px]">
+                            <span className="text-portfolio-accent font-mono text-[13.5px]">
                                 {e.from} - {e.to}
                             </span>
                             <div>
-                                <div className="text-fg text-[22px] font-medium tracking-tight">{e.role}</div>
-                                <div className="text-fg-mid mt-0.5 text-[14px]">
+                                <div className="text-fg text-[24px] font-medium tracking-tight">{e.role}</div>
+                                <div className="text-fg-mid mt-0.5 text-[15.5px]">
                                     {e.org} · {e.loc}
                                 </div>
                             </div>
                             <div>
-                                <p className="text-fg-mid text-[14px] leading-relaxed">{e.note}</p>
+                                <p className="text-fg-mid text-[15.5px] leading-relaxed">{e.note}</p>
 
                                 {e.projects.length > 0 && (
                                     <div className="border-line mt-5 border-t pt-5">
-                                        <span className="text-fg-dim font-mono text-[12px]">
+                                        <span className="text-fg-dim font-mono text-[13.5px]">
                                             selected highlights
                                         </span>
                                         <ul className="mt-4 flex list-none flex-col gap-4 p-0">
@@ -118,14 +118,14 @@ export default function About() {
                                                         {p.tech.map((t) => (
                                                             <span
                                                                 key={t}
-                                                                className="text-fg bg-bg-elev border-line inline-flex items-center gap-1.5 rounded-md border px-2 py-1 font-mono text-[12px] font-medium leading-none"
+                                                                className="text-fg bg-bg-elev border-line inline-flex items-center gap-1.5 rounded-md border px-2 py-1 font-mono text-[13.5px] font-medium leading-none"
                                                             >
                                                                 <LangDot name={t.split(' ')[0]} size={6} />
                                                                 {t}
                                                             </span>
                                                         ))}
                                                     </div>
-                                                    <span className="text-fg-dim text-[13px] leading-relaxed">
+                                                    <span className="text-fg-dim text-[14.5px] leading-relaxed">
                                                         ↳ {p.context}
                                                     </span>
                                                 </li>
@@ -152,18 +152,18 @@ export default function About() {
                 <SectionHead n="05" title="education + certs" />
                 <div className="mt-5 grid grid-cols-1 gap-4 lg:grid-cols-[2fr_1fr]">
                     <Card pad={22}>
-                        <span className="text-fg text-[15px] font-medium tracking-tight">Education</span>
+                        <span className="text-fg text-[16.5px] font-medium tracking-tight">Education</span>
                         <div className="mt-4 flex flex-col gap-4">
                             {portfolio.education.map((e) => (
                                 <div
                                     key={e.yr}
                                     className="grid grid-cols-1 items-baseline gap-4 md:grid-cols-[120px_1fr_auto]"
                                 >
-                                    <span className="text-fg-dim font-mono text-[12px]">{e.yr}</span>
+                                    <span className="text-fg-dim font-mono text-[13.5px]">{e.yr}</span>
                                     <div>
-                                        <div className="text-fg text-[18px] font-medium tracking-tight">{e.degree}</div>
-                                        <div className="text-fg-mid text-[13px]">{e.org}</div>
-                                        {e.gpa && <div className="text-fg-dim mt-1 font-mono text-[12px]">gpa {e.gpa}</div>}
+                                        <div className="text-fg text-[19.5px] font-medium tracking-tight">{e.degree}</div>
+                                        <div className="text-fg-mid text-[14.5px]">{e.org}</div>
+                                        {e.gpa && <div className="text-fg-dim mt-1 font-mono text-[13.5px]">gpa {e.gpa}</div>}
                                     </div>
                                     <Chip tone={e.active ? 'accent' : 'default'}>{e.honor}</Chip>
                                 </div>
@@ -171,19 +171,19 @@ export default function About() {
                         </div>
                     </Card>
                     <Card pad={22}>
-                        <span className="text-fg text-[15px] font-medium tracking-tight">Certifications</span>
+                        <span className="text-fg text-[16.5px] font-medium tracking-tight">Certifications</span>
                         <ul className="mt-3.5 flex list-none flex-col gap-3 p-0">
                             {portfolio.certifications.map((c) => (
                                 <li key={c.cred} className="flex items-center gap-3">
                                     <span
-                                        className="inline-flex h-9 w-9 items-center justify-center rounded-lg font-mono text-[14px] font-semibold text-white"
+                                        className="inline-flex h-9 w-9 items-center justify-center rounded-lg font-mono text-[15.5px] font-semibold text-white"
                                         style={{ background: c.org_bg }}
                                     >
                                         {c.org_mark}
                                     </span>
                                     <div className="flex-1">
-                                        <div className="text-fg text-[14px] font-medium tracking-tight">{c.t}</div>
-                                        <div className="text-fg-mid text-[12px]">
+                                        <div className="text-fg text-[15.5px] font-medium tracking-tight">{c.t}</div>
+                                        <div className="text-fg-mid text-[13.5px]">
                                             {c.sub} · {c.yr}
                                         </div>
                                     </div>

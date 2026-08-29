@@ -14,11 +14,11 @@ export default function TypingTerminal({ title, steps }: TypingTerminalProps) {
 
     return (
         <div
-            className="bg-bg-elev-2 border-line overflow-hidden rounded-lg border font-mono text-[13px] leading-[1.7]"
+            className="bg-bg-elev-2 border-line overflow-hidden rounded-lg border font-mono text-[14.5px] leading-[1.7]"
             style={{ minHeight: 260 }}
         >
             {title && (
-                <div className="border-line text-fg-dim flex items-center gap-2 border-b px-3.5 py-2 text-[12px]">
+                <div className="border-line text-fg-dim flex items-center gap-2 border-b px-3.5 py-2 text-[13.5px]">
                     <span className="inline-flex gap-1">
                         <span className="bg-line-strong h-2 w-2 rounded-full" />
                         <span className="bg-line-strong h-2 w-2 rounded-full" />

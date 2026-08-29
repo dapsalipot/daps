@@ -145,12 +145,12 @@ export default function WorkCarousel({ projects }: { projects: Project[] }) {
 
                                     <div className="flex flex-1 flex-col gap-2.5 p-5">
                                         <div className="flex items-baseline justify-between gap-3">
-                                            <h3 className="text-fg text-[21px] leading-tight font-medium tracking-tight">
+                                            <h3 className="text-fg text-[23px] leading-tight font-medium tracking-tight">
                                                 {p.name}
                                             </h3>
-                                            <span className="text-fg-dim shrink-0 font-mono text-[12px]">{p.year}</span>
+                                            <span className="text-fg-dim shrink-0 font-mono text-[13.5px]">{p.year}</span>
                                         </div>
-                                        <p className="text-fg-mid line-clamp-2 text-[14px] leading-snug">{p.kicker}</p>
+                                        <p className="text-fg-mid line-clamp-2 text-[15.5px] leading-snug">{p.kicker}</p>
                                         <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-2">
                                             <div className="flex flex-wrap gap-1.5">
                                                 {p.stack.slice(0, 3).map((t) => (
@@ -161,7 +161,7 @@ export default function WorkCarousel({ projects }: { projects: Project[] }) {
                                                 ))}
                                             </div>
                                             {isActive && (
-                                                <span className="bg-portfolio-accent inline-flex shrink-0 items-center gap-1.5 rounded-full px-4 py-2 text-[14px] font-medium text-on-accent transition group-hover:opacity-90">
+                                                <span className="bg-portfolio-accent inline-flex shrink-0 items-center gap-1.5 rounded-full px-4 py-2 text-[15.5px] font-medium text-on-accent transition group-hover:opacity-90">
                                                     View project
                                                     <ArrowIcon size={13} />
                                                 </span>

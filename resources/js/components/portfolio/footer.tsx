@@ -6,7 +6,7 @@ export default function Footer() {
     const { portfolio } = usePage<SharedData>().props;
     const year = new Date().getFullYear();
     return (
-        <footer className="border-line text-fg-dim flex flex-col items-start justify-between gap-4 border-t px-6 py-10 font-mono text-[12px] md:flex-row md:items-center md:px-12">
+        <footer className="border-line text-fg-dim flex flex-col items-start justify-between gap-4 border-t px-6 py-10 font-mono text-[13.5px] md:flex-row md:items-center md:px-12">
             <div className="flex flex-col gap-1">
                 <span className="text-fg">
                     © {year} {portfolio.identity.name}

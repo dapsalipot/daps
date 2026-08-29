@@ -27,11 +27,11 @@ export default function Contact() {
     return (
         <PortfolioLayout title="Contact - Daniel Andrei Salipot" active="contact">
             <section className="max-w-5xl px-6 pt-12 pb-8 md:px-12 md:pt-16 md:pb-10">
-                <span className="text-portfolio-accent font-mono text-[12px]">// 01 - contact</span>
+                <span className="text-portfolio-accent font-mono text-[13.5px]">// 01 - contact</span>
                 <h1 className="text-fg mt-3.5 font-sans text-[48px] leading-none font-medium tracking-tight md:text-[80px]">
                     Contact.
                 </h1>
-                <p className="text-fg-mid mt-5 max-w-2xl text-[16px] leading-relaxed">
+                <p className="text-fg-mid mt-5 max-w-2xl text-[17.5px] leading-relaxed">
                     Available {portfolio.identity.available.since} for full-time and contract work. Laravel back-ends, IoT integration, and production web systems. Reply within 48h.
                 </p>
             </section>
@@ -40,7 +40,7 @@ export default function Contact() {
                 <Card pad={28}>
                     <SectionHead n="02" title="message.form" />
                     {sent && (
-                        <div className="border-portfolio-accent/30 bg-[var(--portfolio-accent-sage)] text-portfolio-accent mt-5 inline-flex items-center gap-2.5 rounded-lg border p-4 font-mono text-[12px]">
+                        <div className="border-portfolio-accent/30 bg-[var(--portfolio-accent-sage)] text-portfolio-accent mt-5 inline-flex items-center gap-2.5 rounded-lg border p-4 font-mono text-[13.5px]">
                             <CheckIcon /> Message sent. I'll reply within 48 hours.
                         </div>
                     )}
@@ -51,7 +51,7 @@ export default function Contact() {
                                 value={data.name}
                                 onChange={(e) => setData('name', e.target.value)}
                                 required
-                                className="bg-bg-elev-2 border-line text-fg focus:border-line-strong w-full rounded-lg border px-3.5 py-2.5 text-[14px] focus:outline-none"
+                                className="bg-bg-elev-2 border-line text-fg focus:border-line-strong w-full rounded-lg border px-3.5 py-2.5 text-[15.5px] focus:outline-none"
                             />
                         </Field>
                         <Field label="email" error={errors.email}>
@@ -60,7 +60,7 @@ export default function Contact() {
                                 value={data.email}
                                 onChange={(e) => setData('email', e.target.value)}
                                 required
-                                className="bg-bg-elev-2 border-line text-fg focus:border-line-strong w-full rounded-lg border px-3.5 py-2.5 text-[14px] focus:outline-none"
+                                className="bg-bg-elev-2 border-line text-fg focus:border-line-strong w-full rounded-lg border px-3.5 py-2.5 text-[15.5px] focus:outline-none"
                             />
                         </Field>
                         <div className="md:col-span-2">
@@ -69,7 +69,7 @@ export default function Contact() {
                                     type="text"
                                     value={data.subject}
                                     onChange={(e) => setData('subject', e.target.value)}
-                                    className="bg-bg-elev-2 border-line text-fg focus:border-line-strong w-full rounded-lg border px-3.5 py-2.5 text-[14px] focus:outline-none"
+                                    className="bg-bg-elev-2 border-line text-fg focus:border-line-strong w-full rounded-lg border px-3.5 py-2.5 text-[15.5px] focus:outline-none"
                                 />
                             </Field>
                         </div>
@@ -80,7 +80,7 @@ export default function Contact() {
                                     value={data.message}
                                     onChange={(e) => setData('message', e.target.value)}
                                     required
-                                    className="bg-bg-elev-2 border-line text-fg focus:border-line-strong w-full resize-y rounded-lg border px-3.5 py-3 text-[14px] focus:outline-none"
+                                    className="bg-bg-elev-2 border-line text-fg focus:border-line-strong w-full resize-y rounded-lg border px-3.5 py-3 text-[15.5px] focus:outline-none"
                                 />
                             </Field>
                         </div>
@@ -95,7 +95,7 @@ export default function Contact() {
                             aria-hidden="true"
                         />
                         <div className="flex items-center justify-end gap-2.5 md:col-span-2">
-                            <span className="text-fg-dim mr-auto font-mono text-[12px]">replies within 48h</span>
+                            <span className="text-fg-dim mr-auto font-mono text-[13.5px]">replies within 48h</span>
                             <Button kind="accent" size="lg" type="submit" disabled={processing} trailing={<ArrowNEIcon />}>
                                 {processing ? 'sending…' : 'send message'}
                             </Button>
@@ -105,24 +105,24 @@ export default function Contact() {
 
                 <div className="flex flex-col gap-4">
                     <Card pad={22}>
-                        <span className="text-portfolio-accent font-mono text-[12px]">// or skip the form</span>
+                        <span className="text-portfolio-accent font-mono text-[13.5px]">// or skip the form</span>
                         <ul className="mt-3.5 flex list-none flex-col gap-2.5 p-0">
                             <li>
-                                <a href={`mailto:${portfolio.links.email}`} className="ulink link-slide text-[14px]">
+                                <a href={`mailto:${portfolio.links.email}`} className="ulink link-slide text-[15.5px]">
                                     <MailIcon /> {portfolio.links.email}
                                 </a>
                             </li>
                             <li>
-                                <a href={portfolio.links.github} target="_blank" rel="noreferrer" className="ulink link-slide text-[14px]">
+                                <a href={portfolio.links.github} target="_blank" rel="noreferrer" className="ulink link-slide text-[15.5px]">
                                     <GithubIcon /> github.com/danielsalipot
                                 </a>
                             </li>
                             <li>
-                                <a href={portfolio.links.linkedin} target="_blank" rel="noreferrer" className="ulink link-slide text-[14px]">
+                                <a href={portfolio.links.linkedin} target="_blank" rel="noreferrer" className="ulink link-slide text-[15.5px]">
                                     <LinkedinIcon /> linkedin.com/in/daniel-andrei-salipot
                                 </a>
                             </li>
-                            <li className="text-fg-dim mt-1 font-mono text-[12px]">{portfolio.links.phone}</li>
+                            <li className="text-fg-dim mt-1 font-mono text-[13.5px]">{portfolio.links.phone}</li>
                         </ul>
                     </Card>
                     <CodeBlock
@@ -143,9 +143,9 @@ export default function Contact() {
 function Field({ label, error, children }: { label: string; error?: string; children: ReactNode }) {
     return (
         <label className="block">
-            <span className="text-fg-dim font-mono text-[12px]">{label}</span>
+            <span className="text-fg-dim font-mono text-[13.5px]">{label}</span>
             <div className="mt-1.5">{children}</div>
-            {error && <span className="mt-1 block font-mono text-[12px] text-red-400">{error}</span>}
+            {error && <span className="mt-1 block font-mono text-[13.5px] text-red-400">{error}</span>}
         </label>
     );
 }

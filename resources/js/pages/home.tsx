@@ -32,14 +32,14 @@ export default function Home() {
                             Daniel Andrei Salipot
                         </h1>
 
-                        <p className="text-fg-mid mx-auto mt-5 max-w-[42ch] font-sans text-[19px] leading-[1.38] tracking-[-0.01em] md:text-[25px]">
+                        <p className="text-fg-mid mx-auto mt-5 max-w-[42ch] font-sans text-[20.5px] leading-[1.38] tracking-[-0.01em] md:text-[27px]">
                             Backend developer building production systems end to end, from database design to hardware.
                         </p>
 
                         <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
                             <a
                                 href="/projects"
-                                className="bg-portfolio-accent inline-flex items-center gap-2 rounded-full px-7 py-3 text-[15px] font-medium text-on-accent transition hover:opacity-90"
+                                className="bg-portfolio-accent inline-flex items-center gap-2 rounded-full px-7 py-3 text-[16.5px] font-medium text-on-accent transition hover:opacity-90"
                             >
                                 View work
                                 <ArrowIcon size={15} />
@@ -48,7 +48,7 @@ export default function Home() {
                                 href="/resume.pdf"
                                 target="_blank"
                                 rel="noreferrer"
-                                className="border-line bg-bg-elev/70 text-fg hover:border-line-strong inline-flex items-center gap-2 rounded-full border px-7 py-3 text-[15px] font-medium backdrop-blur transition"
+                                className="border-line bg-bg-elev/70 text-fg hover:border-line-strong inline-flex items-center gap-2 rounded-full border px-7 py-3 text-[16.5px] font-medium backdrop-blur transition"
                             >
                                 Resume
                                 <ExtIcon size={13} />
@@ -72,14 +72,14 @@ export default function Home() {
                             key={it.title}
                             className="border-line group grid grid-cols-1 gap-2 border-t py-6 md:grid-cols-[140px_1fr] md:gap-10"
                         >
-                            <span className="text-fg-dim group-hover:text-portfolio-accent font-mono text-[12px] transition-colors">
+                            <span className="text-fg-dim group-hover:text-portfolio-accent font-mono text-[13.5px] transition-colors">
                                 {it.label}
                             </span>
                             <div>
-                                <div className="text-fg text-[22px] leading-tight font-medium tracking-tight">
+                                <div className="text-fg text-[24px] leading-tight font-medium tracking-tight">
                                     {it.title}
                                 </div>
-                                <p className="text-fg-mid mt-1.5 max-w-xl text-[14px] leading-relaxed">{it.sub}</p>
+                                <p className="text-fg-mid mt-1.5 max-w-xl text-[15.5px] leading-relaxed">{it.sub}</p>
                             </div>
                         </div>
                     ))}
@@ -93,19 +93,19 @@ export default function Home() {
                     {Object.entries(portfolio.stack).map(([cat, items]) => (
                         <Card key={cat} pad={18} className="repo-card">
                             <div className="border-line flex items-baseline justify-between border-b pb-3">
-                                <span className="text-fg text-[15px] font-medium tracking-tight">{cat}</span>
-                                <span className="text-fg-fade font-mono text-[12px] tabular-nums">
+                                <span className="text-fg text-[16.5px] font-medium tracking-tight">{cat}</span>
+                                <span className="text-fg-fade font-mono text-[13.5px] tabular-nums">
                                     {String(items.length).padStart(2, '0')}
                                 </span>
                             </div>
                             <ul className="mt-3.5 flex list-none flex-col gap-2.5 p-0">
                                 {items.map(([k, v]) => (
-                                    <li key={k} className="flex items-baseline justify-between text-[14px]">
+                                    <li key={k} className="flex items-baseline justify-between text-[15.5px]">
                                         <span className="text-fg inline-flex items-center gap-2">
                                             <LangDot name={k.split(' ')[0]} size={7} />
                                             {k}
                                         </span>
-                                        <span className="text-fg-dim font-mono text-[12px]">{v}</span>
+                                        <span className="text-fg-dim font-mono text-[13.5px]">{v}</span>
                                     </li>
                                 ))}
                             </ul>
@@ -124,16 +124,16 @@ export default function Home() {
                             className="border-line border-t py-6"
                         >
                             <div className="grid grid-cols-1 items-baseline gap-4 md:grid-cols-[180px_1.4fr_1fr_40px] md:gap-8">
-                                <span className="text-portfolio-accent font-mono text-[12px]">
+                                <span className="text-portfolio-accent font-mono text-[13.5px]">
                                     {e.from} - {e.to}
                                 </span>
                                 <div>
-                                    <div className="text-fg text-[22px] font-medium tracking-tight">
+                                    <div className="text-fg text-[24px] font-medium tracking-tight">
                                         {e.role} · <span className="text-fg-mid">{e.org}</span>
                                     </div>
-                                    <span className="text-fg-dim font-mono text-[12px]">{e.loc}</span>
+                                    <span className="text-fg-dim font-mono text-[13.5px]">{e.loc}</span>
                                 </div>
-                                <div className="text-fg-mid text-[14px] leading-relaxed">{e.note}</div>
+                                <div className="text-fg-mid text-[15.5px] leading-relaxed">{e.note}</div>
                                 <div className="text-fg-mid text-right">
                                     <ArrowNEIcon />
                                 </div>
@@ -141,7 +141,7 @@ export default function Home() {
 
                             {e.projects.length > 0 && (
                                 <div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-[180px_1fr] md:gap-8">
-                                    <span className="text-fg-dim font-mono text-[12px]">
+                                    <span className="text-fg-dim font-mono text-[13.5px]">
                                         selected highlights
                                     </span>
                                     <ul className="flex list-none flex-col gap-4 p-0">
@@ -151,20 +151,20 @@ export default function Home() {
                                                 className="flex flex-col gap-2"
                                             >
                                                 <div className="flex flex-wrap items-center gap-2">
-                                                    <span className="bg-portfolio-accent/15 text-portfolio-accent border-portfolio-accent/25 inline-flex items-center gap-1 rounded border px-1.5 py-[2px] font-mono text-[12px] font-medium uppercase tracking-wider">
+                                                    <span className="bg-portfolio-accent/15 text-portfolio-accent border-portfolio-accent/25 inline-flex items-center gap-1 rounded border px-1.5 py-[2px] font-mono text-[13.5px] font-medium uppercase tracking-wider">
                                                         IoT
                                                     </span>
                                                     {p.tech.map((t) => (
                                                         <span
                                                             key={t}
-                                                            className="text-fg bg-bg-elev border-line inline-flex items-center gap-1.5 rounded-md border px-2 py-1 font-mono text-[12px] font-medium leading-none"
+                                                            className="text-fg bg-bg-elev border-line inline-flex items-center gap-1.5 rounded-md border px-2 py-1 font-mono text-[13.5px] font-medium leading-none"
                                                         >
                                                             <LangDot name={t.split(' ')[0]} size={6} />
                                                             {t}
                                                         </span>
                                                     ))}
                                                 </div>
-                                                <span className="text-fg-dim text-[13px] leading-relaxed">
+                                                <span className="text-fg-dim text-[14.5px] leading-relaxed">
                                                     ↳ {p.context}
                                                 </span>
                                             </li>
@@ -190,11 +190,11 @@ export default function Home() {
                                 {a.yr}
                             </span>
                             <div className="min-w-0">
-                                <div className="text-fg text-[19px] leading-tight font-medium tracking-tight">
+                                <div className="text-fg text-[20.5px] leading-tight font-medium tracking-tight">
                                     {a.t}
                                 </div>
-                                <div className="text-portfolio-accent mt-1 font-mono text-[12px]">{a.where}</div>
-                                <p className="text-fg-mid mt-2 text-[14px] leading-relaxed">{a.note}</p>
+                                <div className="text-portfolio-accent mt-1 font-mono text-[13.5px]">{a.where}</div>
+                                <p className="text-fg-mid mt-2 text-[15.5px] leading-relaxed">{a.note}</p>
                             </div>
                         </div>
                     ))}
@@ -220,7 +220,7 @@ export default function Home() {
                             <br />
                             in mind?
                         </h2>
-                        <p className="text-fg-mid mt-4 max-w-md text-[16px] leading-relaxed">
+                        <p className="text-fg-mid mt-4 max-w-md text-[17.5px] leading-relaxed">
                             Open to remote, hybrid, and onsite work in Metro Manila. Laravel and PHP backends, multi-tenant SaaS, payments, and hardware integration. Reply within 48h.
                         </p>
                         <div className="mt-6 flex flex-wrap gap-2.5">

@@ -34,7 +34,7 @@ export default function MacWindow({ title, children, className = '', style, mute
                     ))}
                 </div>
                 {title && (
-                    <span className="text-fg-dim pointer-events-none absolute inset-x-0 text-center font-mono text-[12px]">
+                    <span className="text-fg-dim pointer-events-none absolute inset-x-0 text-center font-mono text-[13.5px]">
                         {title}
                     </span>
                 )}

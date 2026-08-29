@@ -24,7 +24,7 @@ export default function ProjectsIndex() {
                     <h1 className="text-fg max-w-[16ch] font-sans text-[46px] leading-[1.03] font-semibold tracking-[-0.03em] md:text-[76px]">
                         Selected work, 2022 to 2026.
                     </h1>
-                    <p className="text-fg-mid mt-6 max-w-[52ch] text-[17px] leading-relaxed md:text-[19px]">
+                    <p className="text-fg-mid mt-6 max-w-[52ch] text-[18.5px] leading-relaxed md:text-[20.5px]">
                         {portfolio.projects.length} end-to-end builds: shipped production systems, active side
                         projects, and academic work.
                     </p>
@@ -34,7 +34,7 @@ export default function ProjectsIndex() {
                     <button
                         onClick={() => setFilter(null)}
                         aria-pressed={filter === null}
-                        className={`rounded-full px-4 py-2 font-mono text-[12px] transition-colors ${
+                        className={`rounded-full px-4 py-2 font-mono text-[13.5px] transition-colors ${
                             filter === null
                                 ? 'bg-fg text-bg'
                                 : 'text-fg-mid hover:text-fg hover:bg-bg-elev'
@@ -47,7 +47,7 @@ export default function ProjectsIndex() {
                             key={l}
                             onClick={() => setFilter(l)}
                             aria-pressed={filter === l}
-                            className={`inline-flex items-center gap-2 rounded-full px-4 py-2 font-mono text-[12px] transition-colors ${
+                            className={`inline-flex items-center gap-2 rounded-full px-4 py-2 font-mono text-[13.5px] transition-colors ${
                                 filter === l ? 'bg-fg text-bg' : 'text-fg-mid hover:text-fg hover:bg-bg-elev'
                             }`}
                         >
@@ -55,7 +55,7 @@ export default function ProjectsIndex() {
                             {l}
                         </button>
                     ))}
-                    <span className="text-fg-dim ml-auto font-mono text-[12px] tabular-nums">
+                    <span className="text-fg-dim ml-auto font-mono text-[13.5px] tabular-nums">
                         {filtered.length} of {portfolio.projects.length}
                     </span>
                 </section>
@@ -69,10 +69,10 @@ export default function ProjectsIndex() {
                         </div>
                     ) : (
                         <div className="border-line flex flex-col items-start gap-4 rounded-2xl border border-dashed px-8 py-16">
-                            <p className="text-fg text-[17px]">Nothing built with {filter} yet.</p>
+                            <p className="text-fg text-[18.5px]">Nothing built with {filter} yet.</p>
                             <button
                                 onClick={() => setFilter(null)}
-                                className="text-portfolio-accent font-mono text-[13px] underline underline-offset-4"
+                                className="text-portfolio-accent font-mono text-[14.5px] underline underline-offset-4"
                             >
                                 Show all work
                             </button>

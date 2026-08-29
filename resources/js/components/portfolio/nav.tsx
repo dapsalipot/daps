@@ -56,20 +56,20 @@ export default function Nav({ active }: NavProps) {
                     <Link href="/">
                         <Mark handle={portfolio.identity.handle} />
                     </Link>
-                    <span className="text-fg-dim hidden font-mono text-[12px] md:inline">
+                    <span className="text-fg-dim hidden font-mono text-[13.5px] md:inline">
                         /<span className="text-fg ml-1">{active}</span>
                     </span>
                 </div>
 
                 {/* Desktop nav links */}
-                <div className="hidden items-center font-mono text-[12px] justify-self-center md:flex">
+                <div className="hidden items-center font-mono text-[13.5px] justify-self-center md:flex">
                     {NAV_ITEMS.map((it) => (
                         <Link
                             key={it.k}
                             href={it.href}
                             className={`relative inline-flex items-center gap-1.5 px-3.5 py-1.5 ${active === it.k ? 'text-fg' : 'text-fg-dim hover:text-fg'} transition-colors`}
                         >
-                            <span className="text-fg-fade text-[12px]">{it.n}</span>
+                            <span className="text-fg-fade text-[13.5px]">{it.n}</span>
                             <span>{it.l}</span>
                             {active === it.k && <span className="bg-portfolio-accent h-1 w-1 rounded-full" />}
                         </Link>
@@ -141,13 +141,13 @@ export default function Nav({ active }: NavProps) {
                                 <Link
                                     href={it.href}
                                     onClick={() => setDrawerOpen(false)}
-                                    className={`flex items-baseline gap-3 rounded-md px-3 py-3 font-mono text-[15px] transition-colors ${
+                                    className={`flex items-baseline gap-3 rounded-md px-3 py-3 font-mono text-[16.5px] transition-colors ${
                                         active === it.k
                                             ? 'bg-bg-elev text-fg'
                                             : 'text-fg-mid hover:bg-bg-elev hover:text-fg'
                                     }`}
                                 >
-                                    <span className="text-fg-fade text-[12px]">{it.n}</span>
+                                    <span className="text-fg-fade text-[13.5px]">{it.n}</span>
                                     <span className="flex-1">{it.l}</span>
                                     {active === it.k && <span className="bg-portfolio-accent h-1.5 w-1.5 rounded-full" />}
                                 </Link>
@@ -157,7 +157,7 @@ export default function Nav({ active }: NavProps) {
 
                     <div className="border-line mt-auto border-t p-5">
                         <StatusDot>{portfolio.identity.available.label}</StatusDot>
-                        <div className="text-fg-dim mt-3 font-mono text-[12px]">
+                        <div className="text-fg-dim mt-3 font-mono text-[13.5px]">
                             <div>{portfolio.identity.location.city}</div>
                             <div>{portfolio.links.email}</div>
                         </div>

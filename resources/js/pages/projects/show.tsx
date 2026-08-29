@@ -15,21 +15,21 @@ export default function ProjectShow({ project }: { project: Project }) {
         <PortfolioLayout title={`${project.name} - Case study`} active="work">
             <div className="mx-auto w-full max-w-[1200px]">
             <section className="px-6 pt-12 pb-8 md:px-12 md:pt-16 md:pb-10">
-                <Link href="/projects" className="link-slide text-fg-mid inline-flex items-center gap-1.5 font-mono text-[12px]">
+                <Link href="/projects" className="link-slide text-fg-mid inline-flex items-center gap-1.5 font-mono text-[13.5px]">
                     <ArrowIcon className="rotate-180" /> all projects
                 </Link>
                 <div className="mt-6 grid grid-cols-1 items-end gap-10 lg:grid-cols-[1.6fr_1fr]">
                     <div>
                         <div className="flex flex-wrap items-center gap-2.5">
                             <Chip tone="accent">case study</Chip>
-                            {project.tag && <span className="text-fg-mid font-mono text-[12px]">{project.tag}</span>}
-                            <span className="text-fg-dim font-mono text-[12px]">· {project.year}</span>
+                            {project.tag && <span className="text-fg-mid font-mono text-[13.5px]">{project.tag}</span>}
+                            <span className="text-fg-dim font-mono text-[13.5px]">· {project.year}</span>
                         </div>
                         <h1 className="text-fg mt-4 font-sans text-[48px] leading-none font-medium tracking-tight md:text-[72px]">
                             {project.name}
                         </h1>
-                        <p className="text-portfolio-accent mt-2 font-mono text-[14px]">{project.kicker}</p>
-                        <p className="text-fg-mid mt-5 max-w-2xl text-[16px] leading-relaxed">{project.blurb}</p>
+                        <p className="text-portfolio-accent mt-2 font-mono text-[15.5px]">{project.kicker}</p>
+                        <p className="text-fg-mid mt-5 max-w-2xl text-[17.5px] leading-relaxed">{project.blurb}</p>
                         <div className="mt-5 flex flex-wrap gap-1.5">
                             {project.stack.map((s) => (
                                 <Chip key={s}>
@@ -41,12 +41,12 @@ export default function ProjectShow({ project }: { project: Project }) {
                     </div>
                     {project.metrics.length > 0 && (
                         <Card pad={22}>
-                            <span className="text-portfolio-accent font-mono text-[12px]">// outcomes</span>
+                            <span className="text-portfolio-accent font-mono text-[13.5px]">// outcomes</span>
                             <div className="mt-3.5 grid grid-cols-3 gap-3">
                                 {project.metrics.map(([n, l]) => (
                                     <div key={l}>
                                         <div className="text-fg text-[28px] font-medium tracking-tight">{n}</div>
-                                        <span className="text-fg-dim font-mono text-[12px]">{l}</span>
+                                        <span className="text-fg-dim font-mono text-[13.5px]">{l}</span>
                                     </div>
                                 ))}
                             </div>
@@ -84,7 +84,7 @@ export default function ProjectShow({ project }: { project: Project }) {
                     )}
                 </Card>
                 {project.case_study.screenshots?.length ? (
-                    <p className="text-fg-dim mt-3 max-w-3xl font-mono text-[12px] leading-relaxed">
+                    <p className="text-fg-dim mt-3 max-w-3xl font-mono text-[13.5px] leading-relaxed">
                         ↳ {project.case_study.screenshots[0].caption}
                     </p>
                 ) : null}
@@ -104,8 +104,8 @@ export default function ProjectShow({ project }: { project: Project }) {
                             key={label}
                             className="border-line grid grid-cols-1 gap-3 border-t py-7 md:grid-cols-[160px_1fr] md:gap-10"
                         >
-                            <span className="text-fg text-[15px] font-medium tracking-tight">{label}</span>
-                            <p className="text-fg-mid max-w-3xl text-[17px] leading-relaxed">{body}</p>
+                            <span className="text-fg text-[16.5px] font-medium tracking-tight">{label}</span>
+                            <p className="text-fg-mid max-w-3xl text-[18.5px] leading-relaxed">{body}</p>
                         </div>
                     ))}
                 </div>
@@ -118,9 +118,9 @@ export default function ProjectShow({ project }: { project: Project }) {
                     <div className="mt-7 grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
                         {project.case_study.modules.map((m, i) => (
                             <Card key={m.name} pad={18} className="repo-card">
-                                <span className="text-fg-fade font-mono text-[12px]">{String(i + 1).padStart(2, '0')}</span>
-                                <div className="text-fg mt-2 text-[16px] font-medium tracking-tight">{m.name}</div>
-                                <p className="text-fg-mid mt-1.5 text-[13px] leading-relaxed">{m.desc}</p>
+                                <span className="text-fg-fade font-mono text-[13.5px]">{String(i + 1).padStart(2, '0')}</span>
+                                <div className="text-fg mt-2 text-[17.5px] font-medium tracking-tight">{m.name}</div>
+                                <p className="text-fg-mid mt-1.5 text-[14.5px] leading-relaxed">{m.desc}</p>
                             </Card>
                         ))}
                     </div>
@@ -157,7 +157,7 @@ export default function ProjectShow({ project }: { project: Project }) {
                                         />
                                     </RepoChrome>
                                 </Card>
-                                <figcaption className="text-fg-dim max-w-3xl font-mono text-[12px] leading-relaxed">
+                                <figcaption className="text-fg-dim max-w-3xl font-mono text-[13.5px] leading-relaxed">
                                     ↳ {shot.caption}
                                 </figcaption>
                             </figure>
@@ -204,7 +204,7 @@ export default function ProjectShow({ project }: { project: Project }) {
                         <h2 className="text-fg font-sans text-[28px] leading-tight font-semibold tracking-[-0.02em] md:text-[34px]">
                             Written about
                         </h2>
-                        <p className="text-fg-mid mt-3 max-w-[54ch] text-[16px] leading-relaxed">
+                        <p className="text-fg-mid mt-3 max-w-[54ch] text-[17.5px] leading-relaxed">
                             Independent coverage of this work.
                         </p>
 
@@ -218,10 +218,10 @@ export default function ProjectShow({ project }: { project: Project }) {
                                     className="group border-line bg-bg-elev hover:border-portfolio-accent/40 flex items-start justify-between gap-5 rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-0.5"
                                 >
                                     <div className="min-w-0">
-                                        <span className="text-fg-dim font-mono text-[12px]">
+                                        <span className="text-fg-dim font-mono text-[13.5px]">
                                             {new URL(c.url).hostname.replace(/^www\./, '')}
                                         </span>
-                                        <div className="text-fg group-hover:text-portfolio-accent mt-2 text-[17px] leading-snug font-medium tracking-tight transition-colors">
+                                        <div className="text-fg group-hover:text-portfolio-accent mt-2 text-[18.5px] leading-snug font-medium tracking-tight transition-colors">
                                             {c.label}
                                         </div>
                                     </div>

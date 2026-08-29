@@ -38,17 +38,17 @@ export default function ProjectCardFeatured({ project }: { project: Project }) {
                 <div className="flex items-baseline justify-between">
                     <div className="flex items-center gap-2">
                         <Chip tone="accent">case study</Chip>
-                        {project.tag && <span className="text-fg-mid font-mono text-[12px]">{project.tag}</span>}
+                        {project.tag && <span className="text-fg-mid font-mono text-[13.5px]">{project.tag}</span>}
                     </div>
-                    <span className="text-fg-dim font-mono text-[12px]">{project.year}</span>
+                    <span className="text-fg-dim font-mono text-[13.5px]">{project.year}</span>
                 </div>
 
                 <div>
                     <h3 className="text-fg text-[32px] leading-[1.1] font-medium tracking-tight">{project.name}</h3>
-                    <span className="text-portfolio-accent font-mono text-[12px]">{project.kicker}</span>
+                    <span className="text-portfolio-accent font-mono text-[13.5px]">{project.kicker}</span>
                 </div>
 
-                <p className="text-fg-mid text-[14px] leading-relaxed">{project.blurb}</p>
+                <p className="text-fg-mid text-[15.5px] leading-relaxed">{project.blurb}</p>
 
                 <div className="flex items-center justify-between">
                     <div className="flex flex-wrap gap-1.5">
@@ -61,7 +61,7 @@ export default function ProjectCardFeatured({ project }: { project: Project }) {
                     </div>
                     <Link
                         href={`/projects/${project.slug}`}
-                        className="link-slide text-fg inline-flex cursor-pointer items-center gap-1.5 font-mono text-[12px]"
+                        className="link-slide text-fg inline-flex cursor-pointer items-center gap-1.5 font-mono text-[13.5px]"
                     >
                         read case study <ArrowIcon size={11} />
                     </Link>
@@ -74,15 +74,15 @@ export default function ProjectCardFeatured({ project }: { project: Project }) {
                     >
                         {project.metrics.map(([n, l]) => (
                             <div key={l}>
-                                <div className="text-portfolio-accent text-[20px] font-medium tracking-tight">{n}</div>
-                                <span className="text-fg-dim font-mono text-[12px]">{l}</span>
+                                <div className="text-portfolio-accent text-[22px] font-medium tracking-tight">{n}</div>
+                                <span className="text-fg-dim font-mono text-[13.5px]">{l}</span>
                             </div>
                         ))}
                     </div>
                 )}
             </div>
 
-            <div className="border-line bg-bg-elev-2 text-fg-dim mt-auto flex items-center justify-between border-t px-4 py-2 font-mono text-[12px]">
+            <div className="border-line bg-bg-elev-2 text-fg-dim mt-auto flex items-center justify-between border-t px-4 py-2 font-mono text-[13.5px]">
                 <span className="inline-flex items-center gap-3">
                     <span className="inline-flex items-center gap-1.5">
                         <span className="bg-portfolio-accent h-1.5 w-1.5 rounded-full" /> deployed

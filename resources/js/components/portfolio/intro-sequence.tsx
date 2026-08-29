@@ -333,10 +333,10 @@ export default function IntroSequence({ poster, finale }: { poster: string; fina
                             >
                                 {beat.label}
                             </h2>
-                            <div className="text-fg mt-6 font-sans text-[25px] leading-tight tracking-[-0.015em] md:text-[36px]">
+                            <div className="text-fg mt-6 font-sans text-[27px] leading-tight tracking-[-0.015em] md:text-[36px]">
                                 {beat.title}
                             </div>
-                            <p className="text-fg mx-auto mt-4 max-w-[56ch] font-mono text-[15px] leading-relaxed tracking-[0.01em] md:text-[16.5px]">
+                            <p className="text-fg mx-auto mt-4 max-w-[56ch] font-mono text-[16.5px] leading-relaxed tracking-[0.01em] md:text-[18px]">
                                 {beat.body}
                             </p>
                         </div>

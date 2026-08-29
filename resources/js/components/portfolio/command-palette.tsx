@@ -113,23 +113,23 @@ export default function CommandPalette() {
             <div className="bg-bg-elev border-line relative w-full max-w-xl overflow-hidden rounded-xl border shadow-2xl">
                 {/* Search input */}
                 <div className="border-line flex items-center gap-3 border-b px-4 py-3">
-                    <span className="text-portfolio-accent font-mono text-[13px]">$</span>
+                    <span className="text-portfolio-accent font-mono text-[14.5px]">$</span>
                     <input
                         ref={inputRef}
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                         placeholder="search pages, projects, actions…"
-                        className="text-fg placeholder:text-fg-dim w-full bg-transparent font-mono text-[14px] outline-none"
+                        className="text-fg placeholder:text-fg-dim w-full bg-transparent font-mono text-[15.5px] outline-none"
                         autoComplete="off"
                         spellCheck="false"
                     />
-                    <span className="text-fg-dim hidden font-mono text-[12px] sm:inline">ESC to close</span>
+                    <span className="text-fg-dim hidden font-mono text-[13.5px] sm:inline">ESC to close</span>
                 </div>
 
                 {/* Results */}
                 <ul className="max-h-[55vh] list-none overflow-y-auto p-2">
                     {filtered.length === 0 && (
-                        <li className="text-fg-dim px-3 py-6 text-center font-mono text-[12px]">no matches for "{query}"</li>
+                        <li className="text-fg-dim px-3 py-6 text-center font-mono text-[13.5px]">no matches for "{query}"</li>
                     )}
                     {filtered.map((e, idx) => (
                         <li key={e.id}>
@@ -148,11 +148,11 @@ export default function CommandPalette() {
                             >
                                 <KindBadge kind={e.kind} />
                                 <div className="min-w-0 flex-1">
-                                    <div className="text-fg truncate text-[14px] font-medium">{e.label}</div>
-                                    {e.sub && <div className="text-fg-dim truncate font-mono text-[12px]">{e.sub}</div>}
+                                    <div className="text-fg truncate text-[15.5px] font-medium">{e.label}</div>
+                                    {e.sub && <div className="text-fg-dim truncate font-mono text-[13.5px]">{e.sub}</div>}
                                 </div>
                                 {idx === selected && (
-                                    <span className="text-fg-dim font-mono text-[12px]">⏎</span>
+                                    <span className="text-fg-dim font-mono text-[13.5px]">⏎</span>
                                 )}
                             </button>
                         </li>
@@ -160,7 +160,7 @@ export default function CommandPalette() {
                 </ul>
 
                 {/* Footer hints */}
-                <div className="border-line text-fg-dim flex items-center justify-between border-t px-4 py-2 font-mono text-[12px]">
+                <div className="border-line text-fg-dim flex items-center justify-between border-t px-4 py-2 font-mono text-[13.5px]">
                     <span>{filtered.length} of {entries.length}</span>
                     <span className="flex items-center gap-3">
                         <span>↑↓ navigate</span>
@@ -179,7 +179,7 @@ function KindBadge({ kind }: { kind: PaletteEntry['kind'] }) {
         action: 'bg-bg text-fg-mid border-line',
     };
     return (
-        <span className={`inline-flex w-[72px] justify-center rounded border px-1.5 py-1 font-mono text-[12px] uppercase tracking-wider ${styles[kind]}`}>
+        <span className={`inline-flex w-[72px] justify-center rounded border px-1.5 py-1 font-mono text-[13.5px] uppercase tracking-wider ${styles[kind]}`}>
             {kind}
         </span>
     );

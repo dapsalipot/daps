@@ -35,9 +35,9 @@ export default function Button({
     rel,
 }: ButtonProps) {
     const sizes: Record<Size, string> = {
-        sm: 'px-3 py-[7px] text-[12px]',
-        md: 'px-4 py-2.5 text-[13px]',
-        lg: 'px-5 py-3 text-[14px]',
+        sm: 'px-3 py-[7px] text-[13.5px]',
+        md: 'px-4 py-2.5 text-[14.5px]',
+        lg: 'px-5 py-3 text-[15.5px]',
     };
     const kinds: Record<Kind, string> = {
         primary: 'bg-fg text-bg border-fg hover:opacity-90',

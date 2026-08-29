@@ -39,7 +39,7 @@ export default function Screenshot({
                         <span key={c} className="h-2 w-2 rounded-full" style={{ background: c, opacity: 0.8 }} />
                     ))}
                 </div>
-                <span className="ml-3 font-mono text-[12px] text-white/50">{title}</span>
+                <span className="ml-3 font-mono text-[13.5px] text-white/50">{title}</span>
             </div>
             <div className="absolute inset-0 top-7 flex">
                 <div className="flex w-1/5 flex-col gap-1.5 border-r border-white/5 bg-black/25 p-2">
@@ -70,7 +70,7 @@ export default function Screenshot({
                         />
                     </div>
                     {subtitle && (
-                        <div className="absolute right-3.5 bottom-2.5 font-mono text-[12px] text-white/50">
+                        <div className="absolute right-3.5 bottom-2.5 font-mono text-[13.5px] text-white/50">
                             {subtitle}
                         </div>
                     )}
