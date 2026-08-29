@@ -52,7 +52,7 @@ const BEATS: Beat[] = [
 // Total scroll length of the intro, in vh. Raising this makes the sequence take
 // longer to scroll through and holds each frame over more distance, which also
 // reads as smoother. 460 was ~5 screens; 700 is ~7.
-const TRACK_VH = 700;
+const TRACK_VH = 820;
 // Pre-extracted frame sequence. Scrubbing a video means a decoder seek per
 // update, which caps out around 5-15 updates/sec and reads as stepping. Frames
 // are decoded once up front and then blitted, so scroll costs one drawImage.
@@ -62,7 +62,11 @@ const framePath = (i: number) => `/intro/frames/f_${String(i + 1).padStart(3, '0
 
 const EDGE_MASK =
     'radial-gradient(ellipse 58% 62% at 50% 50%, #000 52%, rgba(0,0,0,0.75) 74%, transparent 96%)';
-const HANDOFF_START = 0.72; // progress at which the object starts giving way to the hero
+// The cross-fade runs between these two points; everything after HANDOFF_END is
+// dead scroll where the hero sits pinned and fully visible, so it cannot be
+// flicked past by accident.
+const HANDOFF_START = 0.6;
+const HANDOFF_END = 0.76;
 
 export default function IntroSequence({ poster, finale }: { poster: string; finale: ReactNode }) {
     const trackRef = useRef<HTMLDivElement>(null);
@@ -186,7 +190,8 @@ export default function IntroSequence({ poster, finale }: { poster: string; fina
             smooth = Math.abs(delta) < 0.0004 ? raw : smooth + delta * SMOOTHING;
             const progress = smooth;
 
-            const frameIdx = Math.min(Math.round(progress * (FRAME_COUNT - 1)), FRAME_COUNT - 1);
+            const clipT = Math.min(progress / HANDOFF_END, 1);
+            const frameIdx = Math.min(Math.round(clipT * (FRAME_COUNT - 1)), FRAME_COUNT - 1);
             if (frameIdx !== lastFrame) {
                 const img = framesRef.current[frameIdx];
                 if (img && img.complete && img.naturalWidth) {
@@ -201,7 +206,7 @@ export default function IntroSequence({ poster, finale }: { poster: string; fina
             const idx = Math.min(Math.floor(beatSpan * BEATS.length), BEATS.length - 1);
             setActive((prev) => (prev === idx ? prev : idx));
 
-            const h = Math.min(Math.max((progress - HANDOFF_START) / (1 - HANDOFF_START), 0), 1);
+            const h = Math.min(Math.max((progress - HANDOFF_START) / (HANDOFF_END - HANDOFF_START), 0), 1);
             const eased = h * h * (3 - 2 * h);
             // Nav sits above the stage, so the strip behind it would otherwise show
             // the page dot grid while the intro is black. Flag it on the root and let
