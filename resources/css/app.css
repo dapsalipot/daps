@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Syne:wght@600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Anta&display=swap');
 
 @plugin 'tailwindcss-animate';
 
@@ -8,9 +8,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-    --font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+    --font-sans: 'Anta', 'Geist', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
     --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    --font-display: 'Syne', 'Geist', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Anta', 'Geist', ui-sans-serif, system-ui, sans-serif;
 
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);
@@ -163,9 +163,9 @@
     --bg-elev: #111111;
     --bg-elev-2: #161616;
     --fg: #EDEDED;
-    --fg-mid: #A1A1A1;
-    --fg-dim: #808080;
-    --fg-fade: #686868;
+    --fg-mid: #B4B4B4;
+    --fg-dim: #9A9A9A;
+    --fg-fade: #7E7E7E;
     --line: rgba(255, 255, 255, 0.08);
     --line-strong: rgba(255, 255, 255, 0.14);
     --portfolio-accent: #7DD96E;
@@ -210,6 +210,7 @@
 
 @layer base {
     body {
+    font-synthesis-weight: none;
         font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
         font-feature-settings: 'ss01', 'cv11', 'zero';
         -webkit-font-smoothing: antialiased;
@@ -248,9 +249,9 @@
     --bg-elev: #111111;
     --bg-elev-2: #161616;
     --fg: #EDEDED;
-    --fg-mid: #A1A1A1;
-    --fg-dim: #808080;
-    --fg-fade: #686868;
+    --fg-mid: #B4B4B4;
+    --fg-dim: #9A9A9A;
+    --fg-fade: #7E7E7E;
     --line: rgba(255, 255, 255, 0.11);
     --line-strong: rgba(255, 255, 255, 0.14);
     --portfolio-accent: #7DD96E;
@@ -261,9 +262,9 @@
     --color-bg-elev: #111111;
     --color-bg-elev-2: #161616;
     --color-fg: #EDEDED;
-    --color-fg-mid: #A1A1A1;
-    --color-fg-dim: #808080;
-    --color-fg-fade: #686868;
+    --color-fg-mid: #B4B4B4;
+    --color-fg-dim: #9A9A9A;
+    --color-fg-fade: #7E7E7E;
     --color-line: rgba(255, 255, 255, 0.11);
     --color-line-strong: rgba(255, 255, 255, 0.14);
     --color-portfolio-accent: #7DD96E;

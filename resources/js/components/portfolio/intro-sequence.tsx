@@ -308,7 +308,10 @@ export default function IntroSequence({ poster, finale }: { poster: string; fina
                     className="stage-dark relative mx-auto w-full max-w-[720px] text-center"
                     style={{
                         willChange: 'opacity',
-                        textShadow: '0 1px 2px rgba(0,0,0,0.9), 0 4px 24px rgba(0,0,0,0.85)',
+                        // Layered dark glow that hugs the glyphs. Does the job a scrim did without
+                        // painting a shape over the object, so no halo.
+                        textShadow:
+                            '0 1px 2px rgba(0,0,0,1), 0 0 10px rgba(0,0,0,0.95), 0 0 26px rgba(0,0,0,0.9), 0 0 52px rgba(0,0,0,0.75)',
                     }}
                 >
                     {BEATS.map((beat, i) => (
@@ -325,15 +328,15 @@ export default function IntroSequence({ poster, finale }: { poster: string; fina
                             }}
                         >
                             <h2
-                                className="text-portfolio-accent text-[46px] leading-none font-bold tracking-[-0.03em] md:text-[78px]"
+                                className="text-portfolio-accent text-[52px] leading-none tracking-[-0.02em] md:text-[88px]"
                                 style={{ fontFamily: 'var(--font-display)' }}
                             >
                                 {beat.label}
                             </h2>
-                            <div className="text-fg mt-5 font-sans text-[21px] leading-tight font-medium tracking-[-0.025em] md:text-[30px]">
+                            <div className="text-fg mt-5 font-sans text-[22px] leading-tight tracking-[-0.015em] md:text-[31px]">
                                 {beat.title}
                             </div>
-                            <p className="text-fg-dim mx-auto mt-4 max-w-[58ch] font-mono text-[12.5px] leading-relaxed tracking-[0.01em] md:text-[13.5px]">
+                            <p className="text-fg mx-auto mt-4 max-w-[56ch] font-mono text-[13.5px] leading-relaxed tracking-[0.01em] md:text-[15px]">
                                 {beat.body}
                             </p>
                         </div>
