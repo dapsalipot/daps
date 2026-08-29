@@ -32,6 +32,7 @@ export default function WorkCarousel({ projects }: { projects: Project[] }) {
     const [active, setActive] = useState(0);
     const [reduced, setReduced] = useState(false);
     const trackRef = useRef<HTMLElement>(null);
+    const stageRef = useRef<HTMLDivElement>(null);
     const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
     useEffect(() => {
@@ -105,18 +106,25 @@ export default function WorkCarousel({ projects }: { projects: Project[] }) {
         };
     }, [paint, run]);
 
-    // Step by whole cards. Advancing the unbounded target keeps the animation
-    // going the way the reader asked, rather than unwinding the long way round.
-    const step = useCallback(
-        (delta: number) => {
-            targetRef.current += delta;
-            setActive(((Math.round(targetRef.current) % n) + n) % n);
+    const applyTarget = useCallback(
+        (v: number) => {
+            targetRef.current = v;
+            setActive(((Math.round(v) % n) + n) % n);
             if (reduced) {
-                posRef.current = targetRef.current;
+                posRef.current = v;
                 paint();
             } else run();
         },
         [n, paint, reduced, run],
+    );
+
+    // Step by whole cards. Advancing the unbounded target keeps the animation
+    // going the way the reader asked, rather than unwinding the long way round.
+    const step = useCallback(
+        (delta: number) => {
+            applyTarget(targetRef.current + delta);
+        },
+        [applyTarget],
     );
 
     // Jump to a specific card the short way round the ring.
@@ -130,6 +138,71 @@ export default function WorkCarousel({ projects }: { projects: Project[] }) {
         [n, step],
     );
 
+    // Sideways input. Both are careful to leave vertical page scrolling alone:
+    // the wheel is only intercepted when horizontal intent dominates, and touch
+    // keeps pan-y so a vertical swipe still scrolls the page.
+    useEffect(() => {
+        const stage = stageRef.current;
+        if (!stage) return;
+
+        const stepPx = () => Math.max((stage.clientWidth * SPACING) / 100, 120);
+
+        const onWheel = (e: WheelEvent) => {
+            if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return; // vertical: let the page have it
+            e.preventDefault();
+            applyTarget(targetRef.current + e.deltaX / stepPx());
+        };
+
+        let dragging = false;
+        let startX = 0;
+        let startTarget = 0;
+        let moved = 0;
+
+        const onDown = (e: PointerEvent) => {
+            if (e.button !== 0) return;
+            dragging = true;
+            moved = 0;
+            startX = e.clientX;
+            startTarget = targetRef.current;
+            stage.setPointerCapture(e.pointerId);
+        };
+        const onMove = (e: PointerEvent) => {
+            if (!dragging) return;
+            const dx = e.clientX - startX;
+            moved = Math.max(moved, Math.abs(dx));
+            applyTarget(startTarget - dx / stepPx());
+        };
+        const onUp = (e: PointerEvent) => {
+            if (!dragging) return;
+            dragging = false;
+            if (stage.hasPointerCapture(e.pointerId)) stage.releasePointerCapture(e.pointerId);
+            applyTarget(Math.round(targetRef.current)); // settle on a card
+        };
+        // A drag that travelled should not also open the card it ended on.
+        const onClickCapture = (e: MouseEvent) => {
+            if (moved > 6) {
+                e.stopPropagation();
+                e.preventDefault();
+                moved = 0;
+            }
+        };
+
+        stage.addEventListener('wheel', onWheel, { passive: false });
+        stage.addEventListener('pointerdown', onDown);
+        stage.addEventListener('pointermove', onMove);
+        stage.addEventListener('pointerup', onUp);
+        stage.addEventListener('pointercancel', onUp);
+        stage.addEventListener('click', onClickCapture, true);
+        return () => {
+            stage.removeEventListener('wheel', onWheel);
+            stage.removeEventListener('pointerdown', onDown);
+            stage.removeEventListener('pointermove', onMove);
+            stage.removeEventListener('pointerup', onUp);
+            stage.removeEventListener('pointercancel', onUp);
+            stage.removeEventListener('click', onClickCapture, true);
+        };
+    }, [applyTarget]);
+
     return (
         <section
             ref={trackRef}
@@ -139,7 +212,8 @@ export default function WorkCarousel({ projects }: { projects: Project[] }) {
         >
             <div className="flex flex-col items-center justify-center overflow-hidden">
                 <div
-                    className="relative mx-auto w-full max-w-[1600px]"
+                    ref={stageRef}
+                    className="relative mx-auto w-full max-w-[1600px] cursor-grab touch-pan-y select-none active:cursor-grabbing"
                     style={{ perspective: '2400px', height: 'min(84dvh, 760px)' }}
                 >
                     {projects.map((p, i) => {
