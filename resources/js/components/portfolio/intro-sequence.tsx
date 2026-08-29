@@ -79,7 +79,6 @@ export default function IntroSequence({ poster, finale }: { poster: string; fina
     const veilRef = useRef<HTMLDivElement>(null);
     const objectRef = useRef<HTMLDivElement>(null);
     const mediaRef = useRef<HTMLDivElement>(null);
-    const scrimRef = useRef<HTMLDivElement>(null);
     const beatsRef = useRef<HTMLDivElement>(null);
     const railRef = useRef<HTMLDivElement>(null);
     const finaleRef = useRef<HTMLDivElement>(null);
@@ -230,7 +229,6 @@ export default function IntroSequence({ poster, finale }: { poster: string; fina
                 // Expand while fading so the final particle state reads as scattering
                 // outward into the dot grid rather than blinking off in place.
                 if (mediaRef.current) mediaRef.current.style.transform = `scale(${1 + eased * 0.22})`;
-                if (scrimRef.current) scrimRef.current.style.opacity = out;
                 if (beatsRef.current) beatsRef.current.style.opacity = out;
                 if (railRef.current) railRef.current.style.opacity = out;
                 if (finaleRef.current) finaleRef.current.style.opacity = String(eased);
@@ -301,18 +299,18 @@ export default function IntroSequence({ poster, finale }: { poster: string; fina
                     </div>
                 </div>
 
-                {/* Beats. The scrim guarantees text contrast against whatever frame
-                    is showing, instead of depending on the object being dark there. */}
+                {/* Beats. Contrast is protected with a text shadow rather than a
+                    scrim: a black radial gradient over the object dimmed its glow in
+                    an ellipse, and the undimmed glow outside that ellipse read as a
+                    halo ring. */}
                 <div
-                    ref={scrimRef}
-                    className="pointer-events-none absolute inset-0"
+                    ref={beatsRef}
+                    className="stage-dark relative mx-auto w-full max-w-[720px] text-center"
                     style={{
                         willChange: 'opacity',
-                        background:
-                            'radial-gradient(ellipse 46% 30% at 50% 52%, rgba(0,0,0,0.82), rgba(0,0,0,0.45) 55%, transparent 78%)',
+                        textShadow: '0 1px 2px rgba(0,0,0,0.9), 0 4px 24px rgba(0,0,0,0.85)',
                     }}
-                />
-                <div ref={beatsRef} className="stage-dark relative mx-auto w-full max-w-[720px] text-center" style={{ willChange: 'opacity' }}>
+                >
                     {BEATS.map((beat, i) => (
                         <div
                             key={beat.label}
