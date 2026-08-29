@@ -14,15 +14,19 @@ import Screenshot from './screenshot';
  * float is damped toward its target each frame, and transforms are written
  * straight to the DOM. React state holds only the rounded index, for the
  * controls and aria.
+ *
+ * The set is a ring: each card's offset is wrapped to the shortest way round,
+ * so cards leaving one edge re-enter at the other and the scroll covers a full
+ * cycle rather than stopping at the last card.
  */
 
-const CARD_VW = 74;        // card width on small screens, in vw
-const CARD_MAX = 470;      // card width on desktop, in px
-const SPACING = 76;        // % of card width each neighbour steps aside
-const SCALE_STEP = 0.15;   // scale lost per step from centre
-const OPACITY_STEP = 0.34;
-const ROTATE = 17;         // deg of Y-rotation per step
-const VISIBLE = 2;         // steps rendered either side of centre
+const CARD_VW = 80;        // card width on small screens, in vw
+const CARD_MAX = 560;      // card width on desktop, in px
+const SPACING = 58;        // % of card width each neighbour steps aside
+const SCALE_STEP = 0.13;   // scale lost per step from centre
+const OPACITY_STEP = 0.26;
+const ROTATE = 16;         // deg of Y-rotation per step
+const VISIBLE = 3;         // steps rendered either side of centre
 const STEP_VH = 58;        // scroll distance that advances one card
 const SMOOTHING = 0.12;    // damping on the scroll follow
 
@@ -67,11 +71,14 @@ export default function WorkCarousel({ projects }: { projects: Project[] }) {
         io.observe(track);
 
         let lastRounded = -1;
+        // Cards wrap at dist = n/2. If that ever falls inside the visible range the
+        // wrap becomes a visible pop, so cap how far out we render.
+        const vis = Math.min(VISIBLE, n / 2 - 0.5);
 
         function frame() {
             if (!measured) measure();
             const progress = Math.min(Math.max((window.scrollY - trackTop) / span, 0), 1);
-            const target = progress * (n - 1);
+            const target = progress * n;
 
             if (pos < 0 || reduced) pos = target;
             else {
@@ -82,9 +89,12 @@ export default function WorkCarousel({ projects }: { projects: Project[] }) {
             for (let i = 0; i < n; i++) {
                 const el = cardRefs.current[i];
                 if (!el) continue;
-                const o = i - pos;
+                // Shortest-path offset on a ring: a card that has fallen off one
+                // side reappears on the other instead of running off to infinity.
+                let o = i - pos;
+                o = (((o + n / 2) % n) + n) % n - n / 2;
                 const dist = Math.abs(o);
-                const hidden = dist > VISIBLE + 0.5;
+                const hidden = dist > vis;
                 el.style.transform =
                     `translateX(-50%) translateX(${o * SPACING}%) scale(${Math.max(0.5, 1 - dist * SCALE_STEP)}) rotateY(${-o * ROTATE}deg)`;
                 el.style.opacity = hidden ? '0' : String(Math.max(0, 1 - dist * OPACITY_STEP));
@@ -92,7 +102,7 @@ export default function WorkCarousel({ projects }: { projects: Project[] }) {
                 el.style.pointerEvents = dist < 0.5 ? 'auto' : hidden ? 'none' : 'auto';
             }
 
-            const rounded = Math.max(0, Math.min(n - 1, Math.round(pos)));
+            const rounded = ((Math.round(pos) % n) + n) % n;
             if (rounded !== lastRounded) {
                 lastRounded = rounded;
                 setActive(rounded);
@@ -114,11 +124,11 @@ export default function WorkCarousel({ projects }: { projects: Project[] }) {
         (i: number) => {
             const track = trackRef.current;
             if (!track) return;
-            const clamped = Math.max(0, Math.min(n - 1, i));
+            const wrapped = ((i % n) + n) % n;
             const span = Math.max(track.offsetHeight - window.innerHeight, 1);
             const top = track.getBoundingClientRect().top + window.scrollY;
             window.scrollTo({
-                top: top + (clamped / Math.max(n - 1, 1)) * span,
+                top: top + (wrapped / n) * span,
                 behavior: reduced ? 'auto' : 'smooth',
             });
         },
@@ -136,7 +146,7 @@ export default function WorkCarousel({ projects }: { projects: Project[] }) {
             <div className="sticky top-0 flex h-[100dvh] flex-col items-center justify-center overflow-hidden">
                 <div
                     className="relative mx-auto w-full max-w-[1600px]"
-                    style={{ perspective: '2000px', height: 'min(78dvh, 660px)' }}
+                    style={{ perspective: '2400px', height: 'min(84dvh, 760px)' }}
                 >
                     {projects.map((p, i) => {
                         const isActive = i === active;
