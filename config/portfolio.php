@@ -25,9 +25,36 @@ return [
         ['n' => '12+',     'l' => 'production systems'],
     ],
     'now' => [
-        ['label' => 'building',    'title' => 'Tapso',      'sub' => 'rfid attendance and cashless payments · sole developer · ~10 campuses live'],
-        ['label' => 'maintaining', 'title' => 'Schoolaide', 'sub' => 'multi-tenant school SaaS · ~60 tenants · database-per-tenant'],
-        ['label' => 'learning',    'title' => 'Go + Inertia.js', 'sub' => 'exploring a laravel-to-go migration for fun'],
+        [
+            'label' => 'building',
+            'title' => 'RFID attendance and cashless payments',
+            'sub'   => 'sole developer · school gates and canteens · ~10 campuses live',
+        ],
+        [
+            'label' => 'maintaining',
+            'title' => 'Multi-tenant school SaaS',
+            'sub'   => 'database-per-tenant · ~60 tenants · payments and reconciliation',
+        ],
+        [
+            'label' => 'solving',
+            'title' => 'Class scheduling solver',
+            'sub'   => 'constraint satisfaction · fail-first selection · ruin-and-recreate repair',
+        ],
+        [
+            'label' => 'shipping',
+            'title' => 'Queue and rating platform',
+            'sub'   => 'longest-wait-first bench · live matchups · ELO with history',
+        ],
+        [
+            'label' => 'shipping',
+            'title' => 'Trip booking marketplace',
+            'sub'   => 'tiered departures · automatic waitlist promotion · QR check-in',
+        ],
+        [
+            'label' => 'learning',
+            'title' => 'Go + Inertia.js',
+            'sub'   => 'exploring a laravel-to-go migration for fun',
+        ],
     ],
     'projects' => [
         [

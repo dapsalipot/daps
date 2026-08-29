@@ -64,22 +64,27 @@ export default function Home() {
             <WorkCarousel projects={portfolio.projects} />
 
             {/* NOW */}
-            <section className="px-6 pt-6 pb-16 md:px-12">
+            <section className="flex min-h-dvh flex-col justify-center px-6 py-20 md:px-12">
                 <SectionHead n="01" title="now()" right="updated 14 may 2026" />
-                <div className="stagger-in mt-7 flex flex-col">
-                    {portfolio.now.map((it) => (
+                <div className="stagger-in mt-10 flex flex-col">
+                    {portfolio.now.map((it, i) => (
                         <div
-                            key={it.title}
-                            className="border-line group grid grid-cols-1 gap-2 border-t py-6 md:grid-cols-[140px_1fr] md:gap-10"
+                            key={`${it.label}-${it.title}`}
+                            className="border-line group grid grid-cols-1 items-baseline gap-3 border-t py-8 transition-colors md:grid-cols-[52px_170px_1fr] md:gap-8"
                         >
-                            <span className="text-fg-dim group-hover:text-portfolio-accent font-mono text-[13.5px] transition-colors">
+                            <span className="text-fg-fade group-hover:text-portfolio-accent font-mono text-[13.5px] tabular-nums transition-colors">
+                                {String(i + 1).padStart(2, '0')}
+                            </span>
+                            <span className="text-portfolio-accent font-mono text-[15px] lowercase">
                                 {it.label}
                             </span>
                             <div>
-                                <div className="text-fg text-[24px] leading-tight font-medium tracking-tight">
+                                <div className="text-fg text-[26px] leading-tight tracking-tight transition-transform duration-300 group-hover:translate-x-1 md:text-[34px]">
                                     {it.title}
                                 </div>
-                                <p className="text-fg-mid mt-1.5 max-w-xl text-[15.5px] leading-relaxed">{it.sub}</p>
+                                <p className="text-fg-mid mt-2.5 max-w-2xl font-mono text-[14.5px] leading-relaxed md:text-[15.5px]">
+                                    {it.sub}
+                                </p>
                             </div>
                         </div>
                     ))}
@@ -87,7 +92,7 @@ export default function Home() {
             </section>
 
             {/* STACK */}
-            <section className="px-6 pt-6 pb-16 md:px-12">
+            <section className="flex min-h-dvh flex-col justify-center px-6 py-20 md:px-12">
                 <SectionHead n="02" title="stack.json" right="daily drivers · 2026" />
                 <div className="stagger-in mt-7 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
                     {Object.entries(portfolio.stack).map(([cat, items]) => (
@@ -115,7 +120,7 @@ export default function Home() {
             </section>
 
             {/* EXPERIENCE */}
-            <section className="px-6 pt-6 pb-16 md:px-12">
+            <section className="flex min-h-dvh flex-col justify-center px-6 py-20 md:px-12">
                 <SectionHead n="03" title="experience.log" right="most recent first" />
                 <div className="mt-6">
                     {portfolio.experience.map((e) => (
@@ -178,7 +183,7 @@ export default function Home() {
             </section>
 
             {/* ACHIEVEMENTS */}
-            <section className="px-6 pt-6 pb-16 md:px-12">
+            <section className="flex min-h-dvh flex-col justify-center px-6 py-20 md:px-12">
                 <SectionHead n="04" title="achievements" right="awards · certs · honors" />
                 <div className="mt-7 grid grid-cols-1 gap-x-12 md:grid-cols-2">
                     {portfolio.achievements.map((a) => (
@@ -202,7 +207,7 @@ export default function Home() {
             </section>
 
             {/* CONTACT CTA */}
-            <section className="px-6 pt-6 pb-24 md:px-12">
+            <section className="flex min-h-dvh flex-col justify-center px-6 py-24 md:px-12">
                 <div
                     className="border-line relative grid grid-cols-1 items-center gap-10 overflow-hidden rounded-2xl border p-8 md:p-14 lg:grid-cols-[1.4fr_1fr]"
                     style={{ background: 'linear-gradient(135deg, var(--bg-elev) 0%, var(--bg) 100%)' }}
