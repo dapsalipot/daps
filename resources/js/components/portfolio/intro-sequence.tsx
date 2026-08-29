@@ -24,28 +24,28 @@ interface Beat {
 const BEATS: Beat[] = [
     {
         label: 'data',
-        title: 'Structure and speed',
+        title: 'Fast under load',
         body: 'Normalization, composite indexes, N+1 resolution, database-per-tenant isolation.',
     },
     {
         label: 'backend',
-        title: 'Logic and services',
-        body: 'Livewire, Filament, REST design, queued jobs that stay correct on retry.',
+        title: 'Correct on retry',
+        body: 'Laravel and Livewire, REST design, idempotent jobs, race conditions handled.',
     },
     {
         label: 'frontend',
-        title: 'Interfaces and state',
-        body: 'TypeScript, Tailwind, server-driven routing, typed props end to end.',
+        title: 'Typed all the way',
+        body: 'React, TypeScript, Inertia, Tailwind. Server-driven routing, no untyped seams.',
     },
     {
         label: 'mobile',
-        title: 'Clients and delivery',
-        body: 'Sanctum token auth, push registry, live WebSocket updates on device.',
+        title: 'Live on device',
+        body: 'React Native, Sanctum tokens, push registry, WebSocket updates in real time.',
     },
     {
         label: 'iot',
-        title: 'Hardware and transactions',
-        body: 'Field readers, PayMongo and GCash reconciliation, replay-safe webhooks.',
+        title: 'Field to ledger',
+        body: 'RFID readers, PayMongo and GCash reconciliation, replay-safe webhooks.',
     },
 ];
 
@@ -330,10 +330,10 @@ export default function IntroSequence({ poster, finale }: { poster: string; fina
                             >
                                 {beat.label}
                             </h2>
-                            <div className="text-fg mt-5 font-sans text-[20px] leading-tight font-medium tracking-[-0.02em] md:text-[27px]">
+                            <div className="text-fg mt-5 font-sans text-[21px] leading-tight font-medium tracking-[-0.025em] md:text-[30px]">
                                 {beat.title}
                             </div>
-                            <p className="text-fg-mid mx-auto mt-3 max-w-[52ch] text-[13px] leading-relaxed md:text-[14px]">
+                            <p className="text-fg-dim mx-auto mt-4 max-w-[58ch] font-mono text-[12.5px] leading-relaxed tracking-[0.01em] md:text-[13.5px]">
                                 {beat.body}
                             </p>
                         </div>
