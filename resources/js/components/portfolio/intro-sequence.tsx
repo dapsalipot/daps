@@ -49,7 +49,10 @@ const BEATS: Beat[] = [
     },
 ];
 
-const TRACK_VH = 460; // total scroll length of the intro, in vh
+// Total scroll length of the intro, in vh. Raising this makes the sequence take
+// longer to scroll through and holds each frame over more distance, which also
+// reads as smoother. 460 was ~5 screens; 700 is ~7.
+const TRACK_VH = 700;
 // Pre-extracted frame sequence. Scrubbing a video means a decoder seek per
 // update, which caps out around 5-15 updates/sec and reads as stepping. Frames
 // are decoded once up front and then blitted, so scroll costs one drawImage.
