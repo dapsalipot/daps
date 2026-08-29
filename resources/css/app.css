@@ -239,7 +239,7 @@
    overriding `--fg` alone does nothing for utility classes — the `--color-*`
    layer has to be redeclared too. */
 [data-intro] nav {
-    background-color: #0A0A0A;
+    background-color: #000000;
     border-color: transparent;
 }
 

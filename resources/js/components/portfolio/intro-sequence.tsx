@@ -54,6 +54,7 @@ const TRACK_VH = 460; // total scroll length of the intro, in vh
 // update, which caps out around 5-15 updates/sec and reads as stepping. Frames
 // are decoded once up front and then blitted, so scroll costs one drawImage.
 const FRAME_COUNT = 105;
+const SMOOTHING = 0.13; // 0 = frozen, 1 = follow scroll exactly (and jump with it)
 const framePath = (i: number) => `/intro/frames/f_${String(i + 1).padStart(3, '0')}.jpg`;
 
 const EDGE_MASK =
@@ -169,10 +170,18 @@ export default function IntroSequence({ poster, finale }: { poster: string; fina
 
         let lastHandoff = -1;
         let lastFrame = -1;
+        // Wheel and trackpad scroll arrives in discrete jumps. Following the raw
+        // value reproduces those jumps exactly; easing toward it turns them into
+        // continuous motion. This is the single biggest smoothness factor here.
+        let smooth = -1;
         let lastOverIntro: boolean | null = null;
         const frame = () => {
             if (!measured) measure();
-            const progress = Math.min(Math.max((window.scrollY - trackTop) / span, 0), 1);
+            const raw = Math.min(Math.max((window.scrollY - trackTop) / span, 0), 1);
+            if (smooth < 0) smooth = raw;
+            const delta = raw - smooth;
+            smooth = Math.abs(delta) < 0.0004 ? raw : smooth + delta * SMOOTHING;
+            const progress = smooth;
 
             const frameIdx = Math.min(Math.round(progress * (FRAME_COUNT - 1)), FRAME_COUNT - 1);
             if (frameIdx !== lastFrame) {
@@ -248,7 +257,7 @@ export default function IntroSequence({ poster, finale }: { poster: string; fina
                     style={{
                         opacity: 1,
                         willChange: 'opacity',
-                        backgroundColor: '#0A0A0A',
+                        backgroundColor: '#000000',
                     }}
                 />
                 {/* Object */}
@@ -261,14 +270,10 @@ export default function IntroSequence({ poster, finale }: { poster: string; fina
                         ref={mediaRef}
                         className="absolute inset-0"
                         style={{
-                            mixBlendMode: 'screen',
-                            // The clip's ground is rgb(24,26,26). contrast(1.5) left a
-                            // residual above zero, and screen-blend can only lighten — so
-                            // that residual showed as a halo lighter than the #0A0A0A
-                            // ground. This drives it to a hard zero while keeping the
-                            // object bright. The mask feathers the frame edges so a
-                            // full-bleed video never shows its rectangle.
-                            filter: 'brightness(0.88) contrast(2.1) saturate(1.05)',
+                            // No blend and no filter: the black crush is baked into the
+                            // frames by ffmpeg, so they draw straight onto the black
+                            // ground. Compositing a full-bleed canvas through
+                            // mix-blend-mode + filter every frame was pure overhead.
                             transformOrigin: '50% 50%',
                             willChange: 'transform',
                             maskImage: EDGE_MASK,
