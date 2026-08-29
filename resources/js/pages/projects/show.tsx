@@ -46,7 +46,7 @@ export default function ProjectShow({ project }: { project: Project }) {
                                 {project.metrics.map(([n, l]) => (
                                     <div key={l}>
                                         <div className="text-fg text-[28px] font-medium tracking-tight">{n}</div>
-                                        <span className="text-fg-dim font-mono text-[13.5px]">{l}</span>
+                                        <span className="text-fg-mid font-mono text-[13.5px]">{l}</span>
                                     </div>
                                 ))}
                             </div>
@@ -84,7 +84,7 @@ export default function ProjectShow({ project }: { project: Project }) {
                     )}
                 </Card>
                 {project.case_study.screenshots?.length ? (
-                    <p className="text-fg-dim mt-3 max-w-3xl font-mono text-[13.5px] leading-relaxed">
+                    <p className="text-fg-mid mt-3 max-w-3xl font-mono text-[13.5px] leading-relaxed">
                         ↳ {project.case_study.screenshots[0].caption}
                     </p>
                 ) : null}
@@ -118,9 +118,9 @@ export default function ProjectShow({ project }: { project: Project }) {
                     <div className="mt-7 grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
                         {project.case_study.modules.map((m, i) => (
                             <Card key={m.name} pad={18} className="repo-card">
-                                <span className="text-fg-fade font-mono text-[13.5px]">{String(i + 1).padStart(2, '0')}</span>
+                                <span className="text-fg-dim font-mono text-[13.5px]">{String(i + 1).padStart(2, '0')}</span>
                                 <div className="text-fg mt-2 text-[17.5px] font-medium tracking-tight">{m.name}</div>
-                                <p className="text-fg-mid mt-1.5 text-[14.5px] leading-relaxed">{m.desc}</p>
+                                <p className="text-fg-mid mt-1.5 text-[15.5px] leading-relaxed">{m.desc}</p>
                             </Card>
                         ))}
                     </div>
@@ -157,7 +157,7 @@ export default function ProjectShow({ project }: { project: Project }) {
                                         />
                                     </RepoChrome>
                                 </Card>
-                                <figcaption className="text-fg-dim max-w-3xl font-mono text-[13.5px] leading-relaxed">
+                                <figcaption className="text-fg-mid max-w-3xl font-mono text-[13.5px] leading-relaxed">
                                     ↳ {shot.caption}
                                 </figcaption>
                             </figure>
@@ -218,7 +218,7 @@ export default function ProjectShow({ project }: { project: Project }) {
                                     className="group border-line bg-bg-elev hover:border-portfolio-accent/40 flex items-start justify-between gap-5 rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-0.5"
                                 >
                                     <div className="min-w-0">
-                                        <span className="text-fg-dim font-mono text-[13.5px]">
+                                        <span className="text-fg-mid font-mono text-[13.5px]">
                                             {new URL(c.url).hostname.replace(/^www\./, '')}
                                         </span>
                                         <div className="text-fg group-hover:text-portfolio-accent mt-2 text-[18.5px] leading-snug font-medium tracking-tight transition-colors">
