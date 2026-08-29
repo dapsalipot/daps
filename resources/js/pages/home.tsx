@@ -64,7 +64,8 @@ export default function Home() {
             <WorkCarousel projects={portfolio.projects} />
 
             {/* NOW */}
-            <section className="flex min-h-dvh flex-col justify-center px-6 py-20 md:px-12">
+            <section className="relative" style={{ height: 'calc(100dvh + 55vh)' }}>
+                <div className="sticky top-0 flex min-h-dvh flex-col justify-center px-6 py-20 md:px-12">
                 <SectionHead n="01" title="now()" right="updated 14 may 2026" />
                 <div className="stagger-in mt-10 flex flex-col">
                     {portfolio.now.map((it, i) => (
@@ -89,23 +90,25 @@ export default function Home() {
                         </div>
                     ))}
                 </div>
+                </div>
             </section>
 
             {/* STACK */}
-            <section className="flex min-h-dvh flex-col justify-center px-6 py-20 md:px-12">
+            <section className="relative" style={{ height: 'calc(100dvh + 55vh)' }}>
+                <div className="sticky top-0 flex min-h-dvh flex-col justify-center px-6 py-20 md:px-12">
                 <SectionHead n="02" title="stack.json" right="daily drivers · 2026" />
-                <div className="stagger-in mt-7 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+                <div className="stagger-in mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
                     {Object.entries(portfolio.stack).map(([cat, items]) => (
-                        <Card key={cat} pad={18} className="repo-card">
+                        <Card key={cat} pad={26} className="repo-card flex min-h-[380px] flex-col">
                             <div className="border-line flex items-baseline justify-between border-b pb-3">
-                                <span className="text-fg text-[16.5px] font-medium tracking-tight">{cat}</span>
+                                <span className="text-fg text-[19.5px] tracking-tight">{cat}</span>
                                 <span className="text-fg-fade font-mono text-[13.5px] tabular-nums">
                                     {String(items.length).padStart(2, '0')}
                                 </span>
                             </div>
-                            <ul className="mt-3.5 flex list-none flex-col gap-2.5 p-0">
+                            <ul className="mt-5 flex flex-1 list-none flex-col gap-4 p-0">
                                 {items.map(([k, v]) => (
-                                    <li key={k} className="flex items-baseline justify-between text-[15.5px]">
+                                    <li key={k} className="flex items-baseline justify-between text-[16.5px]">
                                         <span className="text-fg inline-flex items-center gap-2">
                                             <LangDot name={k.split(' ')[0]} size={7} />
                                             {k}
@@ -116,6 +119,7 @@ export default function Home() {
                             </ul>
                         </Card>
                     ))}
+                </div>
                 </div>
             </section>
 
@@ -183,7 +187,8 @@ export default function Home() {
             </section>
 
             {/* ACHIEVEMENTS */}
-            <section className="flex min-h-dvh flex-col justify-center px-6 py-20 md:px-12">
+            <section className="relative" style={{ height: 'calc(100dvh + 55vh)' }}>
+                <div className="sticky top-0 flex min-h-dvh flex-col justify-center px-6 py-20 md:px-12">
                 <SectionHead n="04" title="achievements" right="awards · certs · honors" />
                 <div className="mt-7 grid grid-cols-1 gap-x-12 md:grid-cols-2">
                     {portfolio.achievements.map((a) => (
@@ -204,10 +209,12 @@ export default function Home() {
                         </div>
                     ))}
                 </div>
+                </div>
             </section>
 
             {/* CONTACT CTA */}
-            <section className="flex min-h-dvh flex-col justify-center px-6 py-24 md:px-12">
+            <section className="relative" style={{ height: 'calc(100dvh + 55vh)' }}>
+                <div className="sticky top-0 flex min-h-dvh flex-col justify-center px-6 py-24 md:px-12">
                 <div
                     className="border-line relative grid grid-cols-1 items-center gap-10 overflow-hidden rounded-2xl border p-8 md:p-14 lg:grid-cols-[1.4fr_1fr]"
                     style={{ background: 'linear-gradient(135deg, var(--bg-elev) 0%, var(--bg) 100%)' }}
@@ -247,6 +254,7 @@ export default function Home() {
                             ]}
                         />
                     </div>
+                </div>
                 </div>
             </section>
         </PortfolioLayout>
