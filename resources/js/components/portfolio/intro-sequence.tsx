@@ -328,15 +328,15 @@ export default function IntroSequence({ poster, finale }: { poster: string; fina
                             }}
                         >
                             <h2
-                                className="text-portfolio-accent text-[52px] leading-none tracking-[-0.02em] md:text-[88px]"
+                                className="text-portfolio-accent text-[58px] leading-none tracking-[0.01em] uppercase md:text-[104px]"
                                 style={{ fontFamily: 'var(--font-display)' }}
                             >
                                 {beat.label}
                             </h2>
-                            <div className="text-fg mt-5 font-sans text-[22px] leading-tight tracking-[-0.015em] md:text-[31px]">
+                            <div className="text-fg mt-6 font-sans text-[25px] leading-tight tracking-[-0.015em] md:text-[36px]">
                                 {beat.title}
                             </div>
-                            <p className="text-fg mx-auto mt-4 max-w-[56ch] font-mono text-[13.5px] leading-relaxed tracking-[0.01em] md:text-[15px]">
+                            <p className="text-fg mx-auto mt-4 max-w-[56ch] font-mono text-[15px] leading-relaxed tracking-[0.01em] md:text-[16.5px]">
                                 {beat.body}
                             </p>
                         </div>
