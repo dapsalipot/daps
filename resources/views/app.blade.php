@@ -14,8 +14,12 @@
         <meta name="theme-color" content="#0A0A0A" media="(prefers-color-scheme: dark)">
         <meta name="theme-color" content="#FAFAFA" media="(prefers-color-scheme: light)">
 
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
+        {{-- Fonts load here, not via @import in app.css: Tailwind v4 strips the
+             @import out of the built bundle entirely, so anything declared there
+             never actually downloads. --}}
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Anta&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
         @routes
         @viteReactRefresh
