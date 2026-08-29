@@ -80,7 +80,6 @@ export default function IntroSequence({ poster, finale }: { poster: string; fina
     const objectRef = useRef<HTMLDivElement>(null);
     const mediaRef = useRef<HTMLDivElement>(null);
     const beatsRef = useRef<HTMLDivElement>(null);
-    const railRef = useRef<HTMLDivElement>(null);
     const finaleRef = useRef<HTMLDivElement>(null);
     const [useVideo, setUseVideo] = useState(false);
 
@@ -230,7 +229,6 @@ export default function IntroSequence({ poster, finale }: { poster: string; fina
                 // outward into the dot grid rather than blinking off in place.
                 if (mediaRef.current) mediaRef.current.style.transform = `scale(${1 + eased * 0.22})`;
                 if (beatsRef.current) beatsRef.current.style.opacity = out;
-                if (railRef.current) railRef.current.style.opacity = out;
                 if (finaleRef.current) finaleRef.current.style.opacity = String(eased);
                 const ready = eased > 0.6;
                 setHeroReady((prev) => (prev === ready ? prev : ready));
@@ -354,17 +352,6 @@ export default function IntroSequence({ poster, finale }: { poster: string; fina
                     {finale}
                 </div>
 
-                {/* Progress rail */}
-                <div ref={railRef} className="stage-dark absolute bottom-10 left-1/2 flex -translate-x-1/2 gap-2" style={{ willChange: 'opacity' }}>
-                    {BEATS.map((beat, i) => (
-                        <span
-                            key={beat.label}
-                            className={`h-[3px] rounded-full transition-all duration-300 ${
-                                i === active ? 'bg-portfolio-accent w-8' : 'bg-line-strong w-4'
-                            }`}
-                        />
-                    ))}
-                </div>
             </div>
         </div>
     );
