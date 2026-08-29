@@ -71,7 +71,7 @@ export default function Home() {
                     {portfolio.now.map((it, i) => (
                         <div
                             key={`${it.label}-${it.title}`}
-                            className="border-line group grid grid-cols-1 items-baseline gap-3 border-t py-8 transition-colors md:grid-cols-[52px_170px_1fr] md:gap-8"
+                            className="border-line group grid grid-cols-1 items-baseline gap-4 border-t py-10 transition-colors md:grid-cols-[52px_170px_1fr] md:gap-8"
                         >
                             <span className="text-fg-fade group-hover:text-portfolio-accent font-mono text-[13.5px] tabular-nums transition-colors">
                                 {String(i + 1).padStart(2, '0')}
@@ -83,7 +83,7 @@ export default function Home() {
                                 <div className="text-fg text-[26px] leading-tight tracking-tight transition-transform duration-300 group-hover:translate-x-1 md:text-[34px]">
                                     {it.title}
                                 </div>
-                                <p className="text-fg-mid mt-2.5 max-w-2xl font-mono text-[14.5px] leading-relaxed md:text-[15.5px]">
+                                <p className="text-fg-mid mt-3 max-w-2xl font-mono text-[14.5px] leading-[1.75] md:text-[15.5px]">
                                     {it.sub}
                                 </p>
                             </div>
@@ -97,16 +97,16 @@ export default function Home() {
             <section className="relative" style={{ height: 'calc(100dvh + 55vh)' }}>
                 <div className="sticky top-0 flex min-h-dvh flex-col justify-center px-6 py-20 md:px-12">
                 <SectionHead n="02" title="stack.json" right="daily drivers · 2026" />
-                <div className="stagger-in mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
+                <div className="stagger-in mt-12 grid flex-1 grid-cols-1 items-stretch gap-6 md:grid-cols-2 lg:grid-cols-4">
                     {Object.entries(portfolio.stack).map(([cat, items]) => (
-                        <Card key={cat} pad={26} className="repo-card flex min-h-[380px] flex-col">
+                        <Card key={cat} pad={30} className="repo-card flex h-full min-h-[420px] flex-col">
                             <div className="border-line flex items-baseline justify-between border-b pb-3">
                                 <span className="text-fg text-[19.5px] tracking-tight">{cat}</span>
                                 <span className="text-fg-fade font-mono text-[13.5px] tabular-nums">
                                     {String(items.length).padStart(2, '0')}
                                 </span>
                             </div>
-                            <ul className="mt-5 flex flex-1 list-none flex-col gap-4 p-0">
+                            <ul className="mt-6 flex flex-1 list-none flex-col gap-5 p-0">
                                 {items.map(([k, v]) => (
                                     <li key={k} className="flex items-baseline justify-between text-[16.5px]">
                                         <span className="text-fg inline-flex items-center gap-2">
@@ -142,7 +142,7 @@ export default function Home() {
                                     </div>
                                     <span className="text-fg-dim font-mono text-[13.5px]">{e.loc}</span>
                                 </div>
-                                <div className="text-fg-mid text-[15.5px] leading-relaxed">{e.note}</div>
+                                <div className="text-fg-mid text-[15.5px] leading-[1.75]">{e.note}</div>
                                 <div className="text-fg-mid text-right">
                                     <ArrowNEIcon />
                                 </div>
@@ -190,11 +190,11 @@ export default function Home() {
             <section className="relative" style={{ height: 'calc(100dvh + 55vh)' }}>
                 <div className="sticky top-0 flex min-h-dvh flex-col justify-center px-6 py-20 md:px-12">
                 <SectionHead n="04" title="achievements" right="awards · certs · honors" />
-                <div className="mt-7 grid grid-cols-1 gap-x-12 md:grid-cols-2">
+                <div className="mt-12 grid flex-1 grid-cols-1 content-center gap-x-16 md:grid-cols-2">
                     {portfolio.achievements.map((a) => (
                         <div
                             key={`${a.yr}-${a.t}`}
-                            className="border-line flex items-baseline gap-5 border-t py-6 md:gap-7"
+                            className="border-line flex items-baseline gap-6 border-t py-8 md:gap-8"
                         >
                             <span className="text-fg-fade shrink-0 font-mono text-[28px] leading-none font-medium tracking-tight tabular-nums md:text-[34px]">
                                 {a.yr}
@@ -204,7 +204,7 @@ export default function Home() {
                                     {a.t}
                                 </div>
                                 <div className="text-portfolio-accent mt-1 font-mono text-[13.5px]">{a.where}</div>
-                                <p className="text-fg-mid mt-2 text-[15.5px] leading-relaxed">{a.note}</p>
+                                <p className="text-fg-mid mt-3 max-w-[52ch] text-[15.5px] leading-[1.75]">{a.note}</p>
                             </div>
                         </div>
                     ))}

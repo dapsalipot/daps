@@ -164,9 +164,9 @@
     --bg-elev: #111111;
     --bg-elev-2: #161616;
     --fg: #EDEDED;
-    --fg-mid: #B4B4B4;
-    --fg-dim: #9A9A9A;
-    --fg-fade: #7E7E7E;
+    --fg-mid: #C4C4C4;
+    --fg-dim: #ABABAB;
+    --fg-fade: #909090;
     --line: rgba(255, 255, 255, 0.08);
     --line-strong: rgba(255, 255, 255, 0.14);
     --portfolio-accent: #7DD96E;
@@ -212,6 +212,7 @@
 @layer base {
     body {
     font-synthesis-weight: none;
+    line-height: 1.7;
         font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
         font-feature-settings: 'ss01', 'cv11', 'zero';
         -webkit-font-smoothing: antialiased;
@@ -250,9 +251,9 @@
     --bg-elev: #111111;
     --bg-elev-2: #161616;
     --fg: #EDEDED;
-    --fg-mid: #B4B4B4;
-    --fg-dim: #9A9A9A;
-    --fg-fade: #7E7E7E;
+    --fg-mid: #C4C4C4;
+    --fg-dim: #ABABAB;
+    --fg-fade: #909090;
     --line: rgba(255, 255, 255, 0.11);
     --line-strong: rgba(255, 255, 255, 0.14);
     --portfolio-accent: #7DD96E;
@@ -263,9 +264,9 @@
     --color-bg-elev: #111111;
     --color-bg-elev-2: #161616;
     --color-fg: #EDEDED;
-    --color-fg-mid: #B4B4B4;
-    --color-fg-dim: #9A9A9A;
-    --color-fg-fade: #7E7E7E;
+    --color-fg-mid: #C4C4C4;
+    --color-fg-dim: #ABABAB;
+    --color-fg-fade: #909090;
     --color-line: rgba(255, 255, 255, 0.11);
     --color-line-strong: rgba(255, 255, 255, 0.14);
     --color-portfolio-accent: #7DD96E;

@@ -206,15 +206,16 @@ export default function WorkCarousel({ projects }: { projects: Project[] }) {
     return (
         <section
             ref={trackRef}
-            className="relative py-20 md:py-28"
+            className="relative"
+            style={{ height: 'calc(100dvh + 55vh)' }}
             aria-roledescription="carousel"
             aria-label="Selected work"
         >
-            <div className="flex flex-col items-center justify-center overflow-hidden">
+            <div className="sticky top-0 flex min-h-dvh flex-col items-center justify-center overflow-hidden py-16">
                 <div
                     ref={stageRef}
                     className="relative mx-auto w-full max-w-[1600px] cursor-grab touch-pan-y select-none active:cursor-grabbing"
-                    style={{ perspective: '2400px', height: 'min(84dvh, 760px)' }}
+                    style={{ perspective: '2400px', height: 'min(72dvh, 700px)' }}
                 >
                     {projects.map((p, i) => {
                         const isActive = i === active;
