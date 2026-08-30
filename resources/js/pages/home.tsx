@@ -1,10 +1,10 @@
 import Button from '@/components/portfolio/button';
-import Card from '@/components/portfolio/card';
 import CodeBlock from '@/components/portfolio/code-block';
 import { ArrowIcon, ArrowNEIcon, ExtIcon, LinkedinIcon } from '@/components/portfolio/icons';
 import LangDot from '@/components/portfolio/lang-dot';
 import IntroSequence from '@/components/portfolio/intro-sequence';
 import SectionHead from '@/components/portfolio/section-head';
+import StackMap from '@/components/portfolio/stack-map';
 import WorkCarousel from '@/components/portfolio/work-carousel';
 import StatusDot from '@/components/portfolio/status-dot';
 import PortfolioLayout from '@/layouts/portfolio-layout';
@@ -97,28 +97,8 @@ export default function Home() {
             <section className="relative" style={{ height: 'calc(100dvh + 55vh)' }}>
                 <div className="sticky top-0 flex min-h-dvh flex-col justify-center px-6 py-20 md:px-12">
                 <SectionHead n="02" title="stack.json" right="daily drivers · 2026" />
-                <div className="stagger-in mt-12 grid flex-1 grid-cols-1 items-stretch gap-6 md:grid-cols-2 lg:grid-cols-4">
-                    {Object.entries(portfolio.stack).map(([cat, items]) => (
-                        <Card key={cat} pad={30} className="repo-card flex h-full min-h-[420px] flex-col">
-                            <div className="border-line flex items-baseline justify-between border-b pb-3">
-                                <span className="text-fg text-[19.5px] tracking-tight">{cat}</span>
-                                <span className="text-fg-fade font-mono text-[13.5px] tabular-nums">
-                                    {String(items.length).padStart(2, '0')}
-                                </span>
-                            </div>
-                            <ul className="mt-6 flex flex-1 list-none flex-col gap-5 p-0">
-                                {items.map(([k, v]) => (
-                                    <li key={k} className="flex items-baseline justify-between text-[16.5px]">
-                                        <span className="text-fg inline-flex items-center gap-2">
-                                            <LangDot name={k.split(' ')[0]} size={7} />
-                                            {k}
-                                        </span>
-                                        <span className="text-fg-dim font-mono text-[13.5px]">{v}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                        </Card>
-                    ))}
+                <div className="mt-6 flex flex-1 items-center">
+                    <StackMap stack={portfolio.stack} />
                 </div>
                 </div>
             </section>

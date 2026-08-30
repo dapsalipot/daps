@@ -274,6 +274,89 @@
     --color-on-accent: #0A0A0A;
 }
 
+/* ──────────────────────────────────────────────────────────────
+   Stack connection map. Links draw themselves in, nodes settle,
+   leaves drift on a slow loop. All of it stops for reduced motion.
+   ────────────────────────────────────────────────────────────── */
+.stack-map .sm-link {
+    stroke: var(--line-strong);
+    stroke-width: 1;
+    stroke-dasharray: 900;
+    stroke-dashoffset: 900;
+    transition: opacity 260ms ease, stroke 260ms ease;
+}
+.stack-map.is-in .sm-link {
+    animation: smDraw 900ms cubic-bezier(.22, .75, .28, 1) forwards;
+    animation-delay: calc(var(--i, 0) * 55ms);
+}
+.stack-map .sm-link-cat { stroke: var(--fg-dim); }
+.stack-map .sm-link-on { stroke: var(--portfolio-accent); stroke-width: 1.6; }
+
+@keyframes smDraw { to { stroke-dashoffset: 0; } }
+
+.stack-map .sm-node {
+    opacity: 0;
+    cursor: default;
+    transition: opacity 260ms ease;
+}
+.stack-map.is-in .sm-node {
+    animation: smPop 520ms cubic-bezier(.22, .75, .28, 1) forwards;
+    animation-delay: calc(220ms + var(--i, 0) * 45ms);
+}
+@keyframes smPop { from { opacity: 0; } to { opacity: 1; } }
+
+.stack-map .sm-core-ring { fill: none; stroke: var(--line-strong); stroke-width: 1; }
+.stack-map .sm-core-dot { fill: var(--portfolio-accent); }
+.stack-map .sm-core-label {
+    fill: var(--fg-dim);
+    font-family: var(--font-mono);
+    font-size: 15px;
+    letter-spacing: .08em;
+}
+
+.stack-map .sm-cat-dot { fill: var(--fg); }
+.stack-map .sm-cat-label { fill: var(--fg); font-size: 21px; letter-spacing: -.01em; }
+.stack-map .sm-cat-count {
+    fill: var(--fg-dim);
+    font-family: var(--font-mono);
+    font-size: 13.5px;
+}
+
+.stack-map .sm-leaf { cursor: pointer; }
+.stack-map .sm-leaf-hit { fill: transparent; }
+.stack-map .sm-leaf-dot { fill: var(--fg-dim); transition: fill 200ms ease, r 200ms ease; }
+.stack-map .sm-leaf-label {
+    fill: var(--fg-mid);
+    font-family: var(--font-mono);
+    font-size: 14.5px;
+    transition: fill 200ms ease;
+}
+.stack-map .sm-leaf:hover .sm-leaf-dot,
+.stack-map .sm-leaf:focus-visible .sm-leaf-dot { fill: var(--portfolio-accent); r: 7; }
+.stack-map .sm-leaf:hover .sm-leaf-label,
+.stack-map .sm-leaf:focus-visible .sm-leaf-label { fill: var(--fg); }
+.stack-map .sm-leaf:focus { outline: none; }
+.stack-map .sm-leaf:focus-visible .sm-leaf-hit {
+    stroke: var(--portfolio-accent);
+    stroke-width: 1;
+}
+
+/* Idle drift, offset per leaf so the map never pulses in unison. */
+.stack-map.is-in .sm-leaf { animation: smPop 520ms cubic-bezier(.22,.75,.28,1) forwards, smFloat 7s ease-in-out infinite; }
+.stack-map.is-in .sm-leaf { animation-delay: calc(220ms + var(--i, 0) * 45ms), calc(var(--i, 0) * 320ms); }
+@keyframes smFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .stack-map .sm-link { stroke-dashoffset: 0; }
+    .stack-map .sm-node { opacity: 1; }
+    .stack-map.is-in .sm-link,
+    .stack-map.is-in .sm-node,
+    .stack-map.is-in .sm-leaf { animation: none; }
+}
+
 .dotgrid {
     background-image: radial-gradient(rgba(125, 125, 125, 0.07) 1px, transparent 1px);
     background-size: 18px 18px;
