@@ -85,9 +85,9 @@ export default function StackMap({ stack }: { stack: Record<string, [string, str
     return (
         <div ref={wrapRef} className={`stack-map ${shown ? 'is-in' : ''} relative w-full`}>
             <svg
-                viewBox="-660 -440 1320 880"
+                viewBox="-556 -412 1112 824"
                 preserveAspectRatio="xMidYMid meet"
-                className="mx-auto block max-h-[62dvh] w-full"
+                className="mx-auto block max-h-[74dvh] w-full"
                 role="img"
                 aria-label="Stack shown as a connection map of categories and technologies"
             >
@@ -125,7 +125,12 @@ export default function StackMap({ stack }: { stack: Record<string, [string, str
                 <g className="sm-core">
                     <circle r="58" className="sm-core-ring" />
                     <circle r="7" className="sm-core-dot" />
-                    <text className="sm-core-label" y="86" textAnchor="middle">
+                    <text
+                        className="sm-core-label"
+                        y="86"
+                        textAnchor="middle"
+                        style={{ opacity: hover ? 0 : 1, transition: 'opacity 200ms ease' }}
+                    >
                         stack
                     </text>
                 </g>
@@ -200,17 +205,24 @@ export default function StackMap({ stack }: { stack: Record<string, [string, str
                 })}
             </svg>
 
-            {/* Detail readout. Sits in the centre well so the eye does not travel. */}
+            {/* Detail readout. Sits in the centre well so the eye does not travel,
+                on its own panel — over links and the core ring, plain text washed out. */}
             <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
                 <div
-                    className="max-w-[240px] text-center transition-opacity duration-200"
-                    style={{ opacity: hover ? 1 : 0 }}
+                    className="border-line rounded-2xl border bg-black/90 px-7 py-5 text-center backdrop-blur transition-all duration-200"
+                    style={{
+                        opacity: hover ? 1 : 0,
+                        transform: hover ? 'scale(1)' : 'scale(.94)',
+                        boxShadow: '0 20px 60px -20px rgba(0,0,0,.95)',
+                    }}
                 >
-                    <div className="text-portfolio-accent font-mono text-[13.5px]">
-                        {hover ? Object.keys(stack)[hover.cat] : ''}
+                    <div className="text-portfolio-accent font-mono text-[14px] tracking-[0.06em]">
+                        {hover ? Object.keys(stack)[hover.cat] : '\u00a0'}
                     </div>
-                    <div className="text-fg mt-1 text-[19px] leading-tight tracking-tight">{hover?.name}</div>
-                    <div className="text-fg-mid mt-1.5 font-mono text-[13.5px]">{hover?.note}</div>
+                    <div className="text-fg mt-2 text-[26px] leading-tight tracking-tight">
+                        {hover?.name ?? '\u00a0'}
+                    </div>
+                    <div className="text-fg-mid mt-2 font-mono text-[15px]">{hover?.note ?? '\u00a0'}</div>
                 </div>
             </div>
         </div>
