@@ -453,6 +453,18 @@ return [
                 ['name' => 'Sanctum', 'note' => 'token auth', 'used_in' => ['ralli']],
             ]],
         ]],
+        ['name' => 'frontend', 'children' => [
+            ['name' => 'React', 'note' => 'primary', 'used_in' => ['ralli', 'date-tracker'], 'children' => [
+                ['name' => 'TypeScript', 'note' => 'typed props', 'used_in' => ['date-tracker']],
+                ['name' => 'Inertia', 'note' => 'server-driven routing'],
+            ]],
+            ['name' => 'Tailwind', 'note' => 'utility CSS'],
+        ]],
+        ['name' => 'mobile', 'children' => [
+            ['name' => 'React Native', 'note' => 'client app', 'used_in' => ['ralli'], 'children' => [
+                ['name' => 'Push registry', 'note' => 'device tokens', 'used_in' => ['ralli']],
+            ]],
+        ]],
         ['name' => 'data', 'children' => [
             ['name' => 'MySQL', 'note' => 'primary', 'children' => [
                 ['name' => 'Schema design', 'note' => 'normalization'],
@@ -496,6 +508,8 @@ return [
     ],
 
     'stack' => [
+        'frontend'       => [['React', 'primary'], ['TypeScript', 'typed props'], ['Inertia', 'server-driven'], ['Tailwind', 'utility CSS']],
+        'mobile'         => [['React Native', 'client app'], ['Push notifications', 'device tokens'], ['Sanctum', 'token auth']],
         'backend'        => [['Laravel', 'primary'], ['PHP', 'primary'], ['Livewire', 'daily'], ['Filament', 'daily'], ['REST APIs', 'design + build']],
         'data'           => [['MySQL', 'primary'], ['Schema design', 'normalization'], ['Indexing', 'composite'], ['Query optimization', 'N+1 resolution'], ['Multi-tenant', 'db-per-tenant']],
         'integrations'   => [['PayMongo', 'payments'], ['GCash', 'reconciliation'], ['OpenAI API', 'summarization'], ['Webhooks', 'sync'], ['n8n · Zapier', 'automation']],

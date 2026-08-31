@@ -112,7 +112,7 @@ export interface Portfolio {
     stats: { n: string; l: string }[];
     now: { label: string; title: string; sub: string }[];
     projects: Project[];
-    stack: Record<'backend' | 'frontend' | 'platforms' | 'adjacent', [string, string][]>;
+    stack: Record<string, [string, string][]>;
     stack_graph: StackNode[];
     stack_links: [string, string][];
     experience: ExperienceEntry[];
