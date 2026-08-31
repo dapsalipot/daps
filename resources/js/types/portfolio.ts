@@ -1,3 +1,9 @@
+export interface StackNode {
+    name: string;
+    note?: string;
+    children?: StackNode[];
+}
+
 export type ScreenshotTone = 'plum' | 'forest' | 'ember' | 'slate' | 'ocean' | 'paper';
 
 export interface CaseStudyScreenshot {
@@ -107,6 +113,8 @@ export interface Portfolio {
     now: { label: string; title: string; sub: string }[];
     projects: Project[];
     stack: Record<'backend' | 'frontend' | 'platforms' | 'adjacent', [string, string][]>;
+    stack_graph: StackNode[];
+    stack_links: [string, string][];
     experience: ExperienceEntry[];
     education: EducationEntry[];
     certifications: Certification[];

@@ -433,6 +433,68 @@ return [
             ],
         ],
     ],
+    /*
+     * Nested graph behind the stack map. Deliberately a tree of tool -> practice
+     * rather than a flat list: "Indexing" is something you do to MySQL, not a
+     * sibling of it. 'stack' below stays flat because /about renders it as columns.
+     *
+     * 'links' are real cross-branch relationships, not decoration - each one is a
+     * dependency that actually exists in this work.
+     */
+    'stack_graph' => [
+        ['name' => 'backend', 'children' => [
+            ['name' => 'Laravel', 'note' => 'primary', 'children' => [
+                ['name' => 'Livewire', 'note' => 'daily'],
+                ['name' => 'Filament', 'note' => 'admin panels'],
+                ['name' => 'Queues', 'note' => 'idempotent jobs'],
+            ]],
+            ['name' => 'PHP', 'note' => 'primary'],
+            ['name' => 'REST APIs', 'note' => 'design + build', 'children' => [
+                ['name' => 'Sanctum', 'note' => 'token auth'],
+            ]],
+        ]],
+        ['name' => 'data', 'children' => [
+            ['name' => 'MySQL', 'note' => 'primary', 'children' => [
+                ['name' => 'Schema design', 'note' => 'normalization'],
+                ['name' => 'Indexing', 'note' => 'composite'],
+                ['name' => 'Query optimization', 'note' => 'N+1 resolution'],
+            ]],
+            ['name' => 'Multi-tenant', 'note' => 'database per tenant'],
+        ]],
+        ['name' => 'integrations', 'children' => [
+            ['name' => 'Payments', 'note' => 'gateways', 'children' => [
+                ['name' => 'PayMongo', 'note' => 'checkout'],
+                ['name' => 'GCash', 'note' => 'reconciliation'],
+            ]],
+            ['name' => 'Webhooks', 'note' => 'replay-safe'],
+            ['name' => 'Automation', 'note' => 'workflows', 'children' => [
+                ['name' => 'n8n', 'note' => 'self-hosted'],
+                ['name' => 'Zapier', 'note' => 'connectors'],
+            ]],
+            ['name' => 'OpenAI API', 'note' => 'summarization'],
+        ]],
+        ['name' => 'infrastructure', 'children' => [
+            ['name' => 'Linux', 'note' => 'server admin', 'children' => [
+                ['name' => 'SSL/TLS', 'note' => 'certificates'],
+                ['name' => 'SSH', 'note' => 'ops'],
+            ]],
+            ['name' => 'Deployment', 'note' => 'hosting', 'children' => [
+                ['name' => 'Azure', 'note' => 'app services'],
+                ['name' => 'Cloudways', 'note' => 'managed'],
+            ]],
+            ['name' => 'Laravel Dusk', 'note' => 'browser tests'],
+            ['name' => 'Git', 'note' => 'daily'],
+        ]],
+    ],
+
+    'stack_links' => [
+        ['Multi-tenant', 'Laravel'],
+        ['Queues', 'Webhooks'],
+        ['Queues', 'PayMongo'],
+        ['Laravel Dusk', 'Livewire'],
+        ['Sanctum', 'Multi-tenant'],
+    ],
+
     'stack' => [
         'backend'        => [['Laravel', 'primary'], ['PHP', 'primary'], ['Livewire', 'daily'], ['Filament', 'daily'], ['REST APIs', 'design + build']],
         'data'           => [['MySQL', 'primary'], ['Schema design', 'normalization'], ['Indexing', 'composite'], ['Query optimization', 'N+1 resolution'], ['Multi-tenant', 'db-per-tenant']],

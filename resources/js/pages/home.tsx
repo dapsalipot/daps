@@ -98,7 +98,7 @@ export default function Home() {
                 <div className="sticky top-0 flex min-h-dvh flex-col justify-center px-6 py-20 md:px-12">
                 <SectionHead n="02" title="stack.json" right="daily drivers · 2026" />
                 <div className="mt-6 flex flex-1 items-center">
-                    <StackMap stack={portfolio.stack} />
+                    <StackMap graph={portfolio.stack_graph} links={portfolio.stack_links} />
                 </div>
                 </div>
             </section>
