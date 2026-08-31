@@ -132,7 +132,6 @@ export default function StackMap({ graph, links }: { graph: RawNode[]; links: [s
         return set;
     }, [hover, byId, nodes, crossPairs]);
 
-    const active = hover ? byId.get(hover) : null;
     const dimmed = (id: string) => (lit ? !lit.has(id) : false);
 
     useEffect(() => {
@@ -193,12 +192,7 @@ export default function StackMap({ graph, links }: { graph: RawNode[]; links: [s
                     <circle r="66" className="sm-core-ring" />
                     <circle r="48" className="sm-core-ring sm-core-ring-inner" />
                     <circle r="6" className="sm-core-dot" />
-                    <text
-                        className="sm-core-label"
-                        y="90"
-                        textAnchor="middle"
-                        style={{ opacity: active ? 0 : 1, transition: 'opacity 200ms ease' }}
-                    >
+                    <text className="sm-core-label" y="90" textAnchor="middle">
                         stack
                     </text>
                 </g>
@@ -230,35 +224,27 @@ export default function StackMap({ graph, links }: { graph: RawNode[]; links: [s
                                 <text
                                     className="sm-label"
                                     x={end ? (isCat ? -26 : -18) : isCat ? 26 : 18}
-                                    y="5"
+                                    y={n.note ? 0 : 5}
                                     textAnchor={end ? 'end' : 'start'}
                                 >
                                     {n.name}
                                 </text>
+                                {n.note && (
+                                    <text
+                                        className="sm-note"
+                                        x={end ? (isCat ? -26 : -18) : isCat ? 26 : 18}
+                                        y="17"
+                                        textAnchor={end ? 'end' : 'start'}
+                                    >
+                                        {n.note}
+                                    </text>
+                                )}
                             </g>
                         </g>
                     );
                 })}
             </svg>
 
-            <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                <div
-                    className="border-line rounded-2xl border bg-black/90 px-7 py-5 text-center backdrop-blur transition-all duration-200"
-                    style={{
-                        opacity: active ? 1 : 0,
-                        transform: active ? 'scale(1)' : 'scale(.94)',
-                        boxShadow: '0 20px 60px -20px rgba(0,0,0,.95)',
-                    }}
-                >
-                    <div className="text-portfolio-accent font-mono text-[14px] tracking-[0.06em]">
-                        {active ? graph[active.branch]?.name : ' '}
-                    </div>
-                    <div className="text-fg mt-2 text-[26px] leading-tight tracking-tight">
-                        {active?.name ?? ' '}
-                    </div>
-                    <div className="text-fg-mid mt-2 font-mono text-[15px]">{active?.note || ' '}</div>
-                </div>
-            </div>
         </div>
     );
 }

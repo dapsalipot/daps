@@ -344,6 +344,17 @@
 .stack-map .sm-cat-ring { fill: var(--bg); stroke: var(--fg-mid); stroke-width: 1; }
 .stack-map .sm-dot { transition: fill 220ms ease, r 220ms cubic-bezier(.22, .75, .28, 1); }
 .stack-map .sm-label { transition: fill 220ms ease; }
+/* The note lives under its own node instead of in a floating panel, so nothing
+   covers the map and the detail appears where the eye already is. */
+.stack-map .sm-note {
+    fill: var(--portfolio-accent);
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    opacity: 0;
+    transition: opacity 200ms ease;
+}
+.stack-map .sm-node:hover .sm-note,
+.stack-map .sm-node:focus-visible .sm-note { opacity: 1; }
 
 /* type and value grade with depth, same as the links */
 .stack-map .sm-d1 .sm-dot { fill: var(--fg); }
