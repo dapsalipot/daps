@@ -10,6 +10,9 @@ import { useEffect, useMemo, useRef, useState } from 'react';
  *
  * Links draw themselves in on first view via stroke-dashoffset, and leaves drift
  * on a slow loop with staggered delays. Both stop under prefers-reduced-motion.
+ *
+ * The svg is height-capped: this sits inside a sticky section, and a sticky child
+ * taller than the viewport stops holding and clips instead.
  */
 
 const R_CAT = 200;   // centre -> category node
@@ -83,7 +86,8 @@ export default function StackMap({ stack }: { stack: Record<string, [string, str
         <div ref={wrapRef} className={`stack-map ${shown ? 'is-in' : ''} relative w-full`}>
             <svg
                 viewBox="-660 -440 1320 880"
-                className="block h-auto w-full"
+                preserveAspectRatio="xMidYMid meet"
+                className="mx-auto block max-h-[62dvh] w-full"
                 role="img"
                 aria-label="Stack shown as a connection map of categories and technologies"
             >
