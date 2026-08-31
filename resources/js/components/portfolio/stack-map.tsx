@@ -134,6 +134,16 @@ export default function StackMap({ graph, links }: { graph: RawNode[]; links: [s
 
     const dimmed = (id: string) => (lit ? !lit.has(id) : false);
 
+    // Index rows: categories and the tools under them. Depth 3 stays on the map
+    // only, so the list remains scannable inside a pinned section.
+    const index = useMemo(
+        () =>
+            nodes
+                .filter((n) => n.depth === 1)
+                .map((cat) => ({ cat, tools: nodes.filter((n) => n.depth === 2 && n.parent === cat.id) })),
+        [nodes],
+    );
+
     useEffect(() => {
         const el = wrapRef.current;
         if (!el) return;
@@ -151,11 +161,46 @@ export default function StackMap({ graph, links }: { graph: RawNode[]; links: [s
     }, []);
 
     return (
-        <div ref={wrapRef} className={`stack-map ${shown ? 'is-in' : ''} relative w-full`}>
-            <svg
+        <div ref={wrapRef} className={`stack-map ${shown ? 'is-in' : ''} w-full`}>
+            <div className="grid items-center gap-10 lg:grid-cols-[248px_1fr]">
+                <ul className="sm-index order-2 flex list-none flex-col gap-5 p-0 lg:order-1">
+                    {index.map(({ cat, tools }) => (
+                        <li key={cat.id}>
+                            <button
+                                type="button"
+                                className={`sm-idx-cat ${lit?.has(cat.id) ? 'is-on' : ''}`}
+                                onMouseEnter={() => setHover(cat.id)}
+                                onMouseLeave={() => setHover((h) => (h === cat.id ? null : h))}
+                                onFocus={() => setHover(cat.id)}
+                                onBlur={() => setHover(null)}
+                            >
+                                {cat.name}
+                            </button>
+                            <ul className="mt-2 flex list-none flex-col p-0">
+                                {tools.map((t) => (
+                                    <li key={t.id}>
+                                        <button
+                                            type="button"
+                                            className={`sm-idx-tool ${lit?.has(t.id) ? 'is-on' : ''}`}
+                                            onMouseEnter={() => setHover(t.id)}
+                                            onMouseLeave={() => setHover((h) => (h === t.id ? null : h))}
+                                            onFocus={() => setHover(t.id)}
+                                            onBlur={() => setHover(null)}
+                                        >
+                                            <span>{t.name}</span>
+                                            <span className="sm-idx-note">{t.note}</span>
+                                        </button>
+                                    </li>
+                                ))}
+                            </ul>
+                        </li>
+                    ))}
+                </ul>
+
+                <svg
                 viewBox="-620 -470 1240 940"
                 preserveAspectRatio="xMidYMid meet"
-                className="mx-auto block max-h-[74dvh] w-full"
+                className="order-1 mx-auto block max-h-[68dvh] w-full lg:order-2"
                 role="img"
                 aria-label="Stack shown as a layered connection map of categories, tools and practices"
             >
@@ -210,9 +255,6 @@ export default function StackMap({ graph, links }: { graph: RawNode[]; links: [s
                             onMouseLeave={() => setHover((h) => (h === n.id ? null : h))}
                             onFocus={() => setHover(n.id)}
                             onBlur={() => setHover(null)}
-                            tabIndex={0}
-                            role="button"
-                            aria-label={n.note ? `${n.name}: ${n.note}` : n.name}
                         >
                             {/* Inner group carries the drift. A CSS transform on the
                                 positioned node would override its SVG transform. */}
@@ -243,7 +285,8 @@ export default function StackMap({ graph, links }: { graph: RawNode[]; links: [s
                         </g>
                     );
                 })}
-            </svg>
+                </svg>
+            </div>
 
         </div>
     );

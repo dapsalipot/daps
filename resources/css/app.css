@@ -372,6 +372,57 @@
 .stack-map .sm-node:focus-visible .sm-label { fill: var(--fg); }
 .stack-map .sm-node:focus { outline: none; }
 
+/* Side index. It is the keyboard interface for the map: 32 SVG nodes in radial
+   order make a poor tab sequence, so the nodes are mouse-only and these rows
+   carry focus. Hover or focus here lights the same subgraph. */
+.stack-map .sm-idx-cat {
+    display: block;
+    width: 100%;
+    text-align: left;
+    color: var(--fg);
+    font-size: 19px;
+    letter-spacing: -.01em;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--line);
+    transition: color 200ms ease, border-color 200ms ease;
+}
+.stack-map .sm-idx-cat.is-on {
+    color: var(--portfolio-accent);
+    border-color: color-mix(in srgb, var(--portfolio-accent) 45%, transparent);
+}
+
+.stack-map .sm-idx-tool {
+    display: flex;
+    width: 100%;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 5px 0 5px 10px;
+    border-left: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: 13.5px;
+    color: var(--fg-dim);
+    text-align: left;
+    transition: color 200ms ease, border-color 200ms ease, padding-left 200ms ease;
+}
+.stack-map .sm-idx-tool:hover,
+.stack-map .sm-idx-tool.is-on {
+    color: var(--fg);
+    border-color: var(--portfolio-accent);
+    padding-left: 14px;
+}
+.stack-map .sm-idx-note {
+    color: var(--fg-fade);
+    font-size: 12px;
+    transition: color 200ms ease;
+}
+.stack-map .sm-idx-tool.is-on .sm-idx-note { color: var(--portfolio-accent); }
+.stack-map .sm-idx-cat:focus-visible,
+.stack-map .sm-idx-tool:focus-visible {
+    outline: 1px solid var(--portfolio-accent);
+    outline-offset: 3px;
+}
+
 /* Idle drift on an inner group: a CSS transform on the positioned node would
    override its SVG transform attribute and collapse every node to 0,0. */
 .stack-map .sm-float { transform: translateY(0); }
