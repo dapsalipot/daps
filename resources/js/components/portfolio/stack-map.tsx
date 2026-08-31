@@ -188,10 +188,10 @@ export default function StackMap({
 
     return (
         <div ref={wrapRef} className={`stack-map ${shown ? 'is-in' : ''} w-full`}>
-            <div className="relative grid items-center gap-8 lg:grid-cols-[212px_1fr] lg:pr-[272px]">
-                <ul className="sm-index order-2 flex list-none flex-col gap-5 p-0 lg:order-1">
+            <div className="relative grid items-center gap-8 lg:grid-cols-[300px_1fr] lg:pr-[248px]">
+                <ul className="sm-index order-2 list-none p-0 lg:order-1 lg:columns-2 lg:gap-x-7">
                     {index.map(({ cat, tools }) => (
-                        <li key={cat.id}>
+                        <li key={cat.id} className="mb-5 break-inside-avoid">
                             <button
                                 type="button"
                                 className={`sm-idx-cat ${lit?.has(cat.id) ? 'is-on' : ''}`}
@@ -316,7 +316,7 @@ export default function StackMap({
                     {/* Overlaid, not a column: a third grid track would cost the map
                         the width this change was meant to give it. */}
                     <div
-                        className="sm-card pointer-events-none absolute top-1/2 right-0 hidden w-[248px] -translate-y-1/2 lg:block"
+                        className="sm-card pointer-events-none absolute top-1/2 right-0 hidden w-[228px] -translate-y-1/2 lg:block"
                         style={{
                             opacity: active ? 1 : 0,
                             transform: `translateY(-50%) translateX(${active ? 0 : 10}px)`,
