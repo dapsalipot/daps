@@ -341,12 +341,17 @@
     stroke-width: 1;
 }
 
-/* Idle drift, offset per leaf so the map never pulses in unison. */
-.stack-map.is-in .sm-leaf { animation: smPop 520ms cubic-bezier(.22,.75,.28,1) forwards, smFloat 7s ease-in-out infinite; }
-.stack-map.is-in .sm-leaf { animation-delay: calc(220ms + var(--i, 0) * 45ms), calc(var(--i, 0) * 320ms); }
+/* Idle drift, offset per leaf so the map never pulses in unison. This lives on
+   an inner group: a CSS transform here would otherwise override the SVG
+   transform attribute that positions the leaf, collapsing them all to 0,0. */
+.stack-map .sm-float { transform: translateY(0); }
+.stack-map.is-in .sm-float {
+    animation: smFloat 7s ease-in-out infinite;
+    animation-delay: calc(var(--i, 0) * 320ms);
+}
 @keyframes smFloat {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-4px); }
+    50% { transform: translateY(-6px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -354,7 +359,7 @@
     .stack-map .sm-node { opacity: 1; }
     .stack-map.is-in .sm-link,
     .stack-map.is-in .sm-node,
-    .stack-map.is-in .sm-leaf { animation: none; }
+    .stack-map.is-in .sm-float { animation: none; }
 }
 
 .dotgrid {

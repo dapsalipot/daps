@@ -176,16 +176,21 @@ export default function StackMap({ stack }: { stack: Record<string, [string, str
                             role="button"
                             aria-label={`${l.name}: ${l.note}`}
                         >
-                            <circle r="18" className="sm-leaf-hit" />
-                            <circle r="5" className="sm-leaf-dot" />
-                            <text
-                                className="sm-leaf-label"
-                                x={end ? -14 : 14}
-                                y="5"
-                                textAnchor={end ? 'end' : 'start'}
-                            >
-                                {l.name}
-                            </text>
+                            {/* Inner group carries the drift. A CSS transform would
+                                override the outer translate and stack every leaf on
+                                the origin, so positioning and animation stay apart. */}
+                            <g className="sm-float">
+                                <circle r="18" className="sm-leaf-hit" />
+                                <circle r="5" className="sm-leaf-dot" />
+                                <text
+                                    className="sm-leaf-label"
+                                    x={end ? -14 : 14}
+                                    y="5"
+                                    textAnchor={end ? 'end' : 'start'}
+                                >
+                                    {l.name}
+                                </text>
+                            </g>
                         </g>
                     );
                 })}
