@@ -417,6 +417,8 @@
     transition: color 200ms ease;
 }
 .stack-map .sm-idx-tool.is-on .sm-idx-note { color: var(--portfolio-accent); }
+.stack-map .sm-card { transition: opacity 220ms ease, transform 220ms cubic-bezier(.22,.75,.28,1); }
+
 .stack-map .sm-idx-cat:focus-visible,
 .stack-map .sm-idx-tool:focus-visible {
     outline: 1px solid var(--portfolio-accent);

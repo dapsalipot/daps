@@ -449,8 +449,8 @@ return [
                 ['name' => 'Queues', 'note' => 'idempotent jobs'],
             ]],
             ['name' => 'PHP', 'note' => 'primary'],
-            ['name' => 'REST APIs', 'note' => 'design + build', 'children' => [
-                ['name' => 'Sanctum', 'note' => 'token auth'],
+            ['name' => 'REST APIs', 'note' => 'design + build', 'used_in' => ['ralli'], 'children' => [
+                ['name' => 'Sanctum', 'note' => 'token auth', 'used_in' => ['ralli']],
             ]],
         ]],
         ['name' => 'data', 'children' => [

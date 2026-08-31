@@ -23,6 +23,7 @@ const GAP = 3;                    // degrees of padding between sibling wedges
 interface RawNode {
     name: string;
     note?: string;
+    used_in?: string[];
     children?: RawNode[];
 }
 
@@ -37,6 +38,7 @@ interface Node {
     y: number;
     parent: string | null;
     branch: number; // index of the top-level ancestor
+    usedIn: string[];
 }
 
 const rad = (deg: number) => (deg * Math.PI) / 180;
@@ -62,7 +64,15 @@ function chordPath(a: Node, b: Node) {
 const leafCount = (n: RawNode): number =>
     n.children?.length ? n.children.reduce((sum, c) => sum + leafCount(c), 0) : 1;
 
-export default function StackMap({ graph, links }: { graph: RawNode[]; links: [string, string][] }) {
+export default function StackMap({
+    graph,
+    links,
+    projects,
+}: {
+    graph: RawNode[];
+    links: [string, string][];
+    projects: { slug: string; name: string; stack: string[] }[];
+}) {
     const wrapRef = useRef<HTMLDivElement>(null);
     const [shown, setShown] = useState(false);
     const [hover, setHover] = useState<string | null>(null);
@@ -90,7 +100,10 @@ export default function StackMap({ graph, links }: { graph: RawNode[]; links: [s
                 const [x, y] = polar(r, angle);
                 const id = `${parent ?? 'root'}/${item.name}`;
                 const ownBranch = depth === 1 ? idx : branch;
-                out.push({ id, name: item.name, note: item.note ?? '', depth, angle, r, x, y, parent, branch: ownBranch });
+                out.push({
+                    id, name: item.name, note: item.note ?? '', depth, angle, r, x, y,
+                    parent, branch: ownBranch, usedIn: item.used_in ?? [],
+                });
                 if (item.children?.length) place(item.children, start, stop, depth + 1, id, ownBranch);
                 cursor += share;
             });
@@ -132,6 +145,19 @@ export default function StackMap({ graph, links }: { graph: RawNode[]; links: [s
         return set;
     }, [hover, byId, nodes, crossPairs]);
 
+    const active = hover ? byId.get(hover) : null;
+
+    /** Declared usage, plus any project whose own stack names this node. Nothing
+     *  invented: both halves come from config. */
+    const appliedIn = useMemo(() => {
+        if (!active) return [];
+        const slugs = new Set(active.usedIn);
+        projects.forEach((p) => {
+            if (p.stack.some((t) => t.toLowerCase() === active.name.toLowerCase())) slugs.add(p.slug);
+        });
+        return projects.filter((p) => slugs.has(p.slug));
+    }, [active, projects]);
+
     const dimmed = (id: string) => (lit ? !lit.has(id) : false);
 
     // Index rows: categories and the tools under them. Depth 3 stays on the map
@@ -162,7 +188,7 @@ export default function StackMap({ graph, links }: { graph: RawNode[]; links: [s
 
     return (
         <div ref={wrapRef} className={`stack-map ${shown ? 'is-in' : ''} w-full`}>
-            <div className="grid items-center gap-10 lg:grid-cols-[248px_1fr]">
+            <div className="relative grid items-center gap-8 lg:grid-cols-[212px_1fr] lg:pr-[272px]">
                 <ul className="sm-index order-2 flex list-none flex-col gap-5 p-0 lg:order-1">
                     {index.map(({ cat, tools }) => (
                         <li key={cat.id}>
@@ -200,7 +226,7 @@ export default function StackMap({ graph, links }: { graph: RawNode[]; links: [s
                 <svg
                 viewBox="-620 -470 1240 940"
                 preserveAspectRatio="xMidYMid meet"
-                className="order-1 mx-auto block max-h-[68dvh] w-full lg:order-2"
+                className="order-1 mx-auto block max-h-[76dvh] w-full lg:order-2"
                 role="img"
                 aria-label="Stack shown as a layered connection map of categories, tools and practices"
             >
@@ -286,7 +312,48 @@ export default function StackMap({ graph, links }: { graph: RawNode[]; links: [s
                     );
                 })}
                 </svg>
-            </div>
+
+                    {/* Overlaid, not a column: a third grid track would cost the map
+                        the width this change was meant to give it. */}
+                    <div
+                        className="sm-card pointer-events-none absolute top-1/2 right-0 hidden w-[248px] -translate-y-1/2 lg:block"
+                        style={{
+                            opacity: active ? 1 : 0,
+                            transform: `translateY(-50%) translateX(${active ? 0 : 10}px)`,
+                        }}
+                        aria-live="polite"
+                    >
+                        <div className="text-portfolio-accent font-mono text-[13px] tracking-[0.08em]">
+                            {active ? graph[active.branch]?.name : ' '}
+                        </div>
+                        <div className="text-fg mt-2 text-[24px] leading-tight tracking-tight">
+                            {active?.name ?? ' '}
+                        </div>
+                        <div className="text-fg-mid mt-1.5 font-mono text-[13.5px]">{active?.note || ' '}</div>
+
+                        <div className="border-line mt-5 border-t pt-4">
+                            <div className="text-fg-fade font-mono text-[12px] tracking-[0.08em]">
+                                applied in
+                            </div>
+                            {appliedIn.length ? (
+                                <ul className="mt-2.5 flex list-none flex-wrap gap-1.5 p-0">
+                                    {appliedIn.map((p) => (
+                                        <li
+                                            key={p.slug}
+                                            className="border-line text-fg-mid rounded-md border px-2 py-1 font-mono text-[12px]"
+                                        >
+                                            {p.name}
+                                        </li>
+                                    ))}
+                                </ul>
+                            ) : (
+                                <div className="text-fg-dim mt-2 font-mono text-[12.5px]">
+                                    {active ? 'client work, not a public project' : ' '}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
 
         </div>
     );
