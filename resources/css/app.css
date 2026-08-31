@@ -275,30 +275,39 @@
 }
 
 /* ──────────────────────────────────────────────────────────────
-   Stack connection map. Links draw themselves in, nodes settle,
-   leaves drift on a slow loop. All of it stops for reduced motion.
+   Stack connection map. Weight carries the hierarchy: the spine to
+   each category is heavier and brighter than the branches to its
+   tools, and the tier rings sit under everything as faint structure.
+   No glow anywhere - depth comes from stroke weight and value.
    ────────────────────────────────────────────────────────────── */
-.stack-map .sm-link {
-    stroke: var(--line-strong);
+.stack-map .sm-ring {
+    fill: none;
+    stroke: var(--line);
     stroke-width: 1;
+    stroke-dasharray: 2 7;
+    opacity: .55;
+}
+
+.stack-map .sm-link {
+    fill: none;
+    stroke: var(--fg-fade);
+    stroke-width: .9;
+    stroke-linecap: round;
     stroke-dasharray: 900;
     stroke-dashoffset: 900;
-    transition: opacity 260ms ease, stroke 260ms ease;
+    transition: opacity 260ms ease, stroke 260ms ease, stroke-width 260ms ease;
 }
 .stack-map.is-in .sm-link {
     animation: smDraw 900ms cubic-bezier(.22, .75, .28, 1) forwards;
     animation-delay: calc(var(--i, 0) * 55ms);
 }
-.stack-map .sm-link-cat { stroke: var(--fg-dim); }
-.stack-map .sm-link-on { stroke: var(--portfolio-accent); stroke-width: 1.6; }
+/* the spine reads heavier than the branches */
+.stack-map .sm-link-cat { stroke: var(--fg-mid); stroke-width: 1.6; }
+.stack-map .sm-link-on { stroke: var(--portfolio-accent); stroke-width: 1.8; }
 
 @keyframes smDraw { to { stroke-dashoffset: 0; } }
 
-.stack-map .sm-node {
-    opacity: 0;
-    cursor: default;
-    transition: opacity 260ms ease;
-}
+.stack-map .sm-node { opacity: 0; transition: opacity 260ms ease; }
 .stack-map.is-in .sm-node {
     animation: smPop 520ms cubic-bezier(.22, .75, .28, 1) forwards;
     animation-delay: calc(220ms + var(--i, 0) * 45ms);
@@ -306,16 +315,23 @@
 @keyframes smPop { from { opacity: 0; } to { opacity: 1; } }
 
 .stack-map .sm-core-ring { fill: none; stroke: var(--line-strong); stroke-width: 1; }
+.stack-map .sm-core-ring-inner { stroke: var(--line); stroke-dasharray: 2 7; }
 .stack-map .sm-core-dot { fill: var(--portfolio-accent); }
 .stack-map .sm-core-label {
     fill: var(--fg-dim);
     font-family: var(--font-mono);
     font-size: 15px;
-    letter-spacing: .08em;
+    letter-spacing: .1em;
 }
 
-.stack-map .sm-cat-dot { fill: var(--fg); }
-.stack-map .sm-cat-label { fill: var(--fg); font-size: 21px; letter-spacing: -.01em; }
+.stack-map .sm-cat-ring {
+    fill: var(--bg);
+    stroke: var(--fg-mid);
+    stroke-width: 1;
+    transition: stroke 240ms ease;
+}
+.stack-map .sm-cat-dot { fill: var(--fg); transition: fill 240ms ease; }
+.stack-map .sm-cat-label { fill: var(--fg); font-size: 23px; letter-spacing: -.015em; }
 .stack-map .sm-cat-count {
     fill: var(--fg-dim);
     font-family: var(--font-mono);
@@ -324,26 +340,33 @@
 
 .stack-map .sm-leaf { cursor: pointer; }
 .stack-map .sm-leaf-hit { fill: transparent; }
-.stack-map .sm-leaf-dot { fill: var(--fg-dim); transition: fill 200ms ease, r 200ms ease; }
+.stack-map .sm-leaf-halo {
+    fill: none;
+    stroke: var(--portfolio-accent);
+    stroke-width: 1;
+    opacity: 0;
+    transition: opacity 220ms ease;
+}
+.stack-map .sm-leaf-dot {
+    fill: var(--fg-dim);
+    transition: fill 220ms ease, r 220ms cubic-bezier(.22, .75, .28, 1);
+}
 .stack-map .sm-leaf-label {
     fill: var(--fg-mid);
     font-family: var(--font-mono);
     font-size: 14.5px;
-    transition: fill 200ms ease;
+    transition: fill 220ms ease;
 }
 .stack-map .sm-leaf:hover .sm-leaf-dot,
-.stack-map .sm-leaf:focus-visible .sm-leaf-dot { fill: var(--portfolio-accent); r: 7; }
+.stack-map .sm-leaf:focus-visible .sm-leaf-dot { fill: var(--portfolio-accent); r: 6; }
+.stack-map .sm-leaf:hover .sm-leaf-halo,
+.stack-map .sm-leaf:focus-visible .sm-leaf-halo { opacity: .5; }
 .stack-map .sm-leaf:hover .sm-leaf-label,
 .stack-map .sm-leaf:focus-visible .sm-leaf-label { fill: var(--fg); }
 .stack-map .sm-leaf:focus { outline: none; }
-.stack-map .sm-leaf:focus-visible .sm-leaf-hit {
-    stroke: var(--portfolio-accent);
-    stroke-width: 1;
-}
 
-/* Idle drift, offset per leaf so the map never pulses in unison. This lives on
-   an inner group: a CSS transform here would otherwise override the SVG
-   transform attribute that positions the leaf, collapsing them all to 0,0. */
+/* Idle drift on an inner group: a CSS transform on the positioned node would
+   override its SVG transform attribute and collapse every leaf to 0,0. */
 .stack-map .sm-float { transform: translateY(0); }
 .stack-map.is-in .sm-float {
     animation: smFloat 7s ease-in-out infinite;

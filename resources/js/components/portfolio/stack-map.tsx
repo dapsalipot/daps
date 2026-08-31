@@ -23,6 +23,18 @@ type Leaf = { name: string; note: string; x: number; y: number; angle: number; c
 type Cat = { name: string; count: number; x: number; y: number; angle: number };
 
 const rad = (deg: number) => (deg * Math.PI) / 180;
+const polar = (r: number, deg: number) => [Math.cos(rad(deg)) * r, Math.sin(rad(deg)) * r] as const;
+
+/** Radial diagonal: control points sit at the midpoint radius on each end's own
+ *  angle, so the curve leaves and arrives radially instead of bulging sideways. */
+function branch(r0: number, a0: number, r1: number, a1: number) {
+    const mid = (r0 + r1) / 2;
+    const [x0, y0] = polar(r0, a0);
+    const [c0x, c0y] = polar(mid, a0);
+    const [c1x, c1y] = polar(mid, a1);
+    const [x1, y1] = polar(r1, a1);
+    return `M${x0} ${y0} C ${c0x} ${c0y} ${c1x} ${c1y} ${x1} ${y1}`;
+}
 
 export default function StackMap({ stack }: { stack: Record<string, [string, string][]> }) {
     const wrapRef = useRef<HTMLDivElement>(null);
@@ -91,12 +103,17 @@ export default function StackMap({ stack }: { stack: Record<string, [string, str
                 role="img"
                 aria-label="Stack shown as a connection map of categories and technologies"
             >
+                {/* Tier rings. Structural, not decoration: they make the two radii
+                    legible so the map reads as a system rather than scattered dots. */}
+                <circle r={R_CAT} className="sm-ring" />
+                <circle r={R_LEAF} className="sm-ring" />
+
                 {/* category links */}
                 {cats.map((c, i) => (
                     <path
                         key={`cl-${c.name}`}
                         className="sm-link sm-link-cat"
-                        d={`M0 0 Q ${c.x * 0.45} ${c.y * 0.72} ${c.x} ${c.y}`}
+                        d={branch(0, c.angle, R_CAT, c.angle)}
                         fill="none"
                         style={{
                             opacity: activeCat === null || activeCat === i ? 1 : 0.15,
@@ -114,7 +131,7 @@ export default function StackMap({ stack }: { stack: Record<string, [string, str
                         <path
                             key={`ll-${l.cat}-${l.name}`}
                             className={`sm-link ${on ? 'sm-link-on' : ''}`}
-                            d={`M${c.x} ${c.y} Q ${(c.x + l.x) / 2 + l.x * 0.06} ${(c.y + l.y) / 2 + l.y * 0.06} ${l.x} ${l.y}`}
+                            d={branch(R_CAT, c.angle, R_LEAF, l.angle)}
                             fill="none"
                             style={{ opacity: dim ? 0.1 : on ? 1 : 0.55, ['--i' as string]: 4 + (i % 8) }}
                         />
@@ -123,8 +140,9 @@ export default function StackMap({ stack }: { stack: Record<string, [string, str
 
                 {/* centre */}
                 <g className="sm-core">
-                    <circle r="58" className="sm-core-ring" />
-                    <circle r="7" className="sm-core-dot" />
+                    <circle r="64" className="sm-core-ring" />
+                    <circle r="46" className="sm-core-ring sm-core-ring-inner" />
+                    <circle r="6" className="sm-core-dot" />
                     <text
                         className="sm-core-label"
                         y="86"
@@ -145,19 +163,20 @@ export default function StackMap({ stack }: { stack: Record<string, [string, str
                             style={{ ['--i' as string]: i, opacity: activeCat === null || activeCat === i ? 1 : 0.3 }}
                             transform={`translate(${c.x} ${c.y})`}
                         >
-                            <circle r="9" className="sm-cat-dot" />
+                            <circle r="15" className="sm-cat-ring" />
+                            <circle r="5.5" className="sm-cat-dot" />
                             <text
                                 className="sm-cat-label"
-                                x={end ? -20 : 20}
-                                y="6"
+                                x={end ? -26 : 26}
+                                y="5"
                                 textAnchor={end ? 'end' : 'start'}
                             >
                                 {c.name}
                             </text>
                             <text
                                 className="sm-cat-count"
-                                x={end ? -20 : 20}
-                                y="26"
+                                x={end ? -26 : 26}
+                                y="27"
                                 textAnchor={end ? 'end' : 'start'}
                             >
                                 {String(c.count).padStart(2, '0')} tools
@@ -189,11 +208,12 @@ export default function StackMap({ stack }: { stack: Record<string, [string, str
                                 override the outer translate and stack every leaf on
                                 the origin, so positioning and animation stay apart. */}
                             <g className="sm-float">
-                                <circle r="18" className="sm-leaf-hit" />
-                                <circle r="5" className="sm-leaf-dot" />
+                                <circle r="20" className="sm-leaf-hit" />
+                                <circle r="11" className="sm-leaf-halo" />
+                                <circle r="4.5" className="sm-leaf-dot" />
                                 <text
                                     className="sm-leaf-label"
-                                    x={end ? -14 : 14}
+                                    x={end ? -18 : 18}
                                     y="5"
                                     textAnchor={end ? 'end' : 'start'}
                                 >
