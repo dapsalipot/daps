@@ -69,10 +69,14 @@ export default function StackMap({
     graph,
     links,
     projects,
+    variant = 'panel',
 }: {
     graph: RawNode[];
     links: [string, string][];
     projects: { slug: string; name: string; stack: string[] }[];
+    /** 'hero' drops the index, card, canvas and controls: the map becomes the
+     *  backdrop the hero copy sits inside, with a hole masked out of its centre. */
+    variant?: 'panel' | 'hero';
 }) {
     const wrapRef = useRef<HTMLDivElement>(null);
     const [shown, setShown] = useState(false);
@@ -183,13 +187,15 @@ export default function StackMap({
         [nodes],
     );
 
+    const hero = variant === 'hero';
+
     const clampZoom = (z: number) => Math.min(Math.max(z, 0.6), 2.6);
     const zoomBy = (f: number) => setView((v) => ({ ...v, z: clampZoom(v.z * f) }));
     const resetView = () => setView({ z: 1, x: 0, y: 0 });
 
     useEffect(() => {
         const svg = svgRef.current;
-        if (!svg) return;
+        if (!svg || hero) return;
 
         const onWheel = (e: WheelEvent) => {
             if (!e.ctrlKey) return; // plain wheel belongs to the page
@@ -231,7 +237,7 @@ export default function StackMap({
             svg.removeEventListener('pointerup', up);
             svg.removeEventListener('pointercancel', up);
         };
-    }, []);
+    }, [hero]);
 
     useEffect(() => {
         const el = wrapRef.current;
@@ -250,8 +256,9 @@ export default function StackMap({
     }, []);
 
     return (
-        <div ref={wrapRef} className={`stack-map ${shown ? 'is-in' : ''} w-full`}>
-            <div className="relative grid items-center gap-8 lg:grid-cols-[300px_1fr] lg:pr-[248px]">
+        <div ref={wrapRef} className={`stack-map ${shown ? 'is-in' : ''} ${hero ? 'is-hero absolute inset-0' : 'w-full'}`}>
+            <div className={hero ? 'h-full w-full' : 'relative grid items-center gap-8 lg:grid-cols-[300px_1fr] lg:pr-[248px]'}>
+                {!hero && (
                 <ul className="sm-index order-2 list-none p-0 lg:order-1 lg:columns-2 lg:gap-x-7">
                     {index.map(({ cat, tools }) => (
                         <li key={cat.id} className="mb-5 break-inside-avoid">
@@ -285,13 +292,14 @@ export default function StackMap({
                         </li>
                     ))}
                 </ul>
+                )}
 
-                <div className="sm-canvas order-1 relative lg:order-2">
+                <div className={hero ? 'h-full w-full' : 'sm-canvas order-1 relative lg:order-2'}>
                     <svg
                         ref={svgRef}
                         viewBox="-620 -470 1240 940"
                         preserveAspectRatio="xMidYMid meet"
-                        className="block max-h-[70dvh] w-full cursor-grab touch-pan-y active:cursor-grabbing"
+                        className={hero ? 'block h-full w-full' : 'block max-h-[70dvh] w-full cursor-grab touch-pan-y active:cursor-grabbing'}
                         role="img"
                         aria-label="Stack shown as a layered connection map of categories, tools and practices"
                     >
@@ -381,6 +389,7 @@ export default function StackMap({
                     </g>
                     </svg>
 
+                    {!hero && (
                     <div className="sm-zoom">
                         <button type="button" onClick={() => zoomBy(1.25)} aria-label="Zoom in">+</button>
                         <button type="button" onClick={() => zoomBy(0.8)} aria-label="Zoom out">&minus;</button>
@@ -388,10 +397,12 @@ export default function StackMap({
                             reset
                         </button>
                     </div>
+                    )}
                 </div>
 
                     {/* Overlaid, not a column: a third grid track would cost the map
                         the width this change was meant to give it. */}
+                    {!hero && (
                     <div
                         className="sm-card pointer-events-none absolute top-1/2 right-0 hidden w-[228px] -translate-y-1/2 lg:block"
                         style={{
@@ -430,6 +441,7 @@ export default function StackMap({
                             )}
                         </div>
                     </div>
+                    )}
                 </div>
 
         </div>

@@ -21,7 +21,16 @@ export default function Home() {
                 poster="/intro/object-poster.png"
                 finale={
                     <>
-                    <div className="relative mx-auto w-full max-w-3xl text-center">
+                    {/* The map is the hero's ground. Its centre is masked out so the
+                        branches never run through the name. */}
+                    <StackMap
+                        graph={portfolio.stack_graph}
+                        links={portfolio.stack_links}
+                        projects={portfolio.projects}
+                        variant="hero"
+                    />
+
+                    <div className="relative z-10 mx-auto w-full max-w-3xl text-center">
                         <div className="mb-7 flex justify-center">
                             <span className="border-line bg-bg-elev/70 inline-flex items-center gap-2.5 rounded-full border px-3.5 py-1.5 backdrop-blur">
                                 <StatusDot>{portfolio.identity.available.label}</StatusDot>
@@ -93,23 +102,9 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* STACK */}
-            <section className="relative" style={{ height: 'calc(100dvh + 55vh)' }}>
-                <div className="sticky top-0 flex min-h-dvh flex-col justify-center px-6 py-20 md:px-12">
-                <SectionHead n="02" title="stack.json" right="daily drivers · 2026" />
-                <div className="mt-6 flex flex-1 items-center">
-                    <StackMap
-                        graph={portfolio.stack_graph}
-                        links={portfolio.stack_links}
-                        projects={portfolio.projects}
-                    />
-                </div>
-                </div>
-            </section>
-
             {/* EXPERIENCE */}
             <section className="flex min-h-dvh flex-col justify-center px-6 py-20 md:px-12">
-                <SectionHead n="03" title="experience.log" right="most recent first" />
+                <SectionHead n="02" title="experience.log" right="most recent first" />
                 <div className="mt-6">
                     {portfolio.experience.map((e) => (
                         <div
@@ -173,7 +168,7 @@ export default function Home() {
             {/* ACHIEVEMENTS */}
             <section className="relative" style={{ height: 'calc(100dvh + 55vh)' }}>
                 <div className="sticky top-0 flex min-h-dvh flex-col justify-center px-6 py-20 md:px-12">
-                <SectionHead n="04" title="achievements" right="awards · certs · honors" />
+                <SectionHead n="03" title="achievements" right="awards · certs · honors" />
                 <div className="mt-12 grid flex-1 grid-cols-1 content-center gap-x-16 md:grid-cols-2">
                     {portfolio.achievements.map((a) => (
                         <div
