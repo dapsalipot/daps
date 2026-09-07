@@ -23,29 +23,29 @@ interface Beat {
 
 const BEATS: Beat[] = [
     {
-        label: 'data',
-        title: 'Fast under load',
-        body: 'Normalization, composite indexes, N+1 resolution, database-per-tenant isolation.',
+        label: 'ownership',
+        title: 'I own it end to end',
+        body: 'Sole developer on systems running in daily production. Schema through API through deploy, and the hardware talking to it.',
     },
     {
-        label: 'backend',
-        title: 'Correct on retry',
-        body: 'Laravel and Livewire, REST design, idempotent jobs, race conditions handled.',
+        label: 'correctness',
+        title: 'Assume it runs twice',
+        body: 'Idempotent writes, race conditions handled, reconciliation that survives a replay.',
     },
     {
-        label: 'frontend',
-        title: 'Typed all the way',
-        body: 'React, TypeScript, Inertia, Tailwind. Server-driven routing, no untyped seams.',
+        label: 'depth',
+        title: 'Fix the cause',
+        body: 'Slow endpoint, missing index, wrong schema. I keep going down until the problem stops moving.',
     },
     {
-        label: 'mobile',
-        title: 'Live on device',
-        body: 'React Native, Sanctum tokens, push registry, WebSocket updates in real time.',
+        label: 'algorithms',
+        title: 'Write the solver',
+        body: 'Constraint satisfaction, fail-first selection, repair loops. Only when the problem earns one.',
     },
     {
-        label: 'iot',
-        title: 'Field to ledger',
-        body: 'RFID readers, PayMongo and GCash reconciliation, replay-safe webhooks.',
+        label: 'delivery',
+        title: 'Shipping is half of it',
+        body: 'Incident recovery, data migration, production support. The system still has to run on Monday.',
     },
 ];
 
