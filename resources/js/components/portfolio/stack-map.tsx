@@ -39,6 +39,7 @@ interface Node {
     parent: string | null;
     branch: number; // index of the top-level ancestor
     usedIn: string[];
+    order: number;  // reveal sequence, depth-major
 }
 
 const rad = (deg: number) => (deg * Math.PI) / 180;
@@ -104,7 +105,7 @@ export default function StackMap({
                 const ownBranch = depth === 1 ? idx : branch;
                 out.push({
                     id, name: item.name, note: item.note ?? '', depth, angle, r, x, y,
-                    parent, branch: ownBranch, usedIn: item.used_in ?? [],
+                    parent, branch: ownBranch, usedIn: item.used_in ?? [], order: 0,
                 });
                 if (item.children?.length) place(item.children, start, stop, depth + 1, id, ownBranch);
                 cursor += share;
@@ -112,6 +113,16 @@ export default function StackMap({
         };
 
         place(graph, -90, 270, 1, null, 0);
+
+        // Reveal order is depth-major so the map unfolds from the centre outward.
+        // Array order is depth-first, which would pop nodes in an arbitrary order.
+        const perDepth = new Map<number, number>();
+        out.forEach((n) => {
+            const seq = perDepth.get(n.depth) ?? 0;
+            perDepth.set(n.depth, seq + 1);
+            n.order = (n.depth - 1) * 7 + (seq % 7);
+        });
+
         return { nodes: out, byId: new Map(out.map((n) => [n.id, n])) };
     }, [graph]);
 
@@ -289,7 +300,7 @@ export default function StackMap({
                     <circle key={r} r={r} className="sm-ring" />
                 ))}
 
-                {nodes.map((n, i) => {
+                {nodes.map((n) => {
                     const p = n.parent ? byId.get(n.parent) : null;
                     const on = Boolean(lit?.has(n.id) && (!p || lit.has(p.id)));
                     return (
@@ -297,7 +308,7 @@ export default function StackMap({
                             key={`l-${n.id}`}
                             className={`sm-link sm-link-d${n.depth} ${on ? 'sm-link-on' : ''}`}
                             d={branchPath(p ? p.r : 0, p ? p.angle : n.angle, n.r, n.angle)}
-                            style={{ opacity: dimmed(n.id) ? 0.08 : 1, ['--i' as string]: i % 12 }}
+                            style={{ opacity: dimmed(n.id) ? 0.08 : 1, ['--i' as string]: n.order }}
                         />
                     );
                 })}
@@ -323,14 +334,14 @@ export default function StackMap({
                     </text>
                 </g>
 
-                {nodes.map((n, i) => {
+                {nodes.map((n) => {
                     const end = n.x < 0;
                     const isCat = n.depth === 1;
                     return (
                         <g
                             key={n.id}
                             className={`sm-node sm-d${n.depth}`}
-                            style={{ ['--i' as string]: i % 12, opacity: dimmed(n.id) ? 0.2 : 1 }}
+                            style={{ ['--i' as string]: n.order, opacity: dimmed(n.id) ? 0.2 : 1 }}
                             transform={`translate(${n.x} ${n.y})`}
                             onMouseEnter={() => setHover(n.id)}
                             onMouseLeave={() => setHover((h) => (h === n.id ? null : h))}
@@ -342,6 +353,7 @@ export default function StackMap({
                             <g className="sm-float">
                                 <circle r="20" className="sm-hit" />
                                 <circle r={isCat ? 15 : 11} className="sm-halo" />
+                                <circle r={isCat ? 8 : n.depth === 2 ? 7 : 6} className="sm-dot-collar" />
                                 {isCat && <circle r="15" className="sm-cat-ring" />}
                                 <circle r={isCat ? 5.5 : n.depth === 2 ? 4.5 : 3.5} className="sm-dot" />
                                 <text

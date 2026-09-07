@@ -287,6 +287,8 @@
     stroke-dasharray: 2 8;
     opacity: .45;
 }
+.stack-map .sm-ring:nth-of-type(1) { stroke-dasharray: 2 6; opacity: .6; }
+.stack-map .sm-ring:nth-of-type(3) { stroke-dasharray: 2 11; opacity: .32; }
 
 .stack-map .sm-link {
     fill: none;
@@ -297,7 +299,7 @@
 }
 .stack-map.is-in .sm-link {
     animation: smDraw 900ms cubic-bezier(.22, .75, .28, 1) forwards;
-    animation-delay: calc(var(--i, 0) * 50ms);
+    animation-delay: calc(var(--i, 0) * 42ms);
 }
 .stack-map .sm-link-d1 { stroke: var(--fg-mid); stroke-width: 1.8; }
 .stack-map .sm-link-d2 { stroke: var(--fg-dim); stroke-width: 1.1; }
@@ -319,7 +321,7 @@
 .stack-map .sm-node { opacity: 0; cursor: pointer; transition: opacity 240ms ease; }
 .stack-map.is-in .sm-node {
     animation: smPop 520ms cubic-bezier(.22, .75, .28, 1) forwards;
-    animation-delay: calc(240ms + var(--i, 0) * 42ms);
+    animation-delay: calc(300ms + var(--i, 0) * 38ms);
 }
 @keyframes smPop { from { opacity: 0; } to { opacity: 1; } }
 
@@ -342,7 +344,15 @@
     transition: opacity 220ms ease;
 }
 .stack-map .sm-cat-ring { fill: var(--bg); stroke: var(--fg-mid); stroke-width: 1; }
+.stack-map .sm-dot-collar { fill: #080A08; }
 .stack-map .sm-dot { transition: fill 220ms ease, r 220ms cubic-bezier(.22, .75, .28, 1); }
+.stack-map .sm-label,
+.stack-map .sm-note {
+    paint-order: stroke fill;
+    stroke: #080A08;
+    stroke-width: 3.5px;
+    stroke-linejoin: round;
+}
 .stack-map .sm-label { transition: fill 220ms ease; }
 /* The note lives under its own node instead of in a floating panel, so nothing
    covers the map and the detail appears where the eye already is. */
