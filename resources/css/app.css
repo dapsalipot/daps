@@ -417,6 +417,53 @@
     transition: color 200ms ease;
 }
 .stack-map .sm-idx-tool.is-on .sm-idx-note { color: var(--portfolio-accent); }
+/* Canvas. Gives the map its own ground so it reads as an instrument you can
+   move around in, rather than diagram floating loose on the page. */
+.stack-map .sm-canvas {
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background:
+        radial-gradient(ellipse 70% 70% at 50% 45%, rgba(125, 217, 110, 0.045), transparent 70%),
+        radial-gradient(ellipse 90% 80% at 50% 50%, #0C0F0C 0%, #060706 100%);
+    overflow: hidden;
+}
+
+.stack-map .sm-zoom {
+    position: absolute;
+    right: 14px;
+    bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.stack-map .sm-zoom button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 32px;
+    padding: 0 9px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, .55);
+    color: var(--fg-mid);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+.stack-map .sm-zoom button:hover {
+    color: var(--fg);
+    border-color: var(--portfolio-accent);
+    background: rgba(0, 0, 0, .8);
+}
+.stack-map .sm-zoom button:focus-visible {
+    outline: 1px solid var(--portfolio-accent);
+    outline-offset: 2px;
+}
+.stack-map .sm-zoom .sm-zoom-reset { font-size: 12px; letter-spacing: .04em; }
+
 .stack-map .sm-card { transition: opacity 220ms ease, transform 220ms cubic-bezier(.22,.75,.28,1); }
 
 .stack-map .sm-idx-cat:focus-visible,

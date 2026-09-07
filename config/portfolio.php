@@ -485,6 +485,14 @@ return [
             ]],
             ['name' => 'OpenAI API', 'note' => 'summarization'],
         ]],
+        ['name' => 'iot', 'children' => [
+            ['name' => 'RFID', 'note' => 'card readers', 'children' => [
+                ['name' => 'Gate terminals', 'note' => 'attendance'],
+                ['name' => 'Canteen readers', 'note' => 'cashless payment'],
+            ]],
+            ['name' => 'QR codes', 'note' => 'check-in', 'used_in' => ['terra']],
+            ['name' => 'Device fleet', 'note' => 'field hardware'],
+        ]],
         ['name' => 'infrastructure', 'children' => [
             ['name' => 'Linux', 'note' => 'server admin', 'children' => [
                 ['name' => 'SSL/TLS', 'note' => 'certificates'],
@@ -505,6 +513,8 @@ return [
         ['Queues', 'PayMongo'],
         ['Laravel Dusk', 'Livewire'],
         ['Sanctum', 'Multi-tenant'],
+        ['Canteen readers', 'Payments'],
+        ['Device fleet', 'Webhooks'],
     ],
 
     'stack' => [
@@ -513,6 +523,7 @@ return [
         'backend'        => [['Laravel', 'primary'], ['PHP', 'primary'], ['Livewire', 'daily'], ['Filament', 'daily'], ['REST APIs', 'design + build']],
         'data'           => [['MySQL', 'primary'], ['Schema design', 'normalization'], ['Indexing', 'composite'], ['Query optimization', 'N+1 resolution'], ['Multi-tenant', 'db-per-tenant']],
         'integrations'   => [['PayMongo', 'payments'], ['GCash', 'reconciliation'], ['OpenAI API', 'summarization'], ['Webhooks', 'sync'], ['n8n · Zapier', 'automation']],
+        'iot'            => [['RFID', 'card readers'], ['QR codes', 'check-in'], ['Device fleet', 'field hardware']],
         'infrastructure' => [['Linux', 'server admin'], ['Azure · Cloudways', 'deployment'], ['SSL/TLS · SSH', 'ops'], ['Laravel Dusk', 'browser tests'], ['Git', 'daily']],
     ],
     'experience' => [

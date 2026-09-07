@@ -76,6 +76,8 @@ export default function StackMap({
     const wrapRef = useRef<HTMLDivElement>(null);
     const [shown, setShown] = useState(false);
     const [hover, setHover] = useState<string | null>(null);
+    const [view, setView] = useState({ z: 1, x: 0, y: 0 });
+    const svgRef = useRef<SVGSVGElement>(null);
 
     const { nodes, byId } = useMemo(() => {
         const out: Node[] = [];
@@ -170,6 +172,56 @@ export default function StackMap({
         [nodes],
     );
 
+    const clampZoom = (z: number) => Math.min(Math.max(z, 0.6), 2.6);
+    const zoomBy = (f: number) => setView((v) => ({ ...v, z: clampZoom(v.z * f) }));
+    const resetView = () => setView({ z: 1, x: 0, y: 0 });
+
+    useEffect(() => {
+        const svg = svgRef.current;
+        if (!svg) return;
+
+        const onWheel = (e: WheelEvent) => {
+            if (!e.ctrlKey) return; // plain wheel belongs to the page
+            e.preventDefault();
+            setView((v) => ({ ...v, z: clampZoom(v.z * (e.deltaY < 0 ? 1.12 : 0.89)) }));
+        };
+
+        let dragging = false;
+        let sx = 0;
+        let sy = 0;
+        let ox = 0;
+        let oy = 0;
+        const down = (e: PointerEvent) => {
+            if (e.button !== 0) return;
+            dragging = true;
+            sx = e.clientX; sy = e.clientY;
+            setView((v) => { ox = v.x; oy = v.y; return v; });
+            svg.setPointerCapture(e.pointerId);
+        };
+        const move = (e: PointerEvent) => {
+            if (!dragging) return;
+            const k = 1240 / svg.clientWidth; // viewBox units per css px
+            setView((v) => ({ ...v, x: ox + (e.clientX - sx) * k, y: oy + (e.clientY - sy) * k }));
+        };
+        const up = (e: PointerEvent) => {
+            dragging = false;
+            if (svg.hasPointerCapture(e.pointerId)) svg.releasePointerCapture(e.pointerId);
+        };
+
+        svg.addEventListener('wheel', onWheel, { passive: false });
+        svg.addEventListener('pointerdown', down);
+        svg.addEventListener('pointermove', move);
+        svg.addEventListener('pointerup', up);
+        svg.addEventListener('pointercancel', up);
+        return () => {
+            svg.removeEventListener('wheel', onWheel);
+            svg.removeEventListener('pointerdown', down);
+            svg.removeEventListener('pointermove', move);
+            svg.removeEventListener('pointerup', up);
+            svg.removeEventListener('pointercancel', up);
+        };
+    }, []);
+
     useEffect(() => {
         const el = wrapRef.current;
         if (!el) return;
@@ -223,13 +275,16 @@ export default function StackMap({
                     ))}
                 </ul>
 
-                <svg
-                viewBox="-620 -470 1240 940"
-                preserveAspectRatio="xMidYMid meet"
-                className="order-1 mx-auto block max-h-[76dvh] w-full lg:order-2"
-                role="img"
-                aria-label="Stack shown as a layered connection map of categories, tools and practices"
-            >
+                <div className="sm-canvas order-1 relative lg:order-2">
+                    <svg
+                        ref={svgRef}
+                        viewBox="-620 -470 1240 940"
+                        preserveAspectRatio="xMidYMid meet"
+                        className="block max-h-[70dvh] w-full cursor-grab touch-pan-y active:cursor-grabbing"
+                        role="img"
+                        aria-label="Stack shown as a layered connection map of categories, tools and practices"
+                    >
+                    <g transform={`translate(${view.x} ${view.y}) scale(${view.z})`}>
                 {RADII.slice(1).map((r) => (
                     <circle key={r} r={r} className="sm-ring" />
                 ))}
@@ -311,7 +366,17 @@ export default function StackMap({
                         </g>
                     );
                 })}
-                </svg>
+                    </g>
+                    </svg>
+
+                    <div className="sm-zoom">
+                        <button type="button" onClick={() => zoomBy(1.25)} aria-label="Zoom in">+</button>
+                        <button type="button" onClick={() => zoomBy(0.8)} aria-label="Zoom out">&minus;</button>
+                        <button type="button" onClick={resetView} aria-label="Reset view" className="sm-zoom-reset">
+                            reset
+                        </button>
+                    </div>
+                </div>
 
                     {/* Overlaid, not a column: a third grid track would cost the map
                         the width this change was meant to give it. */}
