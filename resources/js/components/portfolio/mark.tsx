@@ -1,6 +1,6 @@
 export default function Mark({
     only = false,
-    handle = 'daniel.andrei.salipot',
+    handle = 'dapsalipot',
 }: {
     only?: boolean;
     handle?: string;

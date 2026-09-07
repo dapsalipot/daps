@@ -3,7 +3,7 @@
 return [
     'identity' => [
         'name'   => 'Daniel Andrei Salipot',
-        'handle' => 'daniel.andrei.salipot',
+        'handle' => 'dapsalipot',
         'role'   => 'Backend developer building production systems end to end, from database design to hardware.',
         'tagline' => 'Backend developer. End-to-end ownership.',
         'location' => ['city' => 'Marilao, Bulacan, PH', 'tz' => 'UTC+8'],
@@ -16,8 +16,8 @@ return [
     'links' => [
         'email'    => 'danielsalipot@gmail.com',
         'phone'    => '+63 939 504 4799',
-        'github'   => 'https://github.com/danielsalipot',
-        'linkedin' => 'https://linkedin.com/in/daniel-andrei-salipot',
+        'github'   => 'https://github.com/dapsalipot',
+        'linkedin' => 'https://linkedin.com/in/dapsalipot',
     ],
     'stats' => [
         ['n' => '10,000+', 'l' => 'cardholders live'],
@@ -69,7 +69,7 @@ return [
                 'problem' => 'Open-play badminton sessions run on paper lists and shouted names. Players lose track of queue position, hosts rebuild matchups by hand between every game, and there is no record of who played whom or how balanced the matches were.',
                 'role' => 'Solo developer. API design, 24-table schema, queue ordering, matchup generation, ELO and co-play history tracking, real-time broadcasting, and the React Native client.',
                 'outcome' => 'Active build. Schema is frozen at v1 and documented. Core loop runs end to end: RSVP, bench queue with longest-wait-first ordering, matchup generation, set scoring, and ELO updates with history. Not yet released.',
-                'links' => ['live' => null, 'repo' => 'https://github.com/danielsalipot/ralli'],
+                'links' => ['live' => null, 'repo' => 'https://github.com/dapsalipot/ralli'],
                 'screenshots' => [
                     [
                         'src' => '/projects/ralli/ralli-web-2.jpg',
@@ -127,7 +127,7 @@ return [
                 'problem' => 'Local hiking groups organise trips through group chats and spreadsheets. Slots get double-booked, payment proofs get buried in message threads, and there is no reliable headcount at the meetup point on departure day.',
                 'role' => 'Solo developer. Domain modelling across 23 models, host and joiner flows, reservation and waitlist logic, payment submission review, and QR-based meetup check-in.',
                 'outcome' => 'Active build. Host trip creation, departures with price tiers, joiner reservations, waitlists, and QR meetup check-in are working. Not yet released.',
-                'links' => ['live' => null, 'repo' => 'https://github.com/danielsalipot/terra'],
+                'links' => ['live' => null, 'repo' => 'https://github.com/dapsalipot/terra'],
                 'screenshots' => [
                     [
                         'src' => '/projects/terra/terra-1.jpg',
@@ -182,7 +182,7 @@ return [
                 'problem' => 'Shared-expense apps treat a night out as a single line item, which loses the shape of the evening. A date is usually several stops, and the memory of it lives in the sequence, not the total.',
                 'role' => 'Solo developer. Data model, local-first persistence with Drizzle over SQLite, OCR capture pipeline, and the full UI including Skia-rendered views.',
                 'outcome' => 'Active build. Date composition with multiple stops, per-date ratings, favourites, and the memories timeline are working. Not yet released.',
-                'links' => ['live' => null, 'repo' => 'https://github.com/danielsalipot/date-tracker'],
+                'links' => ['live' => null, 'repo' => 'https://github.com/dapsalipot/date-tracker'],
                 'modules' => [
                     ['name' => 'Stop Timeline', 'desc' => 'A date is composed of ordered stops, each with its own place, spend, and notes'],
                     ['name' => 'Receipt OCR', 'desc' => 'On-device ML Kit text recognition pulls totals from photographed receipts'],
@@ -203,7 +203,7 @@ return [
                 'problem' => "HR departments in Philippine institutions juggle a brutal stack of paperwork - DTR tracking, leave applications, deduction tables, government contribution schedules (SSS, PhilHealth, Pag-IBIG, Withholding Tax), 15-day payroll cutoffs, and onboarding/offboarding paperwork - usually across spreadsheets, paper, and disconnected systems. There was no single source of truth: a payroll cycle could take days, leave requests got lost between approvers, and recomputing a deduction meant manual maths every cutoff.",
                 'role'    => "Solo developer and lead software engineer / designer. Owned the entire system end-to-end: requirements gathering, database schema, role-based access control for five user types, all twenty-plus modules, the payroll computation engine (with Philippine government contribution tables), PDF generation with e-signature support, and deployment. Team of four total - the other members handled documentation, presentation, and research; the codebase and architecture were mine.",
                 'outcome' => "Awarded Best Capstone of the IT&IS Department, Adamson University, 2023. The system runs the full HR lifecycle: applicant intake → onboarding → daily DTR and attendance → leave / overtime / cash advance workflows with approval chains → automated 15-day payroll computation → signed payroll PDF generation → offboarding. Tested with realistic employee data covering multiple positions, departments, and pay rates.",
-                'links'   => ['live' => null, 'repo' => 'https://github.com/danielsalipot/OASYS'],
+                'links'   => ['live' => null, 'repo' => 'https://github.com/dapsalipot/OASYS'],
                 'modules' => [
                     ['name' => 'Payroll Engine',       'desc' => '15-day cutoff cycles with automated computation of Gross, SSS, PhilHealth, Pag-IBIG, Withholding Tax, and Net Pay'],
                     ['name' => 'Salary Management',    'desc' => 'Per-position averages, top-earner rankings, and rate-per-hour editing with audit trail'],

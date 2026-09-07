@@ -114,12 +114,12 @@ export default function Contact() {
                             </li>
                             <li>
                                 <a href={portfolio.links.github} target="_blank" rel="noreferrer" className="ulink link-slide text-[15.5px]">
-                                    <GithubIcon /> github.com/danielsalipot
+                                    <GithubIcon /> github.com/dapsalipot
                                 </a>
                             </li>
                             <li>
                                 <a href={portfolio.links.linkedin} target="_blank" rel="noreferrer" className="ulink link-slide text-[15.5px]">
-                                    <LinkedinIcon /> linkedin.com/in/daniel-andrei-salipot
+                                    <LinkedinIcon /> linkedin.com/in/dapsalipot
                                 </a>
                             </li>
                             <li className="text-fg-dim mt-1 font-mono text-[13.5px]">{portfolio.links.phone}</li>
