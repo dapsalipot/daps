@@ -217,7 +217,7 @@ export default function StackMap({
         };
         const move = (e: PointerEvent) => {
             if (!dragging) return;
-            const k = 1240 / svg.clientWidth; // viewBox units per css px
+            const k = 1120 / svg.clientWidth; // viewBox units per css px
             setView((v) => ({ ...v, x: ox + (e.clientX - sx) * k, y: oy + (e.clientY - sy) * k }));
         };
         const up = (e: PointerEvent) => {
@@ -297,7 +297,7 @@ export default function StackMap({
                 <div className={hero ? 'h-full w-full' : 'sm-canvas order-1 relative lg:order-2'}>
                     <svg
                         ref={svgRef}
-                        viewBox="-620 -470 1240 940"
+                        viewBox="-560 -450 1120 900"
                         preserveAspectRatio="xMidYMid meet"
                         className={hero ? 'block h-full w-full' : 'block max-h-[70dvh] w-full cursor-grab touch-pan-y active:cursor-grabbing'}
                         role="img"

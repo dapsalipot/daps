@@ -21,7 +21,7 @@ export default function Home() {
                 poster="/intro/object-poster.png"
                 finale={
                     <>
-                    <div className="mx-auto grid w-full max-w-[1440px] items-center gap-10 px-6 md:px-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-14">
+                    <div className="mx-auto grid w-full max-w-[1600px] items-center gap-10 px-6 md:px-12 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-10">
                         <div className="relative z-10 text-center lg:text-left">
                             <div className="mb-7 flex justify-center lg:justify-start">
                                 <span className="border-line bg-bg-elev/70 inline-flex items-center gap-2.5 rounded-full border px-3.5 py-1.5 backdrop-blur">
@@ -58,7 +58,7 @@ export default function Home() {
                         </div>
 
                         {/* The map in its own column, full size, nothing over it. */}
-                        <div className="relative h-[52dvh] w-full lg:h-[78dvh]">
+                        <div className="relative h-[56dvh] w-full lg:-mr-12 lg:h-[84dvh]">
                             <StackMap
                                 graph={portfolio.stack_graph}
                                 links={portfolio.stack_links}
