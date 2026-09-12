@@ -21,50 +21,52 @@ export default function Home() {
                 poster="/intro/object-poster.png"
                 finale={
                     <>
-                    {/* The map is the hero's ground. Its centre is masked out so the
-                        branches never run through the name. */}
-                    <StackMap
-                        graph={portfolio.stack_graph}
-                        links={portfolio.stack_links}
-                        projects={portfolio.projects}
-                        variant="hero"
-                    />
+                    <div className="mx-auto grid w-full max-w-[1440px] items-center gap-10 px-6 md:px-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-14">
+                        <div className="relative z-10 text-center lg:text-left">
+                            <div className="mb-7 flex justify-center lg:justify-start">
+                                <span className="border-line bg-bg-elev/70 inline-flex items-center gap-2.5 rounded-full border px-3.5 py-1.5 backdrop-blur">
+                                    <StatusDot>{portfolio.identity.available.label}</StatusDot>
+                                </span>
+                            </div>
 
-                    <div className="relative z-10 mx-auto w-full max-w-3xl text-center">
-                        <div className="mb-7 flex justify-center">
-                            <span className="border-line bg-bg-elev/70 inline-flex items-center gap-2.5 rounded-full border px-3.5 py-1.5 backdrop-blur">
-                                <StatusDot>{portfolio.identity.available.label}</StatusDot>
-                            </span>
+                            <h1 className="text-fg font-sans text-[52px] leading-[1.02] font-semibold tracking-[-0.03em] md:text-[72px] xl:text-[84px]">
+                                Daniel Andrei Salipot
+                            </h1>
+
+                            <p className="text-fg-mid mx-auto mt-5 max-w-[42ch] font-sans text-[20.5px] leading-[1.38] tracking-[-0.01em] md:text-[24px] lg:mx-0">
+                                Backend developer building production systems end to end, from database design to hardware.
+                            </p>
+
+                            <div className="mt-9 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+                                <a
+                                    href="/projects"
+                                    className="bg-portfolio-accent inline-flex items-center gap-2 rounded-full px-7 py-3 text-[16.5px] font-medium text-on-accent transition hover:opacity-90"
+                                >
+                                    View work
+                                    <ArrowIcon size={15} />
+                                </a>
+                                <a
+                                    href="/resume.pdf"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="border-line bg-bg-elev/70 text-fg hover:border-line-strong inline-flex items-center gap-2 rounded-full border px-7 py-3 text-[16.5px] font-medium backdrop-blur transition"
+                                >
+                                    Resume
+                                    <ExtIcon size={13} />
+                                </a>
+                            </div>
                         </div>
 
-                        <h1 className="text-fg font-sans text-[52px] leading-[1.02] font-semibold tracking-[-0.03em] md:text-[84px]">
-                            Daniel Andrei Salipot
-                        </h1>
-
-                        <p className="text-fg-mid mx-auto mt-5 max-w-[42ch] font-sans text-[20.5px] leading-[1.38] tracking-[-0.01em] md:text-[27px]">
-                            Backend developer building production systems end to end, from database design to hardware.
-                        </p>
-
-                        <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-                            <a
-                                href="/projects"
-                                className="bg-portfolio-accent inline-flex items-center gap-2 rounded-full px-7 py-3 text-[16.5px] font-medium text-on-accent transition hover:opacity-90"
-                            >
-                                View work
-                                <ArrowIcon size={15} />
-                            </a>
-                            <a
-                                href="/resume.pdf"
-                                target="_blank"
-                                rel="noreferrer"
-                                className="border-line bg-bg-elev/70 text-fg hover:border-line-strong inline-flex items-center gap-2 rounded-full border px-7 py-3 text-[16.5px] font-medium backdrop-blur transition"
-                            >
-                                Resume
-                                <ExtIcon size={13} />
-                            </a>
+                        {/* The map in its own column, full size, nothing over it. */}
+                        <div className="relative h-[52dvh] w-full lg:h-[78dvh]">
+                            <StackMap
+                                graph={portfolio.stack_graph}
+                                links={portfolio.stack_links}
+                                projects={portfolio.projects}
+                                variant="hero"
+                            />
                         </div>
                     </div>
-            
                     </>
                 }
             />
